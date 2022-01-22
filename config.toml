@@ -1,19 +1,24 @@
-# The URL the site will be built for
 base_url = "https://programmershideaway.xyz"
 
-# Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
-
-# Whether to do syntax highlighting
-# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+minify_html = true
 highlight_code = true
 
-# Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
+generate_feed = true
 
 default_language = "en"
 
 theme = "DeepThought"
+
+taxonomies = [
+  { name = "tags", feed = true, paginate_by = 10},
+]
+
+[markdown]
+highlight_theme = "one-dark"
+render_emoji = true
+smart_punctuation = true
 
 [extra]
 # Put all your custom variables here
@@ -23,7 +28,7 @@ navbar_items = [
   { url = "$BASE_URL/posts", name = "Posts" },
   # { url = "$BASE_URL/projects", name = "Projects" },
   { url = "$BASE_URL/tags", name = "Tags" },
-  { url = "$BASE_URL/categories", name = "Categories" },
+  # { url = "$BASE_URL/categories", name = "Categories" },
  ]},
 ]
 
