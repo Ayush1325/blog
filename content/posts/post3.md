@@ -7,6 +7,7 @@ draft = true
 [taxonomies]
 tags = ["rust", "kde", "cpp", "sok22"]
 +++
+
 # Background
 
 While working on Rust bindings for KConfig as a part of Season of KDE 2022, I came across a few problems while trying to represent [`QFlags`](https://doc.qt.io/qt-5/qflags.html) in Rust:
@@ -149,6 +150,8 @@ fn something(flag: OpenFlags) {
 This is the implementation that I finally settled on. The implementation is as follows:
 
 ```rust
+use bitflags::bitflags
+
 bitflags! {
     /// Determines how the system-wide and user's global settings will affect the reading of the configuration.
     /// This is a bitfag. Thus it is possible to pass options like `OpenFlags::INCLUDE_GLOBALS |
