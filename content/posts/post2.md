@@ -1,191 +1,90 @@
 +++
-title = "Bitflags in Rust"
-description = "Representing QFlags in Rust"
-date = "2022-01-25"
+title = "Season of KDE 2022"
+description = "My Journey with KDE"
+date = "2022-01-26"
+draft = true
 
 [taxonomies]
-tags = ["rust", "kde", "cpp", "sok22"]
+tags = ["kde", "sok22"]
 +++
+
 # Background
 
-While working on Rust bindings for KConfig as a part of Season of KDE 2022, I came across a few problems while trying to represent [`QFlags`](https://doc.qt.io/qt-5/qflags.html) in Rust:
-
-1. Most `QFlags` are defined as C++ enums in which multiple members can have the same value. This is not possible in Rust enum.
-2. It is possible to enable multiple flags using BitwiseOr. Rust enums cannot do bitwise operations.
+I am Ayush Singh, a second-year student of the Indian Institute of Technology, Dhanbad, India. My application has been accepted in the Season of KDE 2022. I will be working on writing a Rust wrapper for KConfig KDE Framework. This post describes my journey with KDE and why I submitted this Project for the Season of KDE.
 
 <!-- more -->
 
-This post will guide you through the various implementations I came up with and their tradeoffs.
+# My Introduction to Linux
 
-# The C++ enum
+I was introduced to the world of Linux back in 2016 when I was working on compiling android from source. Like most people, I started with Ubuntu. I didn't explore Linux much at the time other than building android, and that was it.
 
-The enum I was trying to implement was [`KConfig::OpenFlags`](https://api.kde.org/frameworks/kconfig/html/classKConfig.html#ad1f23964bbf8c11449e92a2596d15f7e). The enum is given below:
+However, things changed in 2018 when I got my PC. Since I already knew about Linux, I decided to dual-boot and explore a new operating system. Slowly, I stopped using the Windows partition and removed it altogether in early 2020.
 
-```cpp
-enum OpenFlag {
-    IncludeGlobals = 0x01, ///< Blend kdeglobals into the config object.
-    CascadeConfig = 0x02, ///< Cascade to system-wide config files.
-    SimpleConfig = 0x00, ///< Just a single config file.
-    NoCascade = IncludeGlobals, ///< Include user's globals, but omit system settings.
-    NoGlobals = CascadeConfig, ///< Cascade to system settings, but omit user's globals.
-    FullConfig = IncludeGlobals | CascadeConfig, ///< Fully-fledged config, including globals and cascading to system settings
-};
-```
+# My Introduction to KDE
 
-# Implementation 1: Using Rust modules
+I was first introduced to KDE when I switched to OpenSUSE Tumbleweed. I didn't pay much attention to KDE at the time and quickly moved on. After this, I started using standalone window managers (like i3, AwesomeWM) for quite a while. The next time I actively used KDE was in the summer of 2020 when the lockdown began, and my school exams got postponed indefinitely. During that time, I discovered KDE Activities which completely changed my workflow. Since then, I have tried Gnome and standalone windows managers; however, none seem to offer the same level of coherence and flexibility as KDE. Also, did I already mention how much I love KDE Activities?
 
-This method uses a combination of Rust modules and consants. The sample implementation is as follow:
+As for KDE Development, I am somewhat inexperienced. I have also opened Bugs in KDE and two merge requests, but they were pretty minor. Season of KDE will also allow me to get better acquainted with KDE Development.
 
-```rust
-pub mod OpenFlags {
-    type E = u32;
-    const INCLUDE_GLOBALS: Self::E = 0x01;
-    const CASCADE_CONFIG: Self::E = 0x02;
-    const SIMPLE_CONFIG: Self::E = 0x00;
-    const NO_CASCASE: Self::E = Self::INCLUDE_GLOBALS;
-    const NO_GLOBALS: Self::E = Self::CASCADE_CONFIG;
-    const FULL_CONFIG: Self::E = Self::INCLUDE_GLOBALS | Self::CASCADE_CONFIG;
-}
+# Past Experience with Qt
 
-fn something(flag: OpenFlags::E) {}
-```
+I have used Qt Framework to write GUI applications in C++ for my School projects.
 
-## Advantages
+1. In 2019, I made a [Calculator](https://github.com/Ayush1325/Calculator).
+2. In 2020, I made a [Library Management](https://github.com/Ayush1325/library_management) software.
 
-1. Const is replaced at compile time, so no performance cost.
+Both of them used Qt Widgets since I didn't know about QML at the time.
 
-2. All values can be documented in the same way using Rust comments.
+# My Introduction to Rust
 
-3. Multiple flags can be activated.
+I had been interested in Systems Programming in the past. During the lockdown, I came across Rust Language. I quickly got interested in its promise of performance and safety and being more modern than C in general. After reading the [Rust Book](https://doc.rust-lang.org/book/), I used Rust to create simple projects, like a web crawler and a magic bytes reader. I now understand that, like all programming languages, Rust has its strengths and weaknesses. However, I still love working with Rust.
 
-## Drawbacks
+# Trying to use Rust in KDE
 
-1. Not an enum. Just a collection of constants.
+In June of 2021, I thought about writing a Web Browser for some reason. I did not want to use the Blink engine. I had previously heard about [Servo](https://github.com/servo/servo) and decided to use it. While doing that, I started searching for GUI toolkits in Rust since Servo is written in Rust. I wanted to use Qt with Rust, but I quickly found out that using Rust with Qt was more difficult than I would like. At around the same time, Gtk-rs was made official with Gtk4, which seemed to work great. I tried switching to Gnome for a while after that but ultimately failed.
 
-# Implementation 2: Using const in Impl
+Sadly, I never created that web browser. However, I did come out with a new conviction. I decided to make the missing tooling required to develop KDE/QML applications with Rust without writing any C++.
 
-This method defines the problematic members as `const` in `impl`. The sample implementation is as follows:
+I started by looking into already existing crates for Qt development with Rust. I found [qmetaobject](https://github.com/woboq/qmetaobject-rs) crate, which was closely aligned with how I wanted Rust + Qt development to be. To create Kirigami applications using qmetaobject, I created bindings for the KI18n Localization framework ([kconfig crate](https://github.com/Ayush1325/ki18n-rs)). It was used with almost all Kirigami applications and thus was a natural starting point. I also created a Rust crate for linking Kirigami Framework to the Rust application. While working on these bindings, I also contributed the qmetaobject upstream since some of the methods and enums I required were missing for qmetaobject. This helped me get familiar with Rust memory management, which I had previously taken for granted.
 
-```rust
-#[repr(C)]
-pub enum OpenFlags {
-    IncludeGlobals = 0x01,
-    CascadeConfig = 0x02,
-    SimpleConfig = 0x00,
-    FullConfig = 0x01 | 0x02,
-}
+# Applying for Season of KDE
 
-#[allow(non_upper_case_globals)]
-impl OpenFlags {
-    const NoCascade: Self = Self::IncludeGlobals;
-    const NoGlobals: Self = Self::CascadeConfig;
-}
+I already knew about the Season of KDE and decided to apply for it. I submitted a proposal about writing "Rust wrapper of KConfig". Since I was already working on the KI18n wrapper, I had the necessary experience to make this possible.
 
-fn something(flag: OpenFlags) {}
-```
+After some searching in the KDE mailing list, I came across Jos van den Oever, the author of [Rust Qt Bindings Generator](https://invent.kde.org/sdk/rust-qt-binding-generator). He agreed to become my mentor for the Season of KDE. This project might have been delayed if he hadn't decided to mentor me. He also helped me with this blog and some other KDE Community stuff.
 
-## Advantages
+Now, I will cover some information about my Season of KDE Project.
 
-1. Enum, for the most part.
+# My Season of KDE Project
 
-## Drawbacks
+## Overview
 
-1. Inconsistent documentation. The constants don't show up as enum variants.
-2. Multiple flags cannot be activated
+I will create a wrapper crate for KConfig KDE Framework in Season of KDE. It will allow the usage of KConfig from Rust projects without writing C++. The crate will be dependent on [qttypes](https://crates.io/crates/qttypes), which wraps a lot of QML types and makes them available in Rust. While I will mainly be testing it with [qmetaobject](https://crates.io/crates/qmetaobject), I would like to avoid having any hard dependency on it. My goal is to make the bindings safe while having as little overhead as possible.
 
-# Implementation 3: Converting standard Rust enums when passing to C++
+Finally, I would like to find a way to have something similar to [KConfigXT](https://develop.kde.org/docs/use/configuration/kconfig_xt/) for Rust. This is a bit of a lofty goal, and I'm not entirely sure how to achieve it. However, I think KConfigXT is one of the best features of KConfig, and I don't believe the wrapper would be complete without it.
 
-This method uses standard rust enums. The sample implementation is as follows:
+The kconfig bindings crate is available [here](https://invent.kde.org/oreki/kconfig-rs). Feel free to test it out and report Bugs.
 
-```rust
-pub enum OpenFlags {
-    IncludeGlobals,
-    CascadeConfig,
-    SimpleConfig,
-    NoCascade,
-    NoGlobals,
-    FullConfig
-}
+## Goals
 
-impl OpenFlags {
-    type E = u32;
-    const INCLUDE_GLOBALS: Self::E = 0x01;
-    const CASCADE_CONFIG: Self::E = 0x02;
-    const SIMPLE_CONFIG: Self::E = 0x00;
+Creating bindings for more languages allows bringing more people to the KDE Community. Currently, Qt only has good support for C++ and Python. Rust promises to provide a safe and performant language with modern conveniences like a good package manager, async support, etc. As such, I think it can be pretty helpful to promote the use of Rust in KDE.
 
-    pub fn to_cpp(&self) -> Self::E {
-        match self {
-            Self::IncludeGlobals => Self::INCLUDE_GLOBALS,
-            Self::CascadeConfig => Self::CASCADE_CONFIG,
-            Self::SimpleConfig => Self::SIMPLE_CONFIG,
-            Self::NoCascade => Self::INCLUDE_GLOBALS,
-            Self::NoGlobals => Self::CASCADE_CONFIG,
-            Self::FullConfig => Self::INCLUDE_GLOBALS | Self::CASCADE_CONFIG,
-        }
-    }
-}
+C++ is a great language, so I don't believe in rewriting everything in Rust. However, we should use it in places where it is better than C++. For example, Rust is excellent for parsers and thus can be used in KDevelop and Kate.
 
-fn something(flag: OpenFlags) {
-    let flag = flag.to_cpp();
-    ...
-}
-```
+Currently, the barrier for using Rust in KDE is very high, which discourages most people from giving it a shot. This means that most Rust programmers never give KDE much of a chance, and in turn, there has been very little progress with Rust in KDE.
 
-## Advantages
+I want to create bindings for enough components that simple Kirigami applications can be written entirely in Rust. Since QML UI is already mostly decoupled from the C++ backend in most applications, writing the backend in Rust instead of C++ is not as difficult as trying to use QtWidgets from Rust. This should attract new application developers to consider Rust a viable option.
 
-1. Completely Enum.
+# Future
 
-2. Documentation works as expected.
+Making bindings between KDE and Rust shows surpringing contrasts between the two languages. In the next post, I'll explore how QtFlags can be used in Rust.
 
-## Drawbacks
+# Helpful Links for Rust/Qt Development
 
-1. Function call every time passing from Rust to C++. I don't think this will have much performance penalty, but still worth mentioning.
-
-2. Cannot set multiple flags at once. Eg `OpenFlag::IncludeGlobal | OpenFlag::CascadeConfig` not possible
-
-# Implementation 4: use [bitflags](https://crates.io/crates/bitflags) crate
-
-This is the implementation that I finally settled on. The implementation is as follows:
-
-```rust
-bitflags! {
-    /// Determines how the system-wide and user's global settings will affect the reading of the configuration.
-    /// This is a bitfag. Thus it is possible to pass options like `OpenFlags::INCLUDE_GLOBALS |
-    /// OpenFlags::CASCADE_CONFIG`
-    #[repr(C)]
-    pub struct OpenFlags: u32 {
-        /// Blend kdeglobals into the config object.
-        const INCLUDE_GLOBALS = 0x01;
-        /// Cascade to system-wide config files.
-        const CASCADE_CONFIG = 0x02;
-        /// Just a single config file.
-        const SIMPLE_CONFIG = 0x00;
-        /// Include user's globals, but omit system settings.
-        const NO_CASCADE = Self::INCLUDE_GLOBALS.bits;
-        /// Cascade to system settings, but omit user's globals.
-        const NO_GLOBALS = Self::CASCADE_CONFIG.bits;
-        /// Fully-fledged config, including globals and cascading to system settings.
-        const FULL_CONFIG = Self::INCLUDE_GLOBALS.bits | Self::CASCADE_CONFIG.bits;
-    }
-}
-
-fn something(flag: OpenFlags) {}
-```
-
-## Advantages
-
-1. Multiple flags can be used together.
-
-2. Documentation is consistent.
-
-## Drawbacks
-
-1. Not enum. Shows up as `struct` in docs.
-
-# Documentation Screenshot
-
-{{ image(src="/images/post2/docs.png") }}
-
-# Conclusion
-
-I think I will be using [bitflags](https://crates.io/crates/bitflags) for representing all `QFlags` in [kconfig](https://invent.kde.org/oreki/kconfig-rs/-/tree/master) for the foreseeable future.
+1. [qmetaobject](https://crates.io/crates/qmetaobject)
+2. [Rust Qt Binding Generattor](https://invent.kde.org/sdk/rust-qt-binding-generator)
+3. [ki18n crate](https://github.com/Ayush1325/ki18n-rs)
+4. [kconfig crate](https://invent.kde.org/oreki/kconfig-rs)
+5. [rust-qt-template](https://invent.kde.org/oreki/rust-qt-template)
+6. [kirigami crate](https://github.com/Ayush1325/kirigami-rs)
+7. [kde frameworks crate](https://github.com/Ayush1325/kde-frameworks-rs)
