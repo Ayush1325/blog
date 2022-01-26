@@ -2,7 +2,6 @@
 title = "Season of KDE 2022"
 description = "My Journey with KDE"
 date = "2022-01-26"
-draft = true
 
 [taxonomies]
 tags = ["kde", "sok22"]
