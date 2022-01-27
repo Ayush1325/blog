@@ -1,7 +1,7 @@
 +++
 title = "Season of KDE 2022"
 description = "My Journey with KDE"
-date = "2022-01-26"
+date = "2022-01-26T20:00:33+05:30"
 
 [taxonomies]
 tags = ["kde", "sok22"]

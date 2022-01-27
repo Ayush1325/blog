@@ -1,7 +1,8 @@
 +++
 title = "Creating Rust/QML Project"
 description = "Using cargo-generate to create Rust/QML Project."
-date = "2022-01-22"
+date = "2022-01-22T12:00:33+05:30"
+updated = "2022-01-27T12:00:33+05:30"
 
 [taxonomies]
 tags = ["rust", "kde"]
@@ -9,7 +10,7 @@ tags = ["rust", "kde"]
 
 # Background
 
-For the last few months, I have been pushing Rust/QT development along. I am the author of [ki18n](https://github.com/Ayush1325/ki18n-rs) crate and am currently in the middle of creating [kconfig](https://invent.kde.org/oreki/kconfig-rs) crate as a part of [Season of KDE 2022](https://season.kde.org/).
+For the last few months, I have been pushing Rust/Qt development along. I am the author of [ki18n](https://github.com/Ayush1325/ki18n-rs) crate and am currently in the middle of creating [kconfig](https://invent.kde.org/oreki/kconfig-rs) crate as a part of [Season of KDE 2022](https://season.kde.org/).
 
 In this post, I will walk you through creating a new Rust/QML project using [cargo-generate](https://github.com/cargo-generate/cargo-generate) templates. I made these templates to encourage more people to test out Qt development with Rust.
 
@@ -50,13 +51,13 @@ Currently, there are two templates I have created for Rust/QML. The templates ca
 
 ## Basic QtQuick Application
 
-This template creates a basic QtQuick Application with Rust. It does not contain any KDE Components. This template should work in all platforms QT, and Rust is supported.
+This template creates a basic QtQuick Application with Rust. It does not contain any KDE Components. This template should work in all platforms Qt, and Rust is supported.
 
 ### Dependencies
 
 #### Manual
 
-QT can be installed using the [installer](https://www.qt.io/download). Be sure to install `qmake` since it is used by [qmetaobject](https://crates.io/crates/qmetaobject) crate to detect system QT install.
+Qt can be installed using the [installer](https://www.qt.io/download). Be sure to install `qmake` since it is used by [qmetaobject](https://crates.io/crates/qmetaobject) crate to detect system Qt install.
 
 #### Ubuntu
 
@@ -90,28 +91,28 @@ This template creates a basic Kirigami Application with Rust. Currently, this te
 
 #### Manual
 
-1. `QT` can be installed using the [installer](https://www.qt.io/download). Be sure to install `qmake` since it is used by [qmetaobject](https://crates.io/crates/qmetaobject) crate to detect system `QT` install. 
+1. Qt can be installed using the [installer](https://www.qt.io/download). Be sure to install `qmake` since it is used by [qmetaobject](https://crates.io/crates/qmetaobject) crate to detect system Qt install.
 
 2. KDE Frameworks (`Kirigami` and `KI18n`) should also be installed. Be sure to install `kf5-config` since it is used to locate `Kirigami` and `KI18n` Frameworks.
-   
-   #### Ubuntu
-   
-   ```sh
+
+#### Ubuntu
+
+```sh
    sudo apt install build-essential qtbase5-dev qtdeclarative5-dev libqt5svg5-dev qtquickcontrols2-5-dev qml-module-qtquick-layouts qml-module-org-kde-kirigami2 kirigami2-dev libkf5i18n-dev gettext libkf5coreaddons-dev libkf5kdelibs4support5-bin
-   ```
-   
-   ### Arch-based
-   
-   ```sh
+```
+
+#### Arch-based
+
+```sh
    sudo pacman -Syu base-devel extra-cmake-modules cmake kirigami2 kde-sdk-meta gettext
-   ```
-   
-   ### Fedora
-   
-   ```sh
-   sudo dnf groupinstall "Development Tools" "Development Libraries"
-   sudo dnf install extra-cmake-modules cmake qt5-qtbase-devel qt5-qtdeclarative-devel qt5-qtquickcontrols2-devel kf5-kirigami2 kf5-kirigami2-devel kf5-ki18n-devel kf5-kcoreaddons-devel gettext
-   ```
+```
+
+#### Fedora
+
+```sh
+sudo dnf groupinstall "Development Tools" "Development Libraries"
+sudo dnf install extra-cmake-modules cmake qt5-qtbase-devel qt5-qtdeclarative-devel qt5-qtquickcontrols2-devel kf5-kirigami2 kf5-kirigami2-devel kf5-ki18n-devel kf5-kcoreaddons-devel gettext
+```
 
 ### Generate Project
 
@@ -133,7 +134,7 @@ RUST_LOG=error,warn,info,debug,trace cargo run
 
 # Conclusion
 
-If you find this exciting or want to try something new in Rust/QT, here is a list of crates related to Rust + QT development.
+If you find this exciting or want to try something new in Rust/Qt, here is a list of crates related to Rust + Qt development.
 
 1. [qmetaobject](https://crates.io/crates/qmetaobject)
 2. [Rust Qt Binding Generattor](https://invent.kde.org/sdk/rust-qt-binding-generator)
