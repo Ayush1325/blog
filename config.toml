@@ -1,5 +1,8 @@
 base_url = "https://programmershideaway.xyz"
 
+title = "Programmer's Hideaway"
+description = "My Personal Website"
+
 compile_sass = true
 minify_html = true
 highlight_code = true
