@@ -34,10 +34,12 @@ navbar_items = [
 ]
 
 [extra.social]
-email = "ayushdevel@gmail.com"
+email = "ayushdevel1325@gmail.com"
 github = "Ayush1325"
 linkedin = "ayush-singh-665739204"
 kde = "oreki"
+twitter = "AyushS1325"
+mastodon = "ayush1325"
 
 [extra.author]
 name = "Ayush Singh"
