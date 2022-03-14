@@ -1,8 +1,7 @@
 +++
 title = "Using KConfig with Rust"
 description = "A guide on how to use KConfig KDE Framework from Rust"
-date = "2022-02-12T01:54:01+05:30"
-draft = true
+date = "2022-03-14T22:19:49+05:30"
 
 [taxonomies]
 tags = ["rust", "kde", "sok22"]
@@ -23,23 +22,23 @@ The KConfig object is used to access a given configuration object. The config ob
 
 ```rust
 // a plain old read/write config object
-let config = KConfig::with_file("myapprc".into());
+let config = KConfig::with_file("myapprc");
 
 // a specific file in the filesystem
 // currently must be an INI style file
-let full_path = KConfig::with_file("/etc/kderc".into());
+let full_path = KConfig::with_file("/etc/kderc");
 
 // not merged with global values
-let global_free = KConfig::new("config".into(), kconfig::kconfig::OpenFlags::NO_GLOBALS, qttypes::QStandardPathLocation::AppDataLocation);
+let global_free = KConfig::new("config", OpenFlags::NO_GLOBALS, QStandardPathLocation::AppDataLocation);
 
 // not merged with globals or the $KDEDIRS hierarchy
-let simple_config = KConfig::new("simple_rc".into(), kconfig::kconfig::OpenFlags::SIMPLE_CONFIG, qttypes::QStandardPathLocation::AppDataLocation);
+let simple_config = KConfig::new("simple_rc", OpenFlags::SIMPLE_CONFIG, QStandardPathLocation::AppDataLocation);
 
 // outside the standard config resource
-let data_resource = KConfig::new("data".into(), kconfig::kconfig::OpenFlags::SIMPLE_CONFIG, qttypes::QStandardPathLocation::AppDataLocation);
+let data_resource = KConfig::new("data", OpenFlags::SIMPLE_CONFIG, QStandardPathLocation::AppDataLocation);
 
 // with custom backend
-let custom_backend = KConfig::with_backend("config".into(), "backend".into(), qttypes::QStandardPathLocation::AppDataLocation);
+let custom_backend = KConfig::with_backend("config", "backend", QStandardPathLocation::AppDataLocation);
 ```
 
 ## Special Configuration Objects
@@ -73,7 +72,7 @@ for group in &group_list {
 The KSharedConfig class is a reference counted pointer to a KConfig . It thus provides a way to reference the same configuration object from multiple places in your application without the extra overhead of separate objects or concerns about synchronizing writes to disk even if the configuration object is updated from multiple code paths.
 Accessing a KSharedConfig object is as easy as this:
 ```rust
-let config = KSharedConfig::open_config("ksomefilerc".into(), OpenFlags::FULL_CONFIG, QStandardPathLocation::GenericConfigLocation);
+let config = KSharedConfig::open_config("ksomefilerc", OpenFlags::FULL_CONFIG, QStandardPathLocation::GenericConfigLocation);
 ```
 KSharedConfig is generally recommended over using KConfig itself.
 
@@ -81,21 +80,21 @@ KSharedConfig is generally recommended over using KConfig itself.
 Now that we have a configuration object, the next step is to actually use it. The first thing we must do is to define which group of key/value pairs we wish to access in the object. We do this by creating a KConfigGroup object:
 ```rust
 let mut config = KConfig::default();
-let mut general_group = config.group("General".into());
-let colors_group = config.group("Colors".into());
+let mut general_group = config.group("General");
+let colors_group = config.group("Colors");
 ```
 Config groups can be nested as well:
 ```rust
-let sub_group2 = general_group.group("Dialogs".into());
+let sub_group2 = general_group.group("Dialogs");
 ```
 
 ## Reading Entries
 With a KConfigGroup object in hand reading entries is now quite straight forward:
 ```rust
-let account_name = general_group.read_qstring_entry("Account".into(), QString::default());
-let color = QColor::from_qvariant(colors_group.read_entry("background".into(), QColor::from(Qt::white).to_qvariant())).unwrap();
-let list = QStringList::from_qvariant(general_group.read_entry("List".into(), QStringList::default()));
-let path = general_group.read_path_entry("SaveTo".into(), "defaultPath".into());
+let account_name = general_group.read_qstring_entry("Account").unwrap();
+let color = QColor::from_qvariant(colors_group.read_qvariant_entry("background", QColor::from(Qt::white).to_qvariant()).unwrap());
+let list = QStringList::from_qvariant(general_group.read_qvariant_entry("List", QStringList::default().to_qvariant()).unwrap());
+let path = general_group.read_path_entry("SaveTo", "defaultPath".into());
 ```
 In the example above, one can mix reads from different KConfigGroup objects created on the same KConfig object. The bindings currently contain three read methods:
 1. `read_qstring_entry()` for reading `QString` values
@@ -107,9 +106,9 @@ If no such key currently exists in the configuration object, the default value i
 ## Writing Entries
 Setting new values is similarly straightforward:
 ```rust
-general_group.write_qstring_entry("Account".into(), "accountName".into(), WriteConfigFlags::NORMAL);
-general_group.write_path_entry("SaveTo".into(), "savePath".into(), WriteConfigFlags::NORMAL);
-color_group.write_entry("background".into(), QColor::from_name("white").into(), WriteConfigFlags::NORMAL);
+general_group.write_qstring_entry("Account", "accountName".into(), WriteConfigFlags::NORMAL);
+general_group.write_path_entry("SaveTo", "savePath".into(), WriteConfigFlags::NORMAL);
+color_group.write_qvariant_entry("background", QColor::from_name("white").into(), WriteConfigFlags::NORMAL);
 config.sync();
 ```
 Once we are done writing entries, `sync()` must be called on the config object for it to be saved to disk. We can also simply wait for the object to be destroyed, which triggers an automatic `sync()` if necessary.
