@@ -8,8 +8,6 @@ updated = "2022-01-27T12:00:33+05:30"
 tags = ["rust", "kde"]
 +++
 
-# Background
-
 For the last few months, I have been pushing Rust/Qt development along. I am the author of [ki18n](https://github.com/Ayush1325/ki18n-rs) crate and am currently in the middle of creating [kconfig](https://invent.kde.org/oreki/kconfig-rs) crate as a part of [Season of KDE 2022](https://season.kde.org/).
 
 In this post, I will walk you through creating a new Rust/QML project using [cargo-generate](https://github.com/cargo-generate/cargo-generate) templates. I made these templates to encourage more people to test out Qt development with Rust.
@@ -141,3 +139,4 @@ If you find this exciting or want to try something new in Rust/Qt, here is a lis
 3. [ki18n](https://github.com/Ayush1325/ki18n-rs)
 4. [kconfig](https://invent.kde.org/oreki/kconfig-rs)
 5. [rust-qt-template](https://invent.kde.org/oreki/rust-qt-template)
+

@@ -7,8 +7,6 @@ date = "2022-01-26T20:00:33+05:30"
 tags = ["kde", "sok22"]
 +++
 
-# Background
-
 I am Ayush Singh, a second-year student of the Indian Institute of Technology, Dhanbad, India. My application has been accepted in the Season of KDE 2022. I will be working on writing a Rust wrapper for KConfig KDE Framework. This post describes my journey with KDE and why I submitted this Project for the Season of KDE.
 
 <!-- more -->

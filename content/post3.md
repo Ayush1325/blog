@@ -7,8 +7,6 @@ date = "2022-01-30T01:54:01+05:30"
 tags = ["rust", "kde", "cpp", "sok22"]
 +++
 
-# Background
-
 While working on Rust bindings for KConfig as a part of Season of KDE 2022, I came across a few problems while trying to represent [`QFlags`](https://doc.qt.io/qt-5/qflags.html) in Rust:
 
 1. Most `QFlags` are defined as C++ enums in which multiple members can have the same value. This is not possible in Rust enum.
