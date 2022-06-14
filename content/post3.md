@@ -185,7 +185,7 @@ fn something(flag: OpenFlags) {}
 
 # Documentation Screenshot
 
-{{ image(src="/images/post2/docs.png") }}
+{{ image(src="/images/post2/docs.webp") }}
 
 # Conclusion
 

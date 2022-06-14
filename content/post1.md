@@ -79,7 +79,7 @@ RUST_LOG=error,warn,info,debug,trace cargo run
 
 ### Screenshots
 
-{{ image(src="/images/post1/basic-qt1.png")}}
+{{ image(src="/images/post1/basic-qt1.webp")}}
 
 ## Kirigami Application
 
@@ -128,7 +128,7 @@ RUST_LOG=error,warn,info,debug,trace cargo run
 
 ### Screenshots
 
-{{ image(src="/images/post1/kirigami1.png")}}
+{{ image(src="/images/post1/kirigami1.webp")}}
 
 # Conclusion
 
