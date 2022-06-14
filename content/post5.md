@@ -62,7 +62,7 @@ git remote add personal git@github.com:Ayush1325/rust.git
 ### Install depenencies
 Rust repository contains a script (`x.py`) to help us install most of the dependencies we need and configures the bootstrapping process. However, since we need to compile to a different target, we need to build `rust-lld`, which requires extra dependencies. Since I am using Fedora, I will list the command I used to install dependencies:
 ```sh
-sudo dnf install ccache cmake python ninja-build llvm-devel llvm-libunwind-devel zlib-devel lld clang clang-tools-extra qemu
+sudo dnf install ccache cmake python ninja-build llvm-devel llvm-libunwind-devel zlib-devel lld clang clang-tools-extra qemu libstdc++-static
 ```
 
 Next, we will use the script to configure our build.
@@ -122,7 +122,7 @@ build-std = ["core", "compiler_builtins"]
 build-std-features = ["compiler-builtins-mem"]
 ```
 Finally, we will set the current project to use our local toolchain:
-```
+```sh
 rustup override set stage1
 ```
 
