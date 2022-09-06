@@ -1,7 +1,8 @@
 +++
-title = "GSoC22: Final Blog Post"
+title = "GSoC22: Summary Post"
 description = "A blog post summarizing all my Google Summer of Code 2022 Work"
 date = "2022-09-05T22:22:12+05:30"
+update_date = "2022-09-06"
 
 [taxonomies]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
@@ -11,6 +12,9 @@ Hello everyone. This is probably the final blog post I write before Google Summe
 <!-- more -->
 
 <br>
+
+# Background
+I worked on implementing Rust std for UEFI targets. The current implementation can be found at [tianocore/rust](https://github.com/tianocore/rust/tree/uefi-master). The PR to upstream Rust is already open; however, it has not been merged yet since it is such a large PR and thus will take time.
 
 # PRs
 Just a list of all PRs I opened as a part of GSoC22. While other people created some additional PRs to fix problems I found during my work; I do not include them since I wasn't the one who found the solution for those.
@@ -29,15 +33,15 @@ Just a list of all PRs I opened as a part of GSoC22. While other people created 
 11. [Make RNG protocol members public](https://github.com/r-efi/r-efi/pull/48): 1 commit
 12. [Fix timestamp properties](https://github.com/r-efi/r-efi/pull/49): 1 commit
 13. [Implement Default for tcp4::ConfigData](https://github.com/r-efi/r-efi/pull/50): 1 commit
-14. [Add EFI_SHELL_PROTOCOL](https://github.com/r-efi/r-efi/pull/51): 1 commit. Still Open.
-15. [Add UDP Protocols](https://github.com/r-efi/r-efi/pull/52): 2 commit. Still Open.
+14. [Add EFI_SHELL_PROTOCOL](https://github.com/r-efi/r-efi/pull/51): 1 commit
+15. [Add UDP Protocols](https://github.com/r-efi/r-efi/pull/52): 2 commit
 
 ## compiler-builtins
 1. [Enable mem for UEFI](https://github.com/rust-lang/compiler-builtins/pull/473): 1 commit
 2. [Use all of src/math for UEFI](https://github.com/rust-lang/compiler-builtins/pull/480): 1 commit
 
 ## rust
-- [Add Rust std support for x86_64-unknown-uefi](https://github.com/rust-lang/rust/pull/100316): 76 commits. Still Open.
+- [Add Rust std support for x86_64-unknown-uefi](https://github.com/rust-lang/rust/pull/100316): 81 commits. Still Open.
 
 <br>
 
