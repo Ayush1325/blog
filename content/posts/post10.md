@@ -57,7 +57,7 @@ This module has no default implementation, so we need to implement it. It just d
 <br>
 
 # Run a simple Rust binary in UEFI
-This is a simple walkthrough for anyone who wants to try out Rust std in UEFI. As you will see, it is pretty painless now. If you don't already have `rustup` installed, I suggest taking a look at [official docs](https://rustc-dev-guide.rust-lang.org/getting-started.html) or my [previous post](@/post5.md).
+This is a simple walkthrough for anyone who wants to try out Rust std in UEFI. As you will see, it is pretty painless now. If you don't already have `rustup` installed, I suggest taking a look at [official docs](https://rustc-dev-guide.rust-lang.org/getting-started.html) or my [previous post](@/posts/post5.md).
 ## Clone Source
 We will clone the Rust source from my fork:
 ```sh

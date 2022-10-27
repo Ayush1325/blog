@@ -1,7 +1,7 @@
 +++
 title = "About"
-path = "about"
-template = "pages.html"
+# path = "about"
+# template = "pages.html"
 +++
 
 Hello Everyone, I am Ayush Singh, a University Student pursuing Integrated Master of Technology in Mathematics and Computing from Indian Institute of Technology (Indian School of Mines), Dhanbad.
