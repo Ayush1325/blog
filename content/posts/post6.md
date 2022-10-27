@@ -7,7 +7,7 @@ date = "2022-06-16"
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 
-Hello Everyone; in my last [post](@/post5.md), I set up the development environment for working on adding Rust support for UEFI. In this post, I will get a restricted version of std (basically a glorified core + alloc) to work for the x86_64 UEFI target. We will be starting with the `no_std` hello_world program from the last post.
+Hello Everyone; in my last [post](@/posts/post5.md), I set up the development environment for working on adding Rust support for UEFI. In this post, I will get a restricted version of std (basically a glorified core + alloc) to work for the x86_64 UEFI target. We will be starting with the `no_std` hello_world program from the last post.
 
 <!-- more -->
 

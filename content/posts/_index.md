@@ -1,4 +1,5 @@
 +++
 title = "Posts"
-template = "posts.html"
+sort_by = "date"
+# template = "posts.html"
 +++

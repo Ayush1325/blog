@@ -12,68 +12,8 @@ generate_feed = true
 
 default_language = "en"
 
-theme = "abridge"
+theme = "mytheme"
 
 taxonomies = [{ name = "tags", feed = true }]
 
-[markdown]
-extra_syntaxes_and_themes = ["themes/abridge/highlight_themes"]
-highlight_code = true
-highlight_theme = "css"
-render_emoji = true
-smart_punctuation = true
-external_links_target_blank = true                              # rel="noopener"
-external_links_no_follow = false                                # rel="nofollow"
-external_links_no_referrer = false                              # rel="noreferrer"
-
 [extra]
-uglyurls = false
-language_code = "en-US"
-
-menu = [
-  { url = "/about/", name = "About", slash = true },
-  { url = "/posts/", name = "Posts", slash = true },
-  { url = "/tags/", name = "Tags", slash = true },
-]
-menu_footer = [
-  { url = "/", name = "Home", slash = true },
-  { url = "/about/", name = "About", slash = true },
-  { url = "/sitemap.xml", name = "Sitemap", slash = false },
-]
-
-recent = true
-recent_items = 9
-author = "Ayush Singh"
-keywords = "Programmer, ProgrammersHideaway, Rust"
-seo = false
-
-js_search_index = "search_index.en.js"
-js_prestyle = "prestyle.js"
-js_search = ["elasticlunr.min.js", "search.js"]
-
-js_theme = "theme.min.js"
-js_themeButton = "theme_button.js"
-js_bundle = "abridge-switcher.min.js"
-stylesheets = ["abridge-switcher.css"]
-
-title_size_index = "s85"
-meta_index = { position = "bottom", size = "s90", author = false, readtime = true, readstring = "min", date = true, categories_tags = true, divider = " " }
-meta_post = { position = "top", size = "s95", author = false, readtime = true, readstring = "min read", date = true, categories_tags = true, divider = " " }
-
-footer_size = "s90"
-footer_credit = true
-
-headhr = false # show or hide horizontal rule below header
-foothr = true  # show or hide horizontal rule above footer
-
-math = false             # katex math js library, used to to render mathematical notations, requires javascript
-math_auto_render = false
-
-[extra.social]
-feed = true
-mail = "ayushdevel@gmail.com"
-github = "Ayush1325"
-github_sponsor = "Ayush1325"
-linkedin = "ayush-singh-665739204"
-twitter = "AyushS1325"
-mastodon = "@ayush1325"
