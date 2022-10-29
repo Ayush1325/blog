@@ -1,8 +1,6 @@
 +++
-sort_by = "none"
-
 [extra]
-interests = ["Reading"]
+interests = ["Reading Novels", "Writing blogs", "Anime"]
 [[extra.education]]
 name = "Indian Institute of Technology (ISM), Dhanbad, India"
 degree = "Integrated Master of Technology in Mathematics and Computing"

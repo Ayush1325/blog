@@ -1,68 +1,15 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@charset "utf-8";
 
-body {
-}
+// Import a Google Font
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
 
-a {
-  text-decoration: none;
-}
+// Fontawesome Setup
+@import "fontawesome/css/fontawesome.min.css";
+@import "fontawesome/css/regular.min.css";
+@import "fontawesome/css/brands.min.css";
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 30px;
-}
+@import "cyborg_variables.scss";
 
-.navbar {
-  height: 60px;
-}
+@import "../node_modules/bulma/bulma.sass";
 
-.navbar .logo {
-  font-size: x-large;
-  font-weight: bold;
-}
-
-.navbar ul li a {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.navbar ul li a:hover {
-}
-
-.navbar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-}
-
-.navbar ul {
-  display: flex;
-  list-style-type: none;
-}
-
-.navbar ul li {
-  margin-left: 20px;
-}
-
-.recent-posts,
-.recent-projects {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.biography {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-
-.biography h1,
-.biography .content {
-  grid-column-start: 1;
-  grid-column-end: 3;
-}
+@import "cyborg_overrides.scss";

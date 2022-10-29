@@ -17,3 +17,14 @@ theme = "mytheme"
 taxonomies = [{ name = "tags", feed = true }]
 
 [extra]
+
+[extra.social]
+mail = "ayushdevel@gmail.com"
+github = "Ayush1325"
+linkedin = "ayush-singh-665739204"
+twitter = "AyushS1325"
+mastodon = "@ayush1325"
+
+[extra.support]
+github = "Ayush1325"
+liberapay = "Ayush1325"
