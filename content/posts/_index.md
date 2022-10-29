@@ -1,5 +1,6 @@
 +++
 title = "Posts"
 sort_by = "date"
-# template = "posts.html"
+template = "posts.html"
+paginate_by = 5
 +++

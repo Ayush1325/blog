@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+  <h1 class="title has-text-centered">Blog</h1>
+  {% for page in paginator.pages %}
+  <div class="box">
+    <h2 class="subtitle">
+      <a href="{{ page.permalink }}">{{ page.title }}</a>
+    </h2>
+    <div class="columns">
+      <div class="tags column">
+        {{ macros::tags_list(page=page) }}
+      </div>
+      <span class="post-date column is-narrow">{{ page.date | date(format="%Y-%m-%d") }}</span>
+    </div>
+
+    <div class="content">
+      <p>{{ page.description }}</p>
+      Project URL: <a href="https://github.com/tianocore/rust/tree/uefi-master">https://github.com/tianocore/rust/tree/uefi-master</a>
+    </div>
+    <a href="{{ page.permalink }}">Read More...</a>
+  </div>
+
+{% endfor %}
+
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+  <a class="pagination-previous" href="{{ paginator.previous }}" {% if not paginator.previous %}disabled{% endif %}>Previous</a>
+  <a class="pagination-next" href="{{ paginator.next }}" {% if not paginator.next %}disabled{% endif %}>Next page</a>
+  <ul class="pagination-list">
+    {% for i in range(start=1, end=paginator.number_pagers+1) %}
+    <li><a class="pagination-link {% if i == paginator.current_index %}is-current{% endif %}" aria-label="Goto page {{ i }}" 
+        {% if i == 1 %}
+        href="{{ paginator.first }}"
+        {% else %}
+        href="{{ paginator.base_url }}{{ i }}/"
+        {% endif %}
+        >{{ i }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
+</section>
+{% endblock content %}

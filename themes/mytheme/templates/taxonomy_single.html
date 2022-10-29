@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="section">
+    {{ macros::taxonomy_pages(term=term) }}
+</section>
+{% endblock content %}

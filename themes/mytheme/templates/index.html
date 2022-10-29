@@ -1,57 +1,41 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
+<section class="section">
+  <h1 class="title is-2">Biography</h1>
+  <div class="content">
+    {{ section.content | safe }}
+  </div>
 
-  <section class="biography">
-    <h1>Biography</h1>
-    <div class="content">
-      {{ section.content | safe }}
-    </div>
-    <div class="interests">
-      <h2>Interests</h2>
+  <div class="columns">
+    <div class="column">
+      <h2 class="subtitle">Interests</h2>
       <ul>
         {% for interest in section.extra.interests %}
         <li>{{ interest }}</li>
         {% endfor %}
       </ul>
     </div>
-    <div class="education">
-      <h2>Education</h2>
+    <div class="column">
+      <h2 class="subtitle">Education</h2>
       <ul>
         {% for institute in section.extra.education %}
         <li>
-          <p><b>{{ institute.degree }}</b></p>
+          <p><strong>{{ institute.degree }}</strong></p>
           <p>{{ institute.name }}</p>
           <p>{{ institute.year }}</p>
         </li>
         {% endfor %}
       </ul>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="recent-posts">
-    <h2>Recent Posts</h2>
-    <div class="posts">
-      {% set post_section = get_section(path="posts/_index.md") %}
-      {% for page in post_section.pages | reverse | slice(end=5) %}
-      <div class="post">
-        <h3>
-          <a href="{{ page.permalink }}">
-            {{ page.title }}
-          </a>
-        </h3>
-        <p>
-          {{ page.description }}
-        </p>
-        <span class="post-date">{{ page.date | date(format="%Y-%m-%d") }}</span>
-      </div>
-      {% endfor %}
-    </div>
-  </section>
+<hr>
 
-  <section class="recent-projects">
-    <h2>Recent Projects</h2>
-  </section>
-</div>
+{{ macros::recent_items(title="Recent Posts", post_section=get_section(path="posts/_index.md")) }}
+
+<hr>
+
+{{ macros::recent_items(title="Recent Projects", post_section=get_section(path="projects/_index.md")) }}
 {% endblock content %}
