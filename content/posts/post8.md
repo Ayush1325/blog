@@ -4,6 +4,7 @@ description = "How to write a system allocator for UEFI"
 date = "2022-06-23T16:45:12+05:30"
 
 [taxonomies]
+categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 

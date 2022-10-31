@@ -5,6 +5,7 @@ date = "2022-09-05T22:22:12+05:30"
 update_date = "2022-09-06"
 
 [taxonomies]
+categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 Hello everyone. This is probably the final blog post I write before Google Summer of Code 2022 ends (hopefully not the final uefi one). In this post, I will summarize my GSoC22 work to make it more accessible to everyone.

@@ -5,6 +5,7 @@ date = "2022-10-27T22:22:12+05:30"
 update_date = "2022-09-06"
 
 [taxonomies]
+categories = ["post"]
 tags = ["rust", "uefi"]
 +++
 Even though GSoC 2022 has ended, I am still working on getting [Rust std PR](https://github.com/rust-lang/rust/pull/100316) merged into the master. In the initial PR, I still used the entry function described in the [prior post](@/posts/post7.md). However, this had many limitations, and thus I have finally transitioned to using a compiler-generated entry function.

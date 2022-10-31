@@ -4,6 +4,7 @@ description = "An implementation of Stdio for UEFI"
 date = "2022-07-08T00:53:12+05:30"
 
 [taxonomies]
+categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 

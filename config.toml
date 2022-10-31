@@ -5,26 +5,48 @@ description = "My Personal Website"
 
 compile_sass = true
 minify_html = true
-highlight_code = true
 
 build_search_index = true
 generate_feed = true
 
 default_language = "en"
 
-theme = "mytheme"
+theme = "DeepThought"
 
-taxonomies = [{ name = "tags", feed = true }]
+taxonomies = [
+    { name = "categories", feed = true, paginate_by = 10 },
+    { name = "tags", feed = true },
+]
 
 [extra]
+navbar_items = [
+ { code = "en", nav_items = [
+  { url = "$BASE_URL/", name = "Home" },
+  { url = "$BASE_URL/posts", name = "Posts" },
+  { url = "$BASE_URL/projects", name = "Projects" },
+  { url = "$BASE_URL/tags", name = "Tags" },
+  { url = "$BASE_URL/categories", name = "Categories" },
+ ]},
+]
+
+[extra.author]
+name = "Ayush Singh"
+avatar = "avatar.webp"
 
 [extra.social]
-mail = "ayushdevel@gmail.com"
+email = "ayushdevel@gmail.com"
 github = "Ayush1325"
 linkedin = "ayush-singh-665739204"
 twitter = "AyushS1325"
 mastodon = "@ayush1325"
 
 [extra.support]
-github = "Ayush1325"
+github_sponsors = "Ayush1325"
 liberapay = "Ayush1325"
+
+[extra.analytics]
+goatcounter = "programmershideaway.goatcounter.com"
+
+[markdown]
+highlight_code = true
+highlight_theme = "one-dark"
