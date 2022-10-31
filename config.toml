@@ -47,6 +47,9 @@ liberapay = "Ayush1325"
 [extra.analytics]
 goatcounter = "programmershideaway.goatcounter.com"
 
+[extra.commenting]
+webmentions = "www.programmershideaway.xyz"
+
 [markdown]
 highlight_code = true
 highlight_theme = "one-dark"
