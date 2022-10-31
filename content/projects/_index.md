@@ -1,6 +1,6 @@
 +++
 title = "Projects"
 sort_by = "title"
-template = "projects.html"
 paginate_by = 5
+template = "projects.html"
 +++

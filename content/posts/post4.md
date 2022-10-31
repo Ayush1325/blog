@@ -4,6 +4,7 @@ description = "A guide on how to use KConfig KDE Framework from Rust"
 date = "2022-03-14T22:19:49+05:30"
 
 [taxonomies]
+categories = ["post"]
 tags = ["rust", "kde", "sok22"]
 +++
 

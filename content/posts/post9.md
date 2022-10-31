@@ -4,6 +4,7 @@ description = "How to use Rust main function with a custom entry point with a cu
 date = "2022-06-25T22:28:12+05:30"
 
 [taxonomies]
+categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 

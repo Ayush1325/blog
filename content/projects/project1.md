@@ -2,8 +2,10 @@
 title = "Rust Std for UEFI"
 description = "Implementation of Rust Standard Library for UEFI"
 date = "2022-10-29T12:00:33+05:30"
+draft = true
 
 [taxonomies]
+categories = ["project"]
 tags = ["rust", "uefi"]
 
 [extra]

@@ -4,6 +4,7 @@ description = "A short post to help external contribution"
 date = "2022-08-05T20:44:12+05:30"
 
 [taxonomies]
+categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 Hello everyone. All my work on UEFI Rust std has been moved to [tianocore/rust](https://github.com/tianocore/rust). This should help with allowing more contribution from both Tianocore and Rust's sides. This post is just a sort of introduction to the new repository and how to get started.

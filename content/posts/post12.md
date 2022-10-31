@@ -4,6 +4,7 @@ description = "Google Summer of Code Progress Report 2"
 date = "2022-07-24T02:38:12+05:30"
 
 [taxonomies]
+categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 Hello everyone. It is finally possible to run the whole Rust testing suit for UEFI under QEMU and OVMF. So I think this is a good point to give a detailed overview of everything that has been implemented and the state of those implementations. I will also provide instructions on how to go about running the tests as well.
