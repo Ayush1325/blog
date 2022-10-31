@@ -1,7 +1,4 @@
 [submodule "themes/DeepThought"]
-path = themes/DeepThought
-url = https://github.com/RatanShreshtha/DeepThought.git
-
-[submodule "themes/abridge"]
-	path = themes/abridge
-	url = https://github.com/jieiku/abridge.git
+  path = themes/DeepThought
+  url = https://github.com/Ayush1325/DeepThought.git
+  branch = "custom-theme"
