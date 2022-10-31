@@ -31,7 +31,7 @@ navbar_items = [
 
 [extra.author]
 name = "Ayush Singh"
-avatar = "avatar.webp"
+avatar = "https://voluble-praline-702d8e.netlify.app/avatar.webp"
 
 [extra.social]
 email = "ayushdevel@gmail.com"
