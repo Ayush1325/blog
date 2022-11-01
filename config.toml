@@ -47,9 +47,10 @@ liberapay = "Ayush1325"
 
 [extra.analytics]
 # goatcounter = "programmershideaway.goatcounter.com"
+cloudflare = "6f9e262b68ab45038fd92d43a606e7a6"
 
 [extra.commenting]
-webmentions = "www.programmershideaway.xyz"
+webmentions = "programmershideaway.xyz"
 
 [markdown]
 highlight_code = true
