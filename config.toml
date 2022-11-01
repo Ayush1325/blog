@@ -46,7 +46,6 @@ github_sponsors = "Ayush1325"
 liberapay = "Ayush1325"
 
 [extra.analytics]
-# goatcounter = "programmershideaway.goatcounter.com"
 cloudflare = "6f9e262b68ab45038fd92d43a606e7a6"
 
 [extra.commenting]
@@ -55,3 +54,9 @@ webmentions = "programmershideaway.xyz"
 [markdown]
 highlight_code = true
 highlight_theme = "one-dark"
+
+[extra.favicon]
+favicon_16x16 = "https://assets.programmershideaway.xyz/icons/favicon-16x16.png"
+favicon_32x32 = "https://assets.programmershideaway.xyz/icons/favicon-32x32.png"
+apple_touch_icon = "https://assets.programmershideaway.xyz/icons/apple-touch-icon.png"
+webmanifest = "https://assets.programmershideaway.xyz/icons/site.webmanifest"
