@@ -28,10 +28,11 @@ navbar_items = [
   { url = "$BASE_URL/categories", name = "Categories" },
  ]},
 ]
+images_url = "https://assets.programmershideaway.xyz"
 
 [extra.author]
 name = "Ayush Singh"
-avatar = "https://voluble-praline-702d8e.netlify.app/avatar.webp"
+avatar = "https://assets.programmershideaway.xyz/avatar.webp"
 
 [extra.social]
 email = "ayushdevel@gmail.com"
@@ -45,7 +46,7 @@ github_sponsors = "Ayush1325"
 liberapay = "Ayush1325"
 
 [extra.analytics]
-goatcounter = "programmershideaway.goatcounter.com"
+# goatcounter = "programmershideaway.goatcounter.com"
 
 [extra.commenting]
 webmentions = "www.programmershideaway.xyz"
