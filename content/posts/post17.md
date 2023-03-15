@@ -9,6 +9,8 @@ tags = ["rust", "axum", "web"]
 +++
 I have been playing around with [axum](https://docs.rs/axum/latest/axum/index.html), and it has been quite a fun web framework. While using it, I came across what is a relatively common use case of validating the request JSON. However, I could not find any [extractor](https://docs.rs/axum/latest/axum/index.html#extractors) for this. Thus I decided to write my own and share it with everyone. While I haven't put it in a crate, feel free to use the code as you wish.
 
+<!-- more -->
+
 # Axum Extractors
 An extractor allows us to pick apart the incoming request to get the parts our HTTP handler needs. More about extractors can be found [here](https://docs.rs/axum/latest/axum/extract/index.html). There are two important traits when talking about extractors:
 1. [FromRequestParts](https://docs.rs/axum/latest/axum/extract/trait.FromRequestParts.html): This is used if the extractor does not need access to the request body.
