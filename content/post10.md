@@ -127,4 +127,6 @@ I am mounting the debug folder here, so you must go to the `fs0:` to run the `he
 <br>
 
 # Conclusion
-Now that the toolchain has reached this stage, I no longer need to maintain any special patches for everything to work, so that is great. Also, it is now possible to run tests (althouth they fail, saying 'Cannot determine OS from triple'). Lastly, anyone interested in this project can try it out and open issues/PRs if they find anything.
+Now that the toolchain has reached this stage, I no longer need to maintain any special patches for everything to work, so that is great. Also, it is now possible to run tests (althouth they fail, saying 'Cannot determine OS from triple'). Anyone interested in this project can try it out and open issues/PRs if they find anything.
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.

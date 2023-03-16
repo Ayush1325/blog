@@ -29,4 +29,6 @@ RUST_TEST_THREADS=1 TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{
 Running tests in single-threaded, even on the host side, fixes a lot of tests that fail due to timeout.
 
 # Conclusion
-This post was just to spread the word about this work so more people can experiment and provide their feedback about it.
+This post was just to spread the word about this work so more people can experiment and provide their feedback about it. 
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.

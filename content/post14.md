@@ -84,4 +84,6 @@ pub struct Protocol {
 <br>
 
 # Conclusion
-Since there are not many examples of Rust usage in UEFI drivers, there are not many standard practices established yet. With this post, I hope to help anyone trying to use Rust for UEFI driver development. Finally, with the new `UEFI_COMMAND_PROTOCOL` and `UEFI_PIPE_PROTOCOL`, Rust std port can now use complete `libtest` (even `should_panic`, which was previously broken). This is useful since even if you go the `no_std` route, you can still use std to test your `no_std` code. Finally, feel free to check out [Rust std for UEFI](https://github.com/rust-lang/rust/pull/100316).
+Since there are not many examples of Rust usage in UEFI drivers, there are not many standard practices established yet. With this post, I hope to help anyone trying to use Rust for UEFI driver development. Finally, with the new `UEFI_COMMAND_PROTOCOL` and `UEFI_PIPE_PROTOCOL`, Rust std port can now use complete `libtest` (even `should_panic`, which was previously broken). This is useful since even if you go the `no_std` route, you can still use std to test your `no_std` code. Feel free to check out [Rust std for UEFI](https://github.com/rust-lang/rust/pull/100316).
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.

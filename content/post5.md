@@ -180,6 +180,8 @@ We can build the application using a normal `cargo build` now. To test the appli
 # Conclusion
 With this, we can start implementing parts of std for UEFI and testing them in actual applications. Feel free to ask/make any suggestions on the Tianocore mailing list.
 
+Consider [supporting me](@/pages/supportme.md) if you like my work.
+
 <br>
 
 # Important Links

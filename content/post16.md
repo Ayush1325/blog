@@ -47,6 +47,8 @@ What this function does is pass an array `[ImageHandle, *mut SystemTable]` as `a
 # Conclusion
 With this implementation, one of the major blockers for the PR has been resolved. While implementing this, I also modified the Rust target specification to allow specifying the Entry Function name and ABI, which might enable making compiler-generated entry functions easier for other targets. Feel free to comment on the PR and follow it if interested.
 
+Consider [supporting me](@/pages/supportme.md) if you like my work.
+
 # Helpful Links
 1. [Rust std PR](https://github.com/rust-lang/rust/pull/100316) 
 2. [Using Rust main from a custom entry point](@/post7.md)

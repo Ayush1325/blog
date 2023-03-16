@@ -178,7 +178,9 @@ We can add a `return` before the thread creation and get to `main` perfectly. Ho
 <br>
 
 # Conclusion
-Initially, I set out to print "Hello World" from `main` in this post. However, after getting burned multiple times, I have finally decided to save it for later. The following post will look at creating and initializing the System Allocator. Spoiler, the `thread_info::set` will start panicking after that, so we will not be able to print "Hello World" even in the next post. Still, we are one step closer to a usable std for UEFI.
+Initially, I set out to print "Hello World" from `main` in this post. However, after getting burned multiple times, I have finally decided to save it for later. The following post will look at creating and initializing the System Allocator. Spoiler, the `thread_info::set` will start panicking after that, so we will not be able to print "Hello World" even in the next post. Still, we are one step closer to a usable std for UEFI. 
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.
 
 <br>
 

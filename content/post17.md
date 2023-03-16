@@ -54,4 +54,7 @@ I am using `(StatusCode, &'static str)` for error response since all the respons
 It is important to note that extractors can use other extractors themselves. So we do not need to replicate the [Json](https://docs.rs/axum/latest/axum/struct.Json.html) extractor.
 
 # Conclusion
-As you can see, writing a custom extractor is relatively straightforward, especially when compared to writing a [tower](https://crates.io/crates/tower) middleware.
+As you can see, writing a custom extractor is relatively straightforward, especially when compared to writing a [tower](https://crates.io/crates/tower) middleware. 
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.
+ 
