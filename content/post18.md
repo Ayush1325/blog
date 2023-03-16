@@ -58,4 +58,6 @@ fn main() {
 ```
 
 # Conclusion
-The Rust Std for UEFI is moving forward, albeit slower than I expected when I started. Nevertheless, I will try my best to see it to the end instead of dropping it abruptly. Feel free to check out the PR if this project interests you. Also, consider supporting me if you like my work.
+The Rust Std for UEFI is moving forward, albeit slower than I expected when I started. Nevertheless, I will try my best to see it to the end instead of dropping it abruptly. Feel free to check out the PR if this project interests you.
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.

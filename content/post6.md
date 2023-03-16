@@ -235,3 +235,5 @@ The `__CxxFrameHandler3` blank implementation is no longer required in the `mast
 
 # Conclusion
 Technically, we are now using `std` (even though none of it has yet been implemented). Now I will slowly start implementing parts of `std` starting with allocation. I also wanted to find a way to use the normal Rust `main` function instead of the current `efi_main`. However, this still does not seem possible (see [#29633](https://github.com/rust-lang/rust/issues/29633)). So, let's get allocation working and replace all the arrays with vectors in this code.
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.

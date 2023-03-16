@@ -259,4 +259,6 @@ After that, it works perfectly. I'm not sure if this is the correct implementati
 <br>
 
 # Conclusion
-As I stated earlier, this is a pretty short post. While I could post an empty `main` function, it's useless without having the ability to print to screen from `main()`. So this is where I will conclude for now. I promise we will print "Hello World!" from `main()` next time.
+As I stated earlier, this is a pretty short post. While I could post an empty `main` function, it's useless without having the ability to print to screen from `main()`. So this is where I will conclude for now. I promise we will print "Hello World!" from `main()` next time. 
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.

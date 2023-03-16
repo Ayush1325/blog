@@ -60,3 +60,5 @@ Just a list of all PRs I opened as a part of GSoC22. While other people created 
 
 # Conclusion
 I will continue working on getting Rust std [PR](https://github.com/rust-lang/rust/pull/100316) merged since it is still unmerged. I also have some more UEFI Rust Projects lined up, and I think I will keep working on them for the foreseeable future. Feel free to check out and experiment with using Rust for UEFI (with or without std).
+
+Consider [supporting me](@/pages/supportme.md) if you like my work.
