@@ -8,7 +8,7 @@ categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 
-Hello everyone. I will continue where I left off in [post](@/posts/post7.md) with the Rust main in this post. Since we now have an allocator, the [`Thread::new`](https://github.com/rust-lang/rust/blob/00ce47209dfdd8ef8871c6ec804f0e0e04d10702/library/std/src/rt.rs#L85) statement at `library/std/src/rt.rs` works. So we need to fix the line where we set the main thread with guard information. This will be a short post since it turned out easier than I initially thought.
+Hello everyone. I will continue where I left off in [post](@/post7.md) with the Rust main in this post. Since we now have an allocator, the [`Thread::new`](https://github.com/rust-lang/rust/blob/00ce47209dfdd8ef8871c6ec804f0e0e04d10702/library/std/src/rt.rs#L85) statement at `library/std/src/rt.rs` works. So we need to fix the line where we set the main thread with guard information. This will be a short post since it turned out easier than I initially thought.
 
 <!-- more -->
 
