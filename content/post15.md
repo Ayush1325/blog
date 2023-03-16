@@ -47,16 +47,16 @@ Just a list of all PRs I opened as a part of GSoC22. While other people created 
 <br>
 
 # Blog Posts
-1. [Google Summer of Code 2022](@/posts/post5.md)
-2. [Use Restricted std in UEFI](@/posts/post6.md)
-3. [Using Rust main from a custom entry point](@/posts/post7.md)
-4. [Writing an Allocator for UEFI](@/posts/post8.md)
-5. [Using Rust main from a custom entry point (Part 2)](@/posts/post9.md)
-6. [GSoC 2022: Progress Report 1](@/posts/post10.md)
-7. [Implementing Stdio for UEFI](@/posts/post11.md)
-8. [GSoC 2022: Progress Report 2](@/posts/post12.md)
-9. [UEFI Rust std has a new home](@/posts/post13.md)
-10. [Writing UEFI Protocol in Rust](@/posts/post14.md)
+1. [Google Summer of Code 2022](@/post5.md)
+2. [Use Restricted std in UEFI](@/post6.md)
+3. [Using Rust main from a custom entry point](@/post7.md)
+4. [Writing an Allocator for UEFI](@/post8.md)
+5. [Using Rust main from a custom entry point (Part 2)](@/post9.md)
+6. [GSoC 2022: Progress Report 1](@/post10.md)
+7. [Implementing Stdio for UEFI](@/post11.md)
+8. [GSoC 2022: Progress Report 2](@/post12.md)
+9. [UEFI Rust std has a new home](@/post13.md)
+10. [Writing UEFI Protocol in Rust](@/post14.md)
 
 # Conclusion
 I will continue working on getting Rust std [PR](https://github.com/rust-lang/rust/pull/100316) merged since it is still unmerged. I also have some more UEFI Rust Projects lined up, and I think I will keep working on them for the foreseeable future. Feel free to check out and experiment with using Rust for UEFI (with or without std).

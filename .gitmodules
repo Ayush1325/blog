@@ -2,3 +2,6 @@
   path = themes/DeepThought
   url = https://github.com/Ayush1325/DeepThought.git
   branch = "custom-theme"
+[submodule "themes/abridge"]
+	path = themes/abridge
+	url = https://github.com/Jieiku/abridge.git

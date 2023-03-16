@@ -11,52 +11,122 @@ generate_feed = true
 
 default_language = "en"
 
-theme = "DeepThought"
+theme = "abridge"
 
 taxonomies = [
-    { name = "categories", feed = true, paginate_by = 10 },
+    { name = "categories", feed = true },
     { name = "tags", feed = true },
 ]
 
-[extra]
-navbar_items = [
- { code = "en", nav_items = [
-  { url = "$BASE_URL/", name = "Home" },
-  { url = "$BASE_URL/posts", name = "Posts" },
-  { url = "$BASE_URL/projects", name = "Projects" },
-  { url = "$BASE_URL/tags", name = "Tags" },
-  { url = "$BASE_URL/categories", name = "Categories" },
- ]},
-]
-images_url = "https://assets.programmershideaway.xyz"
+[search]                # Options specific to elasticlunr search.
+include_title = true        # include title of page/section in index
+include_description = false # include description of page/section in index
+include_content = true      # include rendered content of page/section in index
+# Truncate content at nth character. Useful if index size significantly slows down the site.
+# truncate_content_length = 100
 
-[extra.author]
-name = "Ayush Singh"
-avatar = "https://assets.programmershideaway.xyz/avatar.webp"
+[extra]
+uglyurls = false # if set to true then links are generated with the full path. eg https://abridge.netlify.app/index.html
+language_code = "en-US"
+title_separator = "|"  # Separator between title and title_addition, set as |, -, _, etc
+# To disable title_addition but keep built in page additions eg, Posts page: "Posts | Abridge" set title_addition to an empty string
+# To always set the page title exactly eg "Abridge" then comment out the below line (not recommend, bad for SEO)
+recent = true # TOC / index
+recent_items = 9
+images_url = "https://assets.programmershideaway.xyz"
+author = "Ayush Singh" # Put Your Name here
+
+title_size_index = "s85" # size: s95, s90, s85, s80, s75, s70, false(full size)
+meta_index = { position="bottom", size="s90", author=false, readtime=false, readstring="min", date=true, categories_tags=true, divider=" " }
+meta_post = { position="top", size="s95", author=true, readtime=false, readstring="min read", date=true, categories_tags=true, divider=" " }
+## position: top, bottom, both, false(hidden) ## size: s95, s90, s85, s80, s75, s70, false(full size)
+## divider:    "&middot;"    "&bull;"    " "
+
+sitedesc = false # enables or disables the display of the site description below the logo.
+headhr = false # show or hide horizontal rule below header
+foothr = true # show or hide horizontal rule above footer
+
+menu = [
+    {url = "/about/", name = "About", slash = true, blank = false},
+    {url = "/posts/", name = "Posts", slash = true, blank = false},
+    {url = "/supportme/", name = "SupportMe", slash = true, blank = false},
+    {url = "/categories/", name = "Categories", slash = true, blank = false},
+    {url = "/tags/", name = "Tags", slash = true, blank = false},
+]
+menu_footer = [
+    {url = "/about/", name = "About", slash = true, blank = false},
+    {url = "/supportme/", name = "SupportMe", slash = true, blank = false},
+    {url = "/sitemap.xml", name = "Sitemap", slash = false, blank = true},
+]
+
+# Resource Files
+integrity = true # setting this to false is useful for developing, should normally be true.
+js_bundle = true # multiple javascript files combined into a single file
+js_switcher = true
+js_search_facade = false # Do not load search until user interaction with search.
+# search library to use, valid values are: false, "elasticlunr", "tinysearch", "stork"
+search_library = "elasticlunr"
+
+js_search_index = "search_index.en.js" # Separate Always, generated each build
+js_prestyle = "prestyle.js"# Bundleable - used to preload: FontAwesome, Katex, external Google Fonts
+js_codecopy = "codecopy.js"# Bundleable
+js_email = "email.js"# Bundleable
+js_theme = "theme.min.js" # Separate Always, comment out if using -auto/-light/-dark stylesheet. (required for switcher)
+js_themeButton = "theme_button.js"# Bundleable
+
+stylesheets = [ "abridge-switcher.css" ] # Orange Automatic Dark/Light Theme based on browser/system preference with switcher
+
+favicon16 = "favicon-16x16.png"
+favicon32 = "favicon-32x32.png"
+favicon180 = "apple-touch-icon.png"
+favicon_webmanifest = "site.webmanifest"
+
+icon_search = "svgs search" # Search button in search box.
+icon_adjust = "svgs adjust" # Theme Switcher button in top menu. (add class svgh to change colors on hover)
+icon_first = "svgs svgh angll" # Pagination First Page.
+icon_prev = "svgs svgh angl" # Pagination Previous Page.
+icon_next = "svgs svgh angr" # Pagination Next Page.
+icon_last = "svgs svgh angrr" # Pagination Last Page.
+icon_top = "svgs svgh angu" # Back to Top Button.
+
+fontawesome = "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"
+
+math = false # katex math js library, used to to render mathematical notations, requires javascript
+math_auto_render = false
+
+keywords = "Ayush Singh, Blog, programmershideaway, Programmer, Hideaway" # used for the primary site index
+twitter = "AyushS1325"
+seo = true  # enable or disable seo-related meta tags: opengraph, facebook, twitter
+
+
+footer_credit_override = '<p>The source code is licenced <a href="https://gitlab.com/Ayush1325/programmers_hideaway/-/blob/ca7f53023ebb014ecdc8792de5bd811006e2170f/LICENSE">MIT</a>. This website content is licensed <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>'
+
+# [extra.author]
+# name = "Ayush Singh"
+# avatar = "https://assets.programmershideaway.xyz/avatar.webp"
 
 [extra.social]
-email = "ayushdevel@gmail.com"
+feed = true
+mail_encode = true # This obfuscates your email address, javascript is used to decode it at page load.
+mail = "ayushdevel@gmail.com"
 github = "Ayush1325"
+gitlab = "Ayush1325"
 linkedin = "ayush-singh-665739204"
-twitter = "AyushS1325"
-mastodon = "@ayush1325"
-
-[extra.support]
-github_sponsors = "Ayush1325"
+mastodon = "https://fosstodon.org/@ayush1325"
+element = "matrix.to/#/@ayush1325:matrix.org"
+github_sponsor = "Ayush1325"
 liberapay = "Ayush1325"
+twitter = "AyushS1325"
+buymeacoffee = "ayush1325"
 
 [extra.analytics]
 cloudflare = "6f9e262b68ab45038fd92d43a606e7a6"
 
-[extra.commenting]
-webmentions = "programmershideaway.xyz"
-
 [markdown]
 highlight_code = true
-highlight_theme = "one-dark"
-
-[extra.favicon]
-favicon_16x16 = "https://assets.programmershideaway.xyz/icons/favicon-16x16.png"
-favicon_32x32 = "https://assets.programmershideaway.xyz/icons/favicon-32x32.png"
-apple_touch_icon = "https://assets.programmershideaway.xyz/icons/apple-touch-icon.png"
-webmanifest = "https://assets.programmershideaway.xyz/icons/site.webmanifest"
+highlight_theme = "css"
+render_emoji = false
+external_links_target_blank = true # rel="noopener"
+external_links_no_follow = false   # rel="nofollow"
+external_links_no_referrer = false # rel="noreferrer"
+smart_punctuation = false          # `...` to `…`, `"quote"` to `“curly”` etc

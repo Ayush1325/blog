@@ -8,7 +8,7 @@ categories = ["post"]
 tags = ["rust", "uefi"]
 +++
 
-It has been quite a while since I gave any updates about Rust std implementation for UEFI. While the Google Summer of Code ended quite a bit ago (it's almost time for GSoC 23), I have been continuing my efforts to merge it upstream. Check out my [GSoC 22 Summary Post](@/posts/post16.md) for a refresher on the project.
+It has been quite a while since I gave any updates about Rust std implementation for UEFI. While the Google Summer of Code ended quite a bit ago (it's almost time for GSoC 23), I have been continuing my efforts to merge it upstream. Check out my [GSoC 22 Summary Post](@/post16.md) for a refresher on the project.
 
 <!-- more -->
 

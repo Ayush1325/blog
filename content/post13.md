@@ -22,7 +22,7 @@ It outlines the requirements and the limitations of the current std for UEFI. It
 The [tianocore/rust](https://github.com/tianocore/rust) repository accepts PRs. I will also accept patches in the edk2 mailing list (my email: [ayushdevel1325@gmail.com](ayushdevel1325@gmail.com)).
 
 # Running Tests locally
-Running Tests for UEFI is done using `remote-test-server` and `remote-test-client` as outlined in my [previous post](@/posts/post12.md). The only thing I would like to change from that guide is the command to run tests:
+Running Tests for UEFI is done using `remote-test-server` and `remote-test-client` as outlined in my [previous post](@/post12.md). The only thing I would like to change from that guide is the command to run tests:
 ```sh
 RUST_TEST_THREADS=1 TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} --target x86_64-unknown-uefi --stage 1
 ```
