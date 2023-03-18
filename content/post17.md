@@ -4,7 +4,6 @@ description = "An extractor I wrote to validate json in axum"
 date = "2023-01-17T19:01:12+05:30"
 
 [taxonomies]
-categories = ["post"]
 tags = ["rust", "axum", "web"]
 +++
 I have been playing around with [axum](https://docs.rs/axum/latest/axum/index.html), and it has been quite a fun web framework. While using it, I came across what is a relatively common use case of validating the request JSON. However, I could not find any [extractor](https://docs.rs/axum/latest/axum/index.html#extractors) for this. Thus I decided to write my own and share it with everyone. While I haven't put it in a crate, feel free to use the code as you wish.

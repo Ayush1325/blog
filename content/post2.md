@@ -4,7 +4,6 @@ description = "My Journey with KDE"
 date = "2022-01-26T20:00:33+05:30"
 
 [taxonomies]
-categories = ["post"]
 tags = ["kde", "sok22"]
 +++
 
