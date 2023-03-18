@@ -14,7 +14,6 @@ default_language = "en"
 theme = "abridge"
 
 taxonomies = [
-    { name = "categories", feed = true },
     { name = "tags", feed = true },
 ]
 
@@ -50,7 +49,6 @@ menu = [
     {url = "/about/", name = "About", slash = true, blank = false},
     {url = "/posts/", name = "Posts", slash = true, blank = false},
     {url = "/supportme/", name = "SupportMe", slash = true, blank = false},
-    {url = "/categories/", name = "Categories", slash = true, blank = false},
     {url = "/tags/", name = "Tags", slash = true, blank = false},
 ]
 menu_footer = [

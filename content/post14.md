@@ -4,7 +4,6 @@ description = "A post about writing UEFI Protocol in Rust"
 date = "2022-08-27T22:22:12+05:30"
 
 [taxonomies]
-categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 Hello everyone. As a part of Porting Rust std for UEFI, I had to write a hacky implementation of pipes (using UEFI Variables) for piping output from launched programs. However, this implementation had some problems and failed to run tests using the feature `panic_abort_tests`. Since I had some time this week, I decided to write a Protocol to fix the pipes. Along the way, I also found many ways to shoot myself on foot. So I decided to write this post documenting all the gotchas I discovered while writing a new protocol in Rust. This post will only contain 1 of the two protocols I decided to create, internally named `UEFI_COMMAND_PROTOCOL`.

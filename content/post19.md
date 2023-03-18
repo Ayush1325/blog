@@ -4,7 +4,6 @@ description = "Guide to use custom entry function for any target"
 date = "2023-03-18T16:08:12+05:30"
 
 [taxonomies]
-categories = ["post"]
 tags = ["rust"]
 +++
 Hello everyone. While implementing Rust std for UEFI, I came across an interesting problem. The signature of the entry function in Rust did not match the UEFI entry signature. Initially, I just used a hacky way to get things to work. However, later I made some changes to upstream Rust to make generating entry functions with custom signatures much easier. In this post, I will show how to implement generating such an entry function in upstream Rust through the example of UEFI.

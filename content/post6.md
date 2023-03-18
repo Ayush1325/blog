@@ -4,7 +4,6 @@ description = "Compile Rust std for UEFI"
 date = "2022-06-16"
 
 [taxonomies]
-categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 

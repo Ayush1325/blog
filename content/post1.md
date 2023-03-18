@@ -5,7 +5,6 @@ date = "2022-01-22T12:00:33+05:30"
 updated = "2022-01-27T12:00:33+05:30"
 
 [taxonomies]
-categories = ["post"]
 tags = ["rust", "kde"]
 +++
 

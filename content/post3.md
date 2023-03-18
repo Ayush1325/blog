@@ -4,7 +4,6 @@ description = "Representing QFlags in Rust"
 date = "2022-01-30T01:54:01+05:30"
 
 [taxonomies]
-categories = ["post"]
 tags = ["rust", "kde", "cpp", "sok22"]
 +++
 

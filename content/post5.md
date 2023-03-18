@@ -4,7 +4,6 @@ description = "A brief introduction to my project"
 date = "2022-06-14"
 
 [taxonomies]
-categories = ["post"]
 tags = ["rust", "tianocore", "gsoc22"]
 +++
 

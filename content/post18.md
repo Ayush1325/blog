@@ -4,7 +4,6 @@ description = "Summary of current state of Rust std for UEFI"
 date = "2023-03-15T19:01:12+05:30"
 
 [taxonomies]
-categories = ["post"]
 tags = ["rust", "uefi"]
 +++
 
