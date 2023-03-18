@@ -32,6 +32,10 @@
   {%- endif %}
 
   {% block analytics %}
+  {% if config.extra.analytics.goatcounter %}
+    <script data-goatcounter="https://{{ config.extra.analytics.goatcounter }}/count"
+        async src="//gc.zgo.at/count.js"></script>
+  {% endif %}
   {% if config.extra.analytics.cloudflare %}
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "{{ config.extra.analytics.cloudflare }}"}'></script>
   {% endif %}
