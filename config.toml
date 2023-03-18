@@ -118,7 +118,7 @@ twitter = "AyushS1325"
 buymeacoffee = "ayush1325"
 
 [extra.analytics]
-cloudflare = "6f9e262b68ab45038fd92d43a606e7a6"
+goatcounter = "stats.programmershideaway.xyz"
 
 [markdown]
 highlight_code = true
