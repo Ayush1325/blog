@@ -73,7 +73,7 @@ Similar to RT, I would not recommend using Rust std in this phase.
 <br>
 
 # Handling ExitBootServices()
-The Rust std now registers a callback when `EVT_SIGNAL_EXIT_BOOT_SERVICES` is signaled. This callback makes BootServices unavailable. The most significant consequence of this is that the provided[Allocator](https://doc.rust-lang.org/stable/std/alloc/trait.GlobalAlloc.html) no longer works.
+The Rust std now registers a callback when `EVT_SIGNAL_EXIT_BOOT_SERVICES` is signaled. This callback makes BootServices unavailable. The most significant consequence of this is that the provided [Allocator](https://doc.rust-lang.org/stable/std/alloc/trait.GlobalAlloc.html) no longer works.
 
 Since, all the memory in Rust std is allocated with the memory type `EfiLoaderData`, it is not really valid at after this point. Feel free to comment at the [PR](https://github.com/rust-lang/rust/pull/100316) if you would like to see this configurable.
 
