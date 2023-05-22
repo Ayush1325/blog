@@ -56,7 +56,7 @@ Due to the availability of Beagle Play (which contains both AM6254 and CC1352 in
 Now I will go into more detail about the different components of the new architecture.
 
 ## SVC Role
-The cc1352 firmware will need to detect the hotplug and removal of modules. In the current architecture, each controller runs an event_loop in a `pthread` to perform its functionality. I am thinking of using a [mDNS](https://docs.zephyrproject.org/3.2.0/connectivity/networking/api/dns_resolve.html) based apporach:
+The cc1352 firmware will need to detect the hotplug and removal of modules. In the current architecture, each controller runs an event_loop in a `pthread` to perform its functionality. I am thinking of using a [mDNS](https://docs.zephyrproject.org/3.2.0/connectivity/networking/api/dns_resolve.html) based approach:
 
 1. Run a loop in a separate thread that polls for `_greybus._tcp`.
 2. Maintain a table of nodes.
