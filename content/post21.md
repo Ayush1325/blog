@@ -66,16 +66,50 @@ The cc1352 firmware will need to detect the hotplug and removal of modules. In t
 Initially, I am planning on implementing a basic version using [threads](https://docs.zephyrproject.org/3.2.0/kernel/services/threads/index.html). However, I will write a more efficient implementation using the [Polling API](https://docs.zephyrproject.org/3.2.0/kernel/services/polling.html) if I have time.
 
 ## AP Bridge Role
-The cc1352 firmware will now translate communication to/from Linux Host (with Platform driver over UART) and the BCF Node (6lowpan). This entails extracting the message from UART, convert to a 6lowpan packet, and vice versa. The code from [wpanusb_bc](https://git.beagleboard.org/beagleconnect/zephyr/wpanusb_bc) will be used as a reference for communication with BCF Nodes, and [bcfserial](https://git.beagleboard.org/beagleconnect/linux/bcfserial) will be used as a reference for UART communication.
+The cc1352 firmware will now also be responsible for the APBridge role, which GBridge currently handles. This role involves a variety of tasks:
+
+- Reading/Writing Greybus messages over 6lowpan and generating messages to send to the host.
+- Installing/Uninstalling greybus interfaces on insertion/removal after receiving an event from SVC.
+- Get Device manifest on insertion.
+- Sending events to register drivers, etc.
 
 The initial implementation will probably use simple threads. However, the final goal is to write the implementation using [MessageQueues](https://docs.zephyrproject.org/latest/kernel/services/data_passing/message_queues.html#message-queues) + [Events](https://docs.zephyrproject.org/latest/kernel/services/synchronization/events.html) which Zephyr supports.
 
-## Platform Driver
-It will be responsible for extracting greybus messages from UART and sending response or new messages to CC1352 over UART. A driver already exists ([bcfserial](https://git.beagleboard.org/beagleconnect/linux/bcfserial)) to facilitate this communication. However, since it has yet to be upstreamed, it might be possible that I will only use pieces of it instead of using the complete driver.
+## Greybus Serdev Driver
 
-As per the current plan, it will be written in Rust. However, this can be changed if there are objections from BeagleBoard or upstream Greybus maintainers (since it will require bindings to greybus) or just due to the current limitations of Rust for Linux.
+This new driver will be responsible for communication between Greybus and cc1352. This will be a Serial Device Bus Driver (serdev) driver with the following structure:
+
+```c
+struct serdev_device_driver {
+	struct device_driver driver;
+	int	(*probe)(struct serdev_device *);
+	void	(*remove)(struct serdev_device *);
+};
+```
+
+The actual types that are used in communication can be found at [`include/linux/greybus/greybus_protocols.h`](https://github.com/torvalds/linux/blob/master/include/linux/greybus/greybus_protocols.h) in upstream Linux kernel.
+
+The driver will run on BeaglePlay's AM62 processor, although it should be possible on any Linux host.
+
+The two main functions of this driver are as follows:
+
+### probe
+
+This step will involve the following:
+
+- Initialize stuff: This includes Work Queue, spin locks, and allocate read/write buffers.
+- Open the serial device. Set parameters such as the baud rate. Mostly copy the configuration from bcfserial.
+- Create gb_host_device.
+
+Since we only want to use a single static UART (between AM62 and CC1352), we can optimize the driver probe.
+
+### remove
+
+- Flush the contents of the work queue.
+- Close the serdev device
 
 # Benefits of this Project
+
 - [GBridge](https://git.beagleboard.org/beagleconnect/linux/gbridge) requires [gb-netlink](https://git.beagleboard.org/beagleconnect/linux/greybus) driver, which was never accepted upstream. Eliminating it would allow easier upstreaming of the whole BeagleConnect stack.
 - This, in turn, should help with industry adoption by providing strong guarantees as being part of the Linux Kernel
 - This will also help simplify the whole BeagleConnect stack, thus making it much easier to get started for Beginners.
@@ -86,5 +120,5 @@ I am excited to work on this project since I have always wanted to do embedded d
 Consider [supporting me](@/pages/supportme.md) if you like my work.
 
 # Project Links
-- Proposal: https://elinux.org/BeagleBoard/GSoC/2023_Proposal/AyushSingh
-- Project Tracker: https://forum.beagleboard.org/t/weekly-progress-report-replace-gbridge/34762
+- Proposal: [https://elinux.org/BeagleBoard/GSoC/2023_Proposal/AyushSingh](https://elinux.org/BeagleBoard/GSoC/2023_Proposal/AyushSingh)
+- Project Tracker: [https://forum.beagleboard.org/t/weekly-progress-report-replace-gbridge/34762](https://forum.beagleboard.org/t/weekly-progress-report-replace-gbridge/34762)
