@@ -4,7 +4,7 @@ description = "A introduction post about my GSoC 2023 Project"
 date = "2023-05-22T19:07:12+05:30"
 
 [taxonomies]
-tags = ["rust", "c", "gsoc23", "linux", "zephyr"]
+tags = ["rust", "c", "gsoc23", "linux", "zephyr", "beagleboard"]
 +++
 Hello everyone. I am Ayush Singh, a third-year student at the Indian Institute of Technology, Dhanbad, India. As a part of Google Summer of Code 2023, I will be working on Replacing GBridge under the [BeagleBoard.org](https://www.beagleboard.org/) organization. In this post, I will describe the project I will be working on.
 
