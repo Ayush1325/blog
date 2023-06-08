@@ -82,11 +82,15 @@ sudo shutdown -r now
 ```sh
 git clone git@git.beagleboard.org:beagleconnect/cc1352-flasher.git && cd cc1352-flasher
 ```
-3. Flash the application
+3. We need to checkout the `from-20230521` branch.
 ```sh
-python cc1352-flasher --play ~/zephyr.bin
+git checkout from-20230521
 ```
-4. Try out the application:
+4. Flash the application
+```sh
+python cc1352-flasher --beagleplay ~/zephyr.bin
+```
+5. Try out the application:
 ```sh
 tio /dev/ttyACM0
 ```
