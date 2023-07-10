@@ -292,3 +292,8 @@ if __name__ == "__main__":
 I hope this sheds light on the current status of my project. You can follow my GSoC23-related blog posts using this [feed](https://www.programmershideaway.xyz/tags/gsoc23/atom.xml).
 
 Consider [supporting me](@/pages/supportme.md) if you like my work.
+
+# Build Artifacts
+Here are the CI build artifacts for anyone wanting to test this out:
+1. [cc1352-firmware](https://git.beagleboard.org/gsoc/greybus/cc1352-firmware/-/jobs/12140/artifacts/download?file_type=archive)
+2. [beagleplay-greybus-driver](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/jobs/12129/artifacts/download?file_type=archive)
