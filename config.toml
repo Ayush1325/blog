@@ -120,6 +120,9 @@ buymeacoffee = "ayush1325"
 [extra.analytics]
 goatcounter = "stats.programmershideaway.xyz"
 
+[extra.comments]
+hyvor = "9363"
+
 [markdown]
 highlight_code = true
 highlight_theme = "css"
