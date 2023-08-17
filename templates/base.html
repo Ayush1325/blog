@@ -40,6 +40,12 @@
   <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "{{ config.extra.analytics.cloudflare }}"}'></script>
   {% endif %}
   {% endblock analytics %}
+
+	{%- block comments_init %}
+	{%- if config.extra.comments.hyvor %}
+	<script async src="https://talk.hyvor.com/embed/embed.js" type="module"></script>
+	{%- endif %}
+	{%- endblock comments_init %}
 </head>
 <body>
 {%- block header %}
