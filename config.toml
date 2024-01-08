@@ -74,7 +74,8 @@ menu = [
 
 [extra.analytics]
 service = "goatcounter"
-self_hosted_url = "https://stats.programmershideaway.xyz"
+id = "programmershideaway"
+# self_hosted_url = "https://stats.programmershideaway.xyz"
 
 [extra.giscus]
 enabled_for_all_posts = true
