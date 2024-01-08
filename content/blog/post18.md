@@ -7,7 +7,7 @@ date = "2023-03-15T19:01:12+05:30"
 tags = ["rust", "uefi"]
 +++
 
-It has been quite a while since I gave any updates about Rust std implementation for UEFI. While the Google Summer of Code ended quite a bit ago (it's almost time for GSoC 23), I have been continuing my efforts to merge it upstream. Check out my [GSoC 22 Summary Post](@/post16.md) for a refresher on the project.
+It has been quite a while since I gave any updates about Rust std implementation for UEFI. While the Google Summer of Code ended quite a bit ago (it's almost time for GSoC 23), I have been continuing my efforts to merge it upstream. Check out my [GSoC 22 Summary Post](@/blog/post16.md) for a refresher on the project.
 
 <!-- more -->
 
@@ -59,4 +59,4 @@ fn main() {
 # Conclusion
 The Rust Std for UEFI is moving forward, albeit slower than I expected when I started. Nevertheless, I will try my best to see it to the end instead of dropping it abruptly. Feel free to check out the PR if this project interests you.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

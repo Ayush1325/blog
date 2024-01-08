@@ -117,7 +117,7 @@ Since we only want to use a single static UART (between AM62 and CC1352), we can
 # Conclusion
 I am excited to work on this project since I have always wanted to do embedded development. I will probably write a few posts detailing the setup I will be using.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.
 
 # Project Links
 - Proposal: [https://elinux.org/BeagleBoard/GSoC/2023_Proposal/AyushSingh](https://elinux.org/BeagleBoard/GSoC/2023_Proposal/AyushSingh)

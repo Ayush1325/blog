@@ -2,133 +2,91 @@ base_url = "https://programmershideaway.xyz"
 
 title = "Programmer's Hideaway"
 description = "My Personal Website"
+author = "Ayush Singh"
 
 compile_sass = true
 minify_html = true
 
 build_search_index = true
 generate_feed = true
-
 default_language = "en"
 
-theme = "abridge"
+theme = "tabi"
 
 taxonomies = [
     { name = "tags", feed = true },
 ]
 
-[search]                # Options specific to elasticlunr search.
-include_title = true        # include title of page/section in index
-include_description = false # include description of page/section in index
-include_content = true      # include rendered content of page/section in index
-# Truncate content at nth character. Useful if index size significantly slows down the site.
-# truncate_content_length = 100
-
 [extra]
-uglyurls = false # if set to true then links are generated with the full path. eg https://abridge.netlify.app/index.html
-language_code = "en-US"
-title_separator = "|"  # Separator between title and title_addition, set as |, -, _, etc
-# To disable title_addition but keep built in page additions eg, Posts page: "Posts | Abridge" set title_addition to an empty string
-# To always set the page title exactly eg "Abridge" then comment out the below line (not recommend, bad for SEO)
-recent = true # TOC / index
-recent_items = 9
+# Add a "copy" button to codeblocks (loads ~700 bytes of JavaScript).
+# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
+copy_button = true
+
+# Show the reading time of a page.
+# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
+show_reading_time = true
+
+# Show links to previous and next articles at the bottom of posts.
+# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
+show_previous_next_article_links = true
+
+# Quick navigation buttons.
+# Adds "go up" and "go to comments" buttons on the bottom right (hidden for mobile).
+# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
+quick_navigation_buttons = true
+
+# Remote repository for your Zola site.
+# Used for `show_remote_changes` and `show_remote_source` (see below).
+# Supports GitHub, GitLab, Gitea, and Codeberg.
+remote_repository_url = "https://github.com/Ayush1325/blog"
+
+# Email address for footer's social section.
+# Protect against spambots:
+# 1. Use base64 for email (convert at https://www.base64encode.org/ or `printf 'your@email.com' | base64`).
+# 2. Or, set 'encode_plaintext_email' to true for auto-encoding (only protects on site, not in public repos).
+email = "YXl1c2hzaW5naDEzMjVAZ21haWwuY29t"
+
+socials = [
+	{ name = "github", url = "https://github.com/Ayush1325/", icon = "github" },
+	{ name = "linkedin", url = "https://www.linkedin.com/in/ayush-singh-665739204/", icon = "linkedin" },
+	{ name = "mastodon", url = "https://fosstodon.org/@ayush1325", icon = "mastodon" },
+	{ name = "element", url = "https://matrix.to/#/@ayush1325:matrix.org", icon = "matrix" },
+	{ name = "youtube", url = "https://www.youtube.com/channel/UCwd6L1ve_O84r31EMFZPJKQ", icon = "youtube" }
+]
+feed_icon = true
+
+copyright = "© $CURRENT_YEAR Ayush Singh $SEPARATOR Unless otherwise noted, the content in this website is available under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license."
+
 images_url = "https://assets.programmershideaway.xyz"
-author = "Ayush Singh" # Put Your Name here
-
-title_size_index = "s85" # size: s95, s90, s85, s80, s75, s70, false(full size)
-meta_index = { position="bottom", size="s90", author=false, readtime=false, readstring="min", date=true, categories_tags=true, divider=" " }
-meta_post = { position="top", size="s95", author=true, readtime=false, readstring="min read", date=true, categories_tags=true, divider=" " }
-## position: top, bottom, both, false(hidden) ## size: s95, s90, s85, s80, s75, s70, false(full size)
-## divider:    "&middot;"    "&bull;"    " "
-
-sitedesc = false # enables or disables the display of the site description below the logo.
-headhr = false # show or hide horizontal rule below header
-foothr = true # show or hide horizontal rule above footer
-
-menu = [
-    {url = "/about/", name = "About", slash = true, blank = false},
-    {url = "/posts/", name = "Posts", slash = true, blank = false},
-    {url = "/supportme/", name = "SupportMe", slash = true, blank = false},
-    {url = "/tags/", name = "Tags", slash = true, blank = false},
-]
-menu_footer = [
-    {url = "/about/", name = "About", slash = true, blank = false},
-    {url = "/supportme/", name = "SupportMe", slash = true, blank = false},
-    {url = "/sitemap.xml", name = "Sitemap", slash = false, blank = true},
-]
-
-# Resource Files
-integrity = true # setting this to false is useful for developing, should normally be true.
-js_bundle = true # multiple javascript files combined into a single file
-js_switcher = true
-js_search_facade = false # Do not load search until user interaction with search.
-# search library to use, valid values are: false, "elasticlunr", "tinysearch", "stork"
-search_library = "elasticlunr"
-
-js_search_index = "search_index.en.js" # Separate Always, generated each build
-js_prestyle = "prestyle.js"# Bundleable - used to preload: FontAwesome, Katex, external Google Fonts
-js_codecopy = "codecopy.js"# Bundleable
-js_email = "email.js"# Bundleable
-js_theme = "theme.min.js" # Separate Always, comment out if using -auto/-light/-dark stylesheet. (required for switcher)
-js_themeButton = "theme_button.js"# Bundleable
-
-stylesheets = [ "abridge-switcher.css" ] # Orange Automatic Dark/Light Theme based on browser/system preference with switcher
-
 favicon16 = "favicon-16x16.png"
 favicon32 = "favicon-32x32.png"
 favicon180 = "apple-touch-icon.png"
 favicon_webmanifest = "site.webmanifest"
 
-icon_search = "svgs search" # Search button in search box.
-icon_adjust = "svgs adjust" # Theme Switcher button in top menu. (add class svgh to change colors on hover)
-icon_first = "svgs svgh angll" # Pagination First Page.
-icon_prev = "svgs svgh angl" # Pagination Previous Page.
-icon_next = "svgs svgh angr" # Pagination Next Page.
-icon_last = "svgs svgh angrr" # Pagination Last Page.
-icon_top = "svgs svgh angu" # Back to Top Button.
-
-fontawesome = "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"
-
-math = false # katex math js library, used to to render mathematical notations, requires javascript
-math_auto_render = false
-
-keywords = "Ayush Singh, Blog, programmershideaway, Programmer, Hideaway" # used for the primary site index
-twitter = "AyushS1325"
-seo = true  # enable or disable seo-related meta tags: opengraph, facebook, twitter
-
-
-footer_credit_override = '<p>The source code is licenced <a href="https://gitlab.com/Ayush1325/programmers_hideaway/-/blob/ca7f53023ebb014ecdc8792de5bd811006e2170f/LICENSE">MIT</a>. This website content is licensed <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">CC BY 4.0<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"></a></p>'
-
-# [extra.author]
-# name = "Ayush Singh"
 # avatar = "https://assets.programmershideaway.xyz/avatar.webp"
 
-[extra.social]
-feed = true
-mail_encode = true # This obfuscates your email address, javascript is used to decode it at page load.
-mail = "ayushdevel@gmail.com"
-github = "Ayush1325"
-gitlab = "Ayush1325"
-linkedin = "ayush-singh-665739204"
-mastodon = "https://fosstodon.org/@ayush1325"
-element = "matrix.to/#/@ayush1325:matrix.org"
-github_sponsor = "Ayush1325"
-liberapay = "Ayush1325"
-twitter = "AyushS1325"
-buymeacoffee = "ayush1325"
-youtube = "channel/UCwd6L1ve_O84r31EMFZPJKQ"
+menu = [
+    { name = "blog", url = "blog", trailing_slash = true },
+    { name = "archive", url = "archive", trailing_slash = true },
+    { name = "tags", url = "tags", trailing_slash = true },
+    { name = "about", url = "about", trailing_slash = true },
+]
 
 [extra.analytics]
-goatcounter = "stats.programmershideaway.xyz"
+service = "goatcounter"
+self_hosted_url = "stats.programmershideaway.xyz"
 
-[extra.comments]
-hyvor = "9363"
-
-[markdown]
-highlight_code = true
-highlight_theme = "css"
-render_emoji = false
-external_links_target_blank = true # rel="noopener"
-external_links_no_follow = false   # rel="nofollow"
-external_links_no_referrer = false # rel="noreferrer"
-smart_punctuation = false          # `...` to `…`, `"quote"` to `“curly”` etc
+[extra.giscus]
+enabled_for_all_posts = true
+automatic_loading = true
+repo = "Ayush1325/blog"
+repo_id = "R_kgDOLCCfYQ"
+category = "Announcements"
+category_id = "DIC_kwDOLCCfYc4CcR4t"
+mapping = "slug"
+strict_title_matching = 1
+enable_reactions = 1
+light_theme = "noborder_light"
+dark_theme = "noborder_dark"
+lang = ""  # Leave blank to match the page's language.
+lazy_loading = true

@@ -197,7 +197,7 @@ void print_data(sys_dnode_t *node) {
 # Conclusion
 I hope this post helps in making multi-threading more approachable. While CC1352 is a single-core, multi-threading code can still make the code a lot more readable and performant. 
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.
 
 <br>
 

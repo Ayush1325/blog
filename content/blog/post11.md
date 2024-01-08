@@ -106,4 +106,4 @@ Finally, this function converts CR (`enter` seems to be read as CR in UEFI) to L
 # Conclusion
 This is just a brief overview of the implementation of stdio for UEFI. I tried not to put too much code here since I am making many changes, and the code becomes obsolete as soon as I publish the post. All my work for UEFI std can be found [here](https://github.com/Ayush1325/rust/tree/uefi-std-next). Feel free to test it out for yourself.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

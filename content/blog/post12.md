@@ -301,4 +301,4 @@ TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} -
 # Conclusion
 Since the first main object to run Rust tests has now been met, I will work on improving/refactoring most of the implementations before trying to merge them to master. It would also be great if more people try out this std and give feedback.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

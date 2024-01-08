@@ -7,7 +7,7 @@ date = "2023-06-01T22:07:12+05:30"
 tags = ["c", "gsoc23", "linux", "beagleboard"]
 +++
 
-Hello everyone. I will go over setting up BeaglePlay for Driver Development in this post. I will write a simple "Hello World" driver once BeaglePlay is set up to demonstrate this. Check out my [previous post](@/post21.md) for more information about my project.
+Hello everyone. I will go over setting up BeaglePlay for Driver Development in this post. I will write a simple "Hello World" driver once BeaglePlay is set up to demonstrate this. Check out my [previous post](@/blog/post21.md) for more information about my project.
 
 <!-- more -->
 
@@ -169,4 +169,4 @@ dmesg -H
 # Conclusion
 The Kernel module I am writing for GSoC 23 can be found [here](https://git.beagleboard.org/ayush1325/bcf-greybus-driver). You can follow my GSoC23-related blog posts using this [feed](https://www.programmershideaway.xyz/tags/gsoc23/atom.xml).
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

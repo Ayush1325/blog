@@ -79,8 +79,8 @@ python RunQemu.py target/x86_64-unknown-uefi/debug/hello_world.efi
 ```
 
 # Future
-During my GSoC work period, I implemented a lot more of the standard library functionality ([GSoC22 Conclusion Post](@/post15.md)). So, I will work on slowly getting those parts merged. It might be slow since I do it in my free time, but feel free to help if you are interested.
+During my GSoC work period, I implemented a lot more of the standard library functionality ([GSoC22 Conclusion Post](@/blog/post15.md)). So, I will work on slowly getting those parts merged. It might be slow since I do it in my free time, but feel free to help if you are interested.
 
 There might be some bugs and rough edges right now. It would be great if people could test it out and suggest areas of improvement.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

@@ -291,7 +291,7 @@ The same example as before should work even now without any change.
 # Conclusion
 With this, we now have a global allocator. I will soon be integrating it into the Rust std. In the next post, we will discuss implementing `stdin` for UEFI.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.
 
 <br>
 
