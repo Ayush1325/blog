@@ -2,10 +2,6 @@
 title = "About"
 path = "about"
 template = "info-page.html"
-
-[extra]
-quick_navigation_buttons = true
-# social_media_card = "social_cards/about.jpg"
 +++
 
 Hello everyone, I am Ayush Singh, a University Student from India. This website is mainly a blog where I write about projects I am working on or things I find interesting.
