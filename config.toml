@@ -7,9 +7,9 @@ author = "Ayush Singh"
 compile_sass = true
 minify_html = true
 
-build_search_index = true
 generate_feed = true
 default_language = "en"
+build_search_index = true
 
 theme = "tabi"
 
@@ -90,3 +90,13 @@ light_theme = "noborder_light"
 dark_theme = "noborder_dark"
 lang = ""  # Leave blank to match the page's language.
 lazy_loading = true
+
+[search]
+# Whether to include the title of the page/section in the index.
+include_title = true
+# Whether to include the description of the page/section in the index.
+include_description = true
+# Whether to include the path of the page/section in the index.
+include_path = true
+# Whether to include the rendered content of the page/section in the index.
+include_content = true
