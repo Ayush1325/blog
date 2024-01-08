@@ -82,7 +82,7 @@ An additional function, `boot_services` has been added under `std::os::uefi::env
 # Conclusion
 Hopefully, this post will clarify when and where Rust std for UEFI should be used.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.
 
 # Helpful Resources
 - [Boot Sequence](https://edk2-docs.gitbook.io/edk-ii-build-specification/2_design_discussion/23_boot_sequence)

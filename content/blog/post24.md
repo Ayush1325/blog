@@ -292,7 +292,7 @@ Now we can call this function from `beagleplay_greybus_probe` after driver initi
 # Conclusion
 [Here](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/tree/develop) is the current working repository for my Linux Driver. Feel free to check out the code and open a PR if you are interested.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.
 
 <br>
 

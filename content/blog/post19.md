@@ -10,7 +10,7 @@ Hello everyone. While implementing Rust std for UEFI, I came across an interesti
 
 <!-- more -->
 
-Read my [prior post](@/post7.md) for an in-depth explanation of everything that goes on before Rust main.
+Read my [prior post](@/blog/post7.md) for an in-depth explanation of everything that goes on before Rust main.
 
 # Background
 UEFI expects the entry function to have the following signature:
@@ -140,4 +140,4 @@ index abc510e360d..8be75552efd 100644
 # Conclusion
 As outlined in this post, it should now be much easier to implement generating custom entry functions for Rust targets. This can be especially useful for embedded or some custom OS use cases.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

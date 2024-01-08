@@ -6,7 +6,7 @@ date = "2023-06-07T20:05:12+05:30"
 [taxonomies]
 tags = ["c", "gsoc23", "zephyr", "beagleboard"]
 +++
-Hello everyone. In this post, I will go over setting up BeaglePlay and my Linux host for BeaglePlay CC1352 firmware development. Check out my [GSoC 2023 Introduction post](@/post21.md) for more information about my project.
+Hello everyone. In this post, I will go over setting up BeaglePlay and my Linux host for BeaglePlay CC1352 firmware development. Check out my [GSoC 2023 Introduction post](@/blog/post21.md) for more information about my project.
 
 <!-- more -->
 
@@ -98,4 +98,4 @@ tio /dev/ttyACM0
 # Conclusion
 The BeaglePlay CC1352 Firmware I am working on can be found [here](https://git.beagleboard.org/gsoc/greybus/cc1352-firmware). You can follow my GSoC23-related blog posts using this [feed](https://www.programmershideaway.xyz/tags/gsoc23/atom.xml).
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

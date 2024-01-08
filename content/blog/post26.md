@@ -157,9 +157,9 @@ Here are all the components for this demo:
 3. [beagleplay-greybus-driver](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/tree/develop): 40ed0fbc6cbe3c150d7eec74331f53a5e4fc351b
 4. [cc1352-firmware](https://git.beagleboard.org/gsoc/greybus/cc1352-firmware/-/tree/develop): d68e300440affc502209b7fa8f39e57bc0476346
 
-The instructions for building beagleplay-greybus-driver can be found in my [linux driver post](@/post22.md). The instructions for building cc1352-firmware are similar to my [zephyr application post](@/post23.md). It is more tricky to compile greybus-for-zephyr, but my fork (with some changes to the project config) should work.
+The instructions for building beagleplay-greybus-driver can be found in my [linux driver post](@/blog/post22.md). The instructions for building cc1352-firmware are similar to my [zephyr application post](@/blog/post23.md). It is more tricky to compile greybus-for-zephyr, but my fork (with some changes to the project config) should work.
 
-For flashing, I am still using [cc1352-flasher](https://git.beagleboard.org/beagleconnect/cc1352-flasher/-/tree/from-20230521) as shown in my [previous post](@/post23.md).
+For flashing, I am still using [cc1352-flasher](https://git.beagleboard.org/beagleconnect/cc1352-flasher/-/tree/from-20230521) as shown in my [previous post](@/blog/post23.md).
 
 After installing the Linux driver, I used a simple Python script to reset cc1352 to get the full logs:
 ```python
@@ -291,7 +291,7 @@ if __name__ == "__main__":
 # Conclusion
 I hope this sheds light on the current status of my project. You can follow my GSoC23-related blog posts using this [feed](https://www.programmershideaway.xyz/tags/gsoc23/atom.xml).
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.
 
 # Build Artifacts
 Here are the CI build artifacts for anyone wanting to test this out:

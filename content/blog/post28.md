@@ -43,27 +43,27 @@ In some rudimentary testing, the new setup can easily handle non-stop remote dev
 - This will also help simplify the whole BeagleConnect stack, thus making it much easier to get started for Beginners.
 
 # Blog Posts
-1. [GSoC 2023 Introduction](@/post21.md)
-2. [GSoC23: Writing a Hello World Driver for BeaglePlay](@/post22.md)
-3. [GSoC23: Getting started with Zephyr for BeaglePlay CC1352](@/post23.md)
-4. [GSoC23: Linux Serial Device Bus](@/post24.md)
-5. [GSoC23: Concurrency in ZephyrRTOS](@/post25.md)
-6. [GSoC23: Project Status update](@/post26.md)
-7. [GSoC23: BeaglePlay Greybus Demo](@/post27.md)
+1. [GSoC 2023 Introduction](@/blog/post21.md)
+2. [GSoC23: Writing a Hello World Driver for BeaglePlay](@/blog/post22.md)
+3. [GSoC23: Getting started with Zephyr for BeaglePlay CC1352](@/blog/post23.md)
+4. [GSoC23: Linux Serial Device Bus](@/blog/post24.md)
+5. [GSoC23: Concurrency in ZephyrRTOS](@/blog/post25.md)
+6. [GSoC23: Project Status update](@/blog/post26.md)
+7. [GSoC23: BeaglePlay Greybus Demo](@/blog/post27.md)
 
 # Videos
 ## Introduction
-{{ yt(id="tCtehnXODW8") }}
+{{ youtube(id="tCtehnXODW8") }}
 
 ## Demo
-{{ yt(id="O5coD55JvGU") }}
+{{ youtube(id="O5coD55JvGU") }}
 
 ## Final
-{{ yt(id="GVuIB7i5pjk") }}
+{{ youtube(id="GVuIB7i5pjk") }}
 
 # Conclusion
 I want to thank my mentors and all the members of beagleboard.org Slack and Discord channels. I would also like to thank kernenewbies and greybus mailing list members for helping with my linux driver-related questions. Finally, I would like to thank Google for running this wonderful open-source program.
 
 I will continue working on getting the Linux Driver merged upstream. I also have some more Zephyr and Greybus ideas lined up, which I will be working on in my free time. Feel free to experiment with the new Greybus setup, and contact me if you need any help.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

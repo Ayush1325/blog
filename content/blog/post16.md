@@ -7,7 +7,7 @@ update_date = "2022-09-06"
 [taxonomies]
 tags = ["rust", "uefi"]
 +++
-Even though GSoC 2022 has ended, I am still working on getting [Rust std PR](https://github.com/rust-lang/rust/pull/100316) merged into the master. In the initial PR, I still used the entry function described in the [prior post](@/post7.md). However, this had many limitations, and thus I have finally transitioned to using a compiler-generated entry function.
+Even though GSoC 2022 has ended, I am still working on getting [Rust std PR](https://github.com/rust-lang/rust/pull/100316) merged into the master. In the initial PR, I still used the entry function described in the [prior post](@/blog/post7.md). However, this had many limitations, and thus I have finally transitioned to using a compiler-generated entry function.
 
 <!-- more -->
 
@@ -18,7 +18,7 @@ In the initial PR, I used an extern `efi_main` function called the compiler-gene
 3. Added a layer of redirection.
 
 # The new implementation
-If you are unaware of everything that goes on before Rust `main`, then you should read my [previous post](@/post7.md) about this. I am replacing the compiler-generated C `main` in the new implementation with the Win64 `efi_main` function. Inspecting the LLVM-IR of a simple application, we can see the generated `efi_main`:
+If you are unaware of everything that goes on before Rust `main`, then you should read my [previous post](@/blog/post7.md) about this. I am replacing the compiler-generated C `main` in the new implementation with the Win64 `efi_main` function. Inspecting the LLVM-IR of a simple application, we can see the generated `efi_main`:
 ```asm
 ; Function Attrs: noredzone nounwind
 define win64cc i64 @efi_main(ptr %0, ptr %1) unnamed_addr #4 {
@@ -46,8 +46,8 @@ What this function does is pass an array `[ImageHandle, *mut SystemTable]` as `a
 # Conclusion
 With this implementation, one of the major blockers for the PR has been resolved. While implementing this, I also modified the Rust target specification to allow specifying the Entry Function name and ABI, which might enable making compiler-generated entry functions easier for other targets. Feel free to comment on the PR and follow it if interested.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.
 
 # Helpful Links
 1. [Rust std PR](https://github.com/rust-lang/rust/pull/100316) 
-2. [Using Rust main from a custom entry point](@/post7.md)
+2. [Using Rust main from a custom entry point](@/blog/post7.md)

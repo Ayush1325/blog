@@ -57,7 +57,7 @@ This module has no default implementation, so we need to implement it. It just d
 <br>
 
 # Run a simple Rust binary in UEFI
-This is a simple walkthrough for anyone who wants to try out Rust std in UEFI. As you will see, it is pretty painless now. If you don't already have `rustup` installed, I suggest taking a look at [official docs](https://rustc-dev-guide.rust-lang.org/getting-started.html) or my [previous post](@/post5.md).
+This is a simple walkthrough for anyone who wants to try out Rust std in UEFI. As you will see, it is pretty painless now. If you don't already have `rustup` installed, I suggest taking a look at [official docs](https://rustc-dev-guide.rust-lang.org/getting-started.html) or my [previous post](@/blog/post5.md).
 ## Clone Source
 We will clone the Rust source from my fork:
 ```sh
@@ -128,4 +128,4 @@ I am mounting the debug folder here, so you must go to the `fs0:` to run the `he
 # Conclusion
 Now that the toolchain has reached this stage, I no longer need to maintain any special patches for everything to work, so that is great. Also, it is now possible to run tests (althouth they fail, saying 'Cannot determine OS from triple'). Anyone interested in this project can try it out and open issues/PRs if they find anything.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

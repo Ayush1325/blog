@@ -7,7 +7,7 @@ date = "2022-06-16"
 tags = ["rust", "tianocore", "gsoc22", "uefi"]
 +++
 
-Hello Everyone; in my last [post](@/post5.md), I set up the development environment for working on adding Rust support for UEFI. In this post, I will get a restricted version of std (basically a glorified core + alloc) to work for the x86_64 UEFI target. We will be starting with the `no_std` hello_world program from the last post.
+Hello Everyone; in my last [post](@/blog/post5.md), I set up the development environment for working on adding Rust support for UEFI. In this post, I will get a restricted version of std (basically a glorified core + alloc) to work for the x86_64 UEFI target. We will be starting with the `no_std` hello_world program from the last post.
 
 <!-- more -->
 
@@ -235,4 +235,4 @@ The `__CxxFrameHandler3` blank implementation is no longer required in the `mast
 # Conclusion
 Technically, we are now using `std` (even though none of it has yet been implemented). Now I will slowly start implementing parts of `std` starting with allocation. I also wanted to find a way to use the normal Rust `main` function instead of the current `efi_main`. However, this still does not seem possible (see [#29633](https://github.com/rust-lang/rust/issues/29633)). So, let's get allocation working and replace all the arrays with vectors in this code.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.

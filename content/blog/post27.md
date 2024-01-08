@@ -6,7 +6,7 @@ date = "2023-07-26T23:40:12+05:30"
 [taxonomies]
 tags = ["c", "gsoc23", "zephyr", "linux"]
 +++
-Hello everyone. My project is now at a point where almost everything is working to a respectable level. Thus I wanted to do a demo. Check out my [GSoC 2023 Introduction post](@/post21.md) for more information about my project.
+Hello everyone. My project is now at a point where almost everything is working to a respectable level. Thus I wanted to do a demo. Check out my [GSoC 2023 Introduction post](@/blog/post21.md) for more information about my project.
 
 <!-- more -->
 
@@ -35,7 +35,7 @@ The BeagleConnect Freedom will run [greybus-for-zephyr](https://git.beagleboard.
 
 # Video
 Here is a video of the demo running on my hardware.
-{{ yt(id="O5coD55JvGU") }}
+{{ youtube(id="O5coD55JvGU") }}
 
 # Limitations
 The current setup has three main limitations:
@@ -46,7 +46,7 @@ The current setup has three main limitations:
 # Conclusion
 I will now work on making a single device "just" work. This will involve optimization and ironing out bugs. Once that is done, I will move on to tackle the limitations.
 
-Consider [supporting me](@/pages/supportme.md) if you like my work.
+Consider [supporting me](@/pages/about.md) if you like my work.
 
 # Build Artifacts
 Here are the CI build artifacts for anyone wanting to test this out:

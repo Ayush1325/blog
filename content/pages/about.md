@@ -1,8 +1,11 @@
 +++
 title = "About"
 path = "about"
-template = "pages.html"
-draft = false
+template = "info-page.html"
+
+[extra]
+quick_navigation_buttons = true
+# social_media_card = "social_cards/about.jpg"
 +++
 
 Hello everyone, I am Ayush Singh, a University Student from India. This website is mainly a blog where I write about projects I am working on or things I find interesting.
@@ -24,3 +27,11 @@ I am open for Internships/Part-time as a Software Developer. Feel free to check-
 Indian Institute of Technology (ISM), Dhanbad, India<br>
 Integrated Master of Technology in Mathematics and Computing<br>
 2020 - 2025
+
+# Support Me
+If you like my work, please consider supporting me through one of the following methods:
+- [Github Sponsors](https://github.com/sponsors/Ayush1325)
+- [LiberaPay](https://liberapay.com/Ayush1325/donate)
+- [BuyMeACoffee](https://www.buymeacoffee.com/ayush1325/)
+- Bitcoin: `bc1q2ltrmrt7e3qjrasyrpgky5d8p75nzwm6qj7ndx`
+- Ethereum: `0x493a09eab5F113B033b17dF7f50339B8487a89A1`
