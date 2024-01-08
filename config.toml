@@ -100,3 +100,8 @@ include_description = true
 include_path = true
 # Whether to include the rendered content of the page/section in the index.
 include_content = true
+
+[markdown]
+highlight_code = true
+highlight_theme = "css"
+smart_punctuation = true
