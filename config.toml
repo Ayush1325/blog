@@ -57,6 +57,7 @@ feed_icon = true
 
 copyright = "© $CURRENT_YEAR Ayush Singh $SEPARATOR Unless otherwise noted, the content in this website is available under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license."
 
+favicon = "icons/favicon.ico"
 favicon16 = "icons/favicon-16x16.png"
 favicon32 = "icons/favicon-32x32.png"
 favicon180 = "icons/apple-touch-icon.png"
