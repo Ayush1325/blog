@@ -114,6 +114,12 @@ Just running blink example on beagleconnect freedom
 
 {{ image(src="/images/post31/microblocks_ide.webp")}}
 
+# Future
+
+The PRs for all the required changes are already open for [Arduino module for Zephyr](https://github.com/zephyrproject-rtos/gsoc-2022-arduino-core) and [Zephyr](https://www.zephyrproject.org/). I will also try to get support merged to upstream microblocks which should allow much easier porting of microblocks to Zephyr supported boards in the future.
+
+I will also be writing more posts regarding Arduino API support for beagleconnect freedom, which is already in a pretty good state.
+
 # Conclusion
 There are still a lot of bugs, so feel free to open [issues](https://openbeagle.org/ayush1325/smallvm/-/issues). I will also write more articles regarding Arduino API support for Beagleconnect Freedom.
 
