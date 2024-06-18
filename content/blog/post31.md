@@ -35,75 +35,41 @@ Install dependencies present in [Getting Started with Zephyr](https://docs.zephy
 
 Setup Zephyr Sdk by following instructions in [Getting Started with Zephyr](https://docs.zephyrproject.org/latest/develop/getting_started/index.html).
 
-## Get Zephyr and Python dependencies
+## Build MicroBlocks Image
 
-1. Create a new virtual environment:
+1. Clone smallvm fork.
 
 ```bash
-python3 -m venv ~/zephyrproject/.venv
+git clone https://openbeagle.org/ayush1325/smallvm.git -b zephyr ~/smallvm
+cd ~/smallvm/zephyr
 ```
 
-2. Activate the virtual environment:
+2. Build MicroBlocks Image for Beagleconnect Freedom.
 
 ```bash
-source ~/zephyrproject/.venv/bin/activate
+make beagleconnect_freedom
 ```
 
-3. Install west:
+# Flash Image
+
+1. Install `cc1352-flasher`.
 
 ```bash
-pip install west
-```
-
-4. Get the Zephyr source code. I am currently using my own fork, although all the required changes already have open PRs:
-
-```bash
-west init -m https://openbeagle.org/ayush1325/zephyr.git --mr microblocks ~/zephyrproject
-cd ~/zephyrproject
-west update
-```
-
-5. Export a Zephyr CMake package. This allows CMake to automatically load boilerplate code required for building Zephyr applications.
-
-```bash
-west zephyr-export
-```
-
-6. Zephyr’s scripts/requirements.txt file declares additional Python dependencies. Install them with pip.
-
-```bash
-pip install -r ~/zephyrproject/zephyr/scripts/requirements.txt
+cd ~/smallvm/zephyr
 pip install cc1352-flasher
 ```
 
-## Setup Arduino module for Zephyr
-
-1. Clone Arduino APIs. These are licensed under GNU LGPL 2.1 and thus cannot be included in the Zephyr module.
+2. Find Beagleconnect Freedom Port. It is `/dev/ttyACM*` on Linux. It can be checked using the following command:
 
 ```bash
-git clone https://github.com/arduino/ArduinoCore-API.git ~/.ArduinoCore-API
+❯ udevadm info /dev/ttyACM0 | grep "BeagleConnect"
+E: ID_MODEL=BeagleConnect
 ```
 
-2. Link ArduinoCore-APIs:
+3. Flash Image.
 
 ```bash
-sed '/WCharacter.h/ s/./\/\/ &/' ~/.ArduinoCore-API/api/ArduinoAPI.h > ~/.ArduinoCore-API/api/tmpArduinoAPI.h
-mv ~/.ArduinoCore-API/api/tmpArduinoAPI.h ~/.ArduinoCore-API/api/ArduinoAPI.h
-ln -sf ~/.ArduinoCore-API/api ~/zephyrproject/modules/lib/Arduino-Zephyr-API/cores/arduino/.
-```
-
-## Build MicroBlocks image
-
-1. Git clone
-
-```bash
-git clone https://openbeagle.org/ayush1325/smallvm.git -b zephyr ~/zephyrproject/
-```
-
-2. Build and flash Image
-
-```bash
-west build -b beagleconnect_freedom ~/zephyrproject/smallvm/zephyr -p && west flash
+cc1352_flasher --bcf ~/smallvm/zephyr/build/beagleconnect_freedom/zephyr/zephyr.bin -p '/dev/ttyACM0'
 ```
 
 # Run MicroBlocks ide
