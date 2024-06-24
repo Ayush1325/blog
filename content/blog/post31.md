@@ -23,6 +23,25 @@ Let us first review the technical details of how all of this works. Beagleconnec
 
 I am using [Arduino Core API module for Zephyr](https://github.com/zephyrproject-rtos/gsoc-2022-arduino-core), which implements Arduino APIs on top of Zephyr. Adding support for Beagleconnect Freedom was pretty painless since all it amounts to is a device tree overlay ([board porting instructions](https://github.com/zephyrproject-rtos/gsoc-2022-arduino-core/blob/next/documentation/variants.md)). I had to add some missing APIs, but the process was pretty painless. Some missing APIs have already been merged, while others have active PRs.
 
+# Prebuilt Images
+
+The latest MicroBlocks images for BeagleConnect Freedom are available [here](https://www.beagleboard.org/distros). This demo was made using [zephyr-microblocks-rc1](https://files.beagle.cc/file/beagleboard-public-2021/images/zephyr-microblocks-rc1.zip) image.
+
+1. Download MicroBlocks Image
+
+```bash
+cd ~
+wget https://files.beagle.cc/file/beagleboard-public-2021/images/zephyr-microblocks-rc1.zip
+```
+
+2. Extract Image
+
+```bash
+unzip -j zephyr-microblocks-rc1.zip
+```
+
+Skip to the [flashing instructions](#flash-image) to flash the image to Beagleconnect Freedom.
+
 # Building MicroBlocks Firmware
 
 The latest MicroBlocks images for Beagleconnect Freedom are available in the [CI](https://openbeagle.org/ayush1325/zephyr/-/artifacts). I will now go over building the images locally for those interested.
@@ -48,6 +67,7 @@ cd ~/smallvm/zephyr
 
 ```bash
 make beagleconnect_freedom
+cp ~/smallvm/zephyr/build/beagleconnect_freedom/zephyr/zephyr.bin ~/zephyr.bin
 ```
 
 # Flash Image
@@ -55,7 +75,6 @@ make beagleconnect_freedom
 1. Install `cc1352-flasher`.
 
 ```bash
-cd ~/smallvm/zephyr
 pip install cc1352-flasher
 ```
 
@@ -69,7 +88,7 @@ E: ID_MODEL=BeagleConnect
 3. Flash Image.
 
 ```bash
-cc1352_flasher --bcf ~/smallvm/zephyr/build/beagleconnect_freedom/zephyr/zephyr.bin -p '/dev/ttyACM0'
+cc1352_flasher --bcf ~/zephyr.bin -p '/dev/ttyACM0'
 ```
 
 # Run MicroBlocks ide
@@ -103,3 +122,4 @@ Consider [supporting me](@/pages/about.md) if you like my work.
 - [Zephyr MicroBlocks Fork](https://openbeagle.org/ayush1325/zephyr/-/tree/microblocks?ref_type=heads)
 - [Arduino module for Zephyr MicroBlocks Fork](https://github.com/Ayush1325/gsoc-2022-arduino-core/tree/microblocks)
 - [Smallvm Zephyr Fork](https://openbeagle.org/ayush1325/smallvm/-/tree/zephyr?ref_type=heads)
+- [BeagleConnect Freedom Microblocks Images](https://www.beagleboard.org/distros)
