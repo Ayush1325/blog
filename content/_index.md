@@ -1,5 +1,4 @@
 +++
-path = "/"
 title = "Latest posts"
 sort_by = "date"
 template = "section.html"
@@ -10,4 +9,4 @@ section_path = "blog/_index.md"
 max_posts = 4
 +++
 
-I am a Student low-level developer with love for open-source software.
+An Embedded Software Developer for [BeagleBoard](https://www.beagleboard.org/) with a love for Open Source.
