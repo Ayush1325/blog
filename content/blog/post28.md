@@ -4,7 +4,7 @@ description = "A greybus demo with my driver and zephyr application"
 date = "2023-08-26T18:15:12+05:30"
 
 [taxonomies]
-tags = ["c", "gsoc23", "zephyr", "linux"]
+tags = ["c", "gsoc23", "zephyr", "linux", "beagleboard"]
 +++
 Hello everyone. This is the final blog post I will write before Google Summer of Code 2023 ends (hopefully not the final greybus one). In this post, I will summarize my GSoC23 work to make it more accessible to everyone.
 

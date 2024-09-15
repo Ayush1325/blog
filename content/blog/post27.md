@@ -4,7 +4,7 @@ description = "A greybus demo with my driver and zephyr application"
 date = "2023-07-26T23:40:12+05:30"
 
 [taxonomies]
-tags = ["c", "gsoc23", "zephyr", "linux"]
+tags = ["c", "gsoc23", "zephyr", "linux", "beagleboard"]
 +++
 Hello everyone. My project is now at a point where almost everything is working to a respectable level. Thus I wanted to do a demo. Check out my [GSoC 2023 Introduction post](@/blog/post21.md) for more information about my project.
 

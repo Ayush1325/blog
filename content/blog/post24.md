@@ -4,7 +4,7 @@ description = "An introduction to writing Linux Serial Device Bus Drivers"
 date = "2023-06-15T16:05:12+05:30"
 
 [taxonomies]
-tags = ["c", "gsoc23", "linux"]
+tags = ["c", "gsoc23", "linux", "beagleboard"]
 +++
 Hello everyone. The Linux driver I am working on will be a Serial Device Bus Driver. So in this post, I will review the critical components of writing a functional Linux Serial Device Bus driver.
 

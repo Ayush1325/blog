@@ -4,7 +4,7 @@ description = "A blog post to summarise everything that is currently working"
 date = "2023-07-08T00:30:12+05:30"
 
 [taxonomies]
-tags = ["c", "gsoc23", "zephyr", "linux"]
+tags = ["c", "gsoc23", "zephyr", "linux", "beagleboard"]
 +++
 Hello everyone. It will soon be time for the Mid-term evaluation of Google Summer of Code 2023. Thus, I decided to write a post to summarise everything I have been working on. I will also go over how it can be replicated by anyone interested.
 

@@ -4,7 +4,7 @@ description = "An Introduction to Writing Concurrent Application in Zephyr"
 date = "2023-07-03T00:30:12+05:30"
 
 [taxonomies]
-tags = ["c", "gsoc23", "zephyr"]
+tags = ["c", "gsoc23", "zephyr", "beagleboard"]
 +++
 Hello everyone. I am working on a CC1352 firmware for Zephyr. This will be responsible for SVC and AP Bridge role in the Greybus topology that Gbridge currently handles. Zephyr provides a lot of abstractions to write efficient concurrent code. I am going to discuss some of them in this post.
 

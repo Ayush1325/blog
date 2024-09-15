@@ -4,7 +4,7 @@ description = "A short overview of BeagleConnect Technology"
 date = "2024-01-19T00:30:12+05:30"
 
 [taxonomies]
-tags = ["beagleconnect", "zephyr"]
+tags = ["beagleconnect", "zephyr", "beagleboard"]
 +++
 
 Hello everyone. I have been a bit busy these past few months working to improve BeagleConnect™ Technology. While this work initially started as a Google Summer of Code 2023 project, I am now working part-time on this. While not everything is completed, I felt this was a good point to go through an overview of it before I start creating demos (which are actually reproducable without having to approach me). So here it goes.

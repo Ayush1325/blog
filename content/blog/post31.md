@@ -4,7 +4,7 @@ description = "A brief introduction to use MicroBlocks on Beagleconnect Freedom"
 date = "2024-06-15T00:30:12+05:30"
 
 [taxonomies]
-tags = ["beagleconnect_freedom", "zephyr", "arduino", "microblocks"]
+tags = ["beagleconnect-freedom", "zephyr", "arduino", "microblocks", "beagleboard"]
 +++
 
 Hello everyone. I have been recently working on porting [MicroBlocks](https://microblocks.fun/) to [Beagleconnect Freedom](https://www.beagleboard.org/boards/beagleconnect-freedom). This also involved work improving [Arduino module for Zephyr](https://github.com/zephyrproject-rtos/gsoc-2022-arduino-core) since [MicroBlocks](https://microblocks.fun/) uses Arduino APIs. I will go over using MicroBlocks on beagleconnect freedom.
