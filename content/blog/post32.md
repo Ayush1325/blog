@@ -1,6 +1,6 @@
 +++
 title = "My Week in Code #1"
-description = "A look at some stuff from the past week"
+description = "Updates regarding MicroBus Linux patches, BeagleY-AI hacking, MicroBlocks on BeagleConnect Freedom, etc"
 date = "2024-09-15T00:30:12+05:30"
 
 [taxonomies]
