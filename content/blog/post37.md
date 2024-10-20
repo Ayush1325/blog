@@ -18,7 +18,7 @@ While we have had [MicroPython](https://micropython.org/) firmware for [BeagleCo
 1. Zephyr support for BeagleConnect Freedom was primarily out of tree, with just basic support in mainline.
 2. MicroPython only supported Zephyr v3.1.0
 
-Due to my work, [BeagleConnect Freedom supports almost everything in mainline Zephyr. Additionally, due to the fantastic [work](https://github.com/micropython/micropython/pull/9335) by [Maureen Helm](https://github.com/MaureenHelm) MicroPython now supports Zephyr v3.7.0. So, it seemed like a good time to have support for BeagleConnect Freedom in mainline MicroPython. Here is the link to the merged [PR](https://github.com/micropython/micropython/pull/15959). It does not contain more advanced features like ADC and PWM right now, but those are also on the way.
+Due to my work, BeagleConnect Freedom supports almost everything in mainline Zephyr. Additionally, due to the fantastic [work](https://github.com/micropython/micropython/pull/9335) by [Maureen Helm](https://github.com/MaureenHelm) MicroPython now supports Zephyr v3.7.0. So, it seemed like a good time to have support for BeagleConnect Freedom in mainline MicroPython. Here is the link to the merged [PR](https://github.com/micropython/micropython/pull/15959). It does not contain more advanced features like ADC and PWM right now, but those are also on the way.
 
 ## PWM support for Zephyr Port
 
@@ -43,7 +43,7 @@ The v0.0.1 release of the BeagleBoard Rust imager took place last week. It has t
         1. GUI Appimage
         2. CLI binary
     2. Windows
-        1. GUI Appimage
+        1. GUI Portable exe
         2. CLI binary
     3. macOS
         1. CLI binary
