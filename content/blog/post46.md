@@ -51,7 +51,7 @@ Here are some showcases for the CLI.
 
 #### Home Help
 
-```shell
+```sh
 ❯ bb-imager-cli --help
 A streamlined tool for creating, flashing, and managing OS images for BeagleBoard devices.
 
@@ -72,7 +72,7 @@ Options:
 
 #### Flashing SD Card Help
 
-```shell
+```sh
 ❯ bb-imager-cli flash sd --help
 Flash an SD card with customizable settings for BeagleBoard devices
 Usage: bb-imager-cli flash <DST> sd [OPTIONS]
@@ -93,7 +93,7 @@ Options:
 
 #### Flashing Remote image
 
-```shell
+```sh
 ❯ bb-imager-cli flash --image-remote $IMG_URL --image-sha256 $IMG_SHA256 /dev/ttyACM0 bcf
 [1] Preparing
 [2] Verifying    [█████████████████████████████████████████████████████████████████████████████████████████████████████████████] [100 %]
@@ -103,7 +103,7 @@ Options:
 
 #### Flashing Local image
 
-```shell
+```sh
 ❯ bb-imager-cli --quite flash $DESTINATION $IMG_PATH /dev/ttyACM0 bcf
 ```
 
