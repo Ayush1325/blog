@@ -172,6 +172,8 @@ Support for UEFI paths has now been [merged](https://github.com/rust-lang/rust/p
 
 It also implements support for checking if the path is absolute, which should work correctly now thanks to an earlier [PR](https://github.com/rust-lang/rust/pull/135405).# Ending Thoughts
 
+# Ending Thoughts
+
 That is all for the week. Hopefully, this series will keep people updated about my work and attract potential contributors.
 
 Consider [supporting me](@/pages/about.md) if you like my work.
