@@ -4,16 +4,17 @@ path = "about"
 template = "info-page.html"
 +++
 
-Hello everyone, I am Ayush Singh, a University Student from India as well as Embedded Software Developer for [BeagleBoard](https://www.beagleboard.org/). This website is mainly a blog where I write about projects I am working on or things I find interesting.
+Hello everyone, I’m a software engineer with a strong focus on systems programming and developer 
+tools. I enjoy building reliable, low-level software—often working close to hardware—and turning 
+complex problems into clean, practical solutions.
 
-I mostly do System Programming and am experienced with C, Rust, and Python. I have experience in UEFI, ZerphyrRTOS, and Linux driver development.
+I’m particularly interested in Rust, Linux systems, and bridging the gap between hardware and 
+software.
 
-# Interests
-- Linux
-- Open-Source
-- Rust
-- Novels
-- Anime
+Always open to collaborating on interesting problems in systems, tooling, or embedded development.
+
+I mostly do System Programming and am experienced with C, Rust, and Python. I have experience in 
+UEFI, ZerphyrRTOS, and Linux driver development.
 
 # Support Me
 If you like my work, please consider supporting me through one of the following methods:
