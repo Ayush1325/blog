@@ -1,12 +1,20 @@
 +++
-title = "Latest posts"
-sort_by = "date"
-template = "section.html"
-
-[extra]
-header = { title = "Hello! I'm Ayush" }
-section_path = "blog/_index.md"
-max_posts = 4
+title = "Hello! I'm Ayush"
+template = "home.html"
+aliases = ["about"]
 +++
 
-An Embedded Software Developer for [BeagleBoard](https://www.beagleboard.org/) with a love for Open Source.
+I’m an Embedded Software Developer for [BeagleBoard](https://www.beagleboard.org/) with a love for
+Open Source, focused on systems programming and developer tools. I enjoy building reliable,
+low-level software—often working close to hardware—and turning complex problems into clean,
+practical solutions.
+
+Always open to collaborating on interesting problems in systems, tooling, or embedded development.
+
+# Support Me
+If you like my work, please consider supporting me through one of the following methods:
+- [Github Sponsors](https://github.com/sponsors/Ayush1325)
+- [LiberaPay](https://liberapay.com/Ayush1325/donate)
+- [BuyMeACoffee](https://www.buymeacoffee.com/ayush1325/)
+- Bitcoin: `bc1q2ltrmrt7e3qjrasyrpgky5d8p75nzwm6qj7ndx`
+- Ethereum: `0x493a09eab5F113B033b17dF7f50339B8487a89A1`

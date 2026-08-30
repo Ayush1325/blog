@@ -11,84 +11,35 @@ generate_feeds = true
 default_language = "en"
 build_search_index = true
 
-theme = "tabi"
+theme = "apollo"
 
 taxonomies = [
     { name = "tags", feed = true },
 ]
 
 [extra]
-# Add a "copy" button to codeblocks (loads ~700 bytes of JavaScript).
-# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-copy_button = true
-
-# Show the reading time of a page.
-# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-show_reading_time = true
-
-# Show links to previous and next articles at the bottom of posts.
-# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-show_previous_next_article_links = true
-
-# Quick navigation buttons.
-# Adds "go up" and "go to comments" buttons on the bottom right (hidden for mobile).
-# Can be set at page or section levels, following the hierarchy: page > section > config. See: https://welpo.github.io/tabi/blog/mastering-tabi-settings/#settings-hierarchy
-quick_navigation_buttons = true
-
-# Remote repository for your Zola site.
-# Used for `show_remote_changes` and `show_remote_source` (see below).
-# Supports GitHub, GitLab, Gitea, and Codeberg.
-remote_repository_url = "https://github.com/Ayush1325/blog"
-
-# Email address for footer's social section.
-# Protect against spambots:
-# 1. Use base64 for email (convert at https://www.base64encode.org/ or `printf 'your@email.com' | base64`).
-# 2. Or, set 'encode_plaintext_email' to true for auto-encoding (only protects on site, not in public repos).
-email = "YXl1c2hzaW5naDEzMjVAZ21haWwuY29t"
-
+toc = true
+# Copy button in code snippets.
+fancy_code = true
+repo_view = true
+repo_url = "https://github.com/Ayush1325/blog"
+favicon = "icons/favicon.ico"
 socials = [
 	{ name = "github", url = "https://github.com/Ayush1325/", icon = "github" },
 	{ name = "linkedin", url = "https://www.linkedin.com/in/ayush-singh-665739204/", icon = "linkedin" },
 	{ name = "mastodon", url = "https://fosstodon.org/@ayush1325", icon = "mastodon" },
-	{ name = "element", url = "https://matrix.to/#/@ayush1325:matrix.org", icon = "matrix" },
-	{ name = "youtube", url = "https://www.youtube.com/channel/UCwd6L1ve_O84r31EMFZPJKQ", icon = "youtube" }
+        { name = "twitter", url = "https://x.com/AyushS1325", icon = "x-twitter" },
+        { name = "rss", url = "https://programmershideaway.dev/atom.xml", icon = "rss" },
 ]
-feed_icon = true
-
-copyright = "© $CURRENT_YEAR Ayush Singh $SEPARATOR Unless otherwise noted, the content in this website is available under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license."
-
-favicon = "icons/favicon.ico"
-favicon16 = "icons/favicon-16x16.png"
-favicon32 = "icons/favicon-32x32.png"
-favicon180 = "icons/apple-touch-icon.png"
-favicon_webmanifest = "icons/site.webmanifest"
-
-# avatar = "https://assets.programmershideaway.xyz/avatar.webp"
-
 menu = [
-    { name = "blog", url = "blog", trailing_slash = true },
-    { name = "archive", url = "archive", trailing_slash = true },
-    { name = "tags", url = "tags", trailing_slash = true },
-    { name = "about", url = "about", trailing_slash = true },
+        { name = "/posts", url = "posts", trailing_slash = true },
+        { name = "/archive", url = "archive", trailing_slash = true },
+        { name = "/tags", url = "tags", trailing_slash = true },
 ]
-
-allowed_domains = [
-    { directive = "font-src", domains = ["'self'", "data:"] },
-    { directive = "img-src", domains = ["'self'", "https://*", "data:"] },
-    { directive = "script-src", domains = ["'self'", "static.cloudflareinsights.com", "programmershideaway.goatcounter.com"] },
-    { directive = "style-src", domains = ["'self'"] },
-    { directive = "frame-src", domains = ["https://www.youtube-nocookie.com"] },
-    { directive = "connect-src", domains = ["'self'", "programmershideaway.goatcounter.com", "gc.zgo.at"] }
-]
-
-[extra.analytics]
-service = "goatcounter"
-id = "programmershideaway"
-# self_hosted_url = "https://stats.programmershideaway.xyz"
 
 [extra.giscus]
-enabled_for_all_posts = true
-automatic_loading = true
+# Read by templates/_giscus_script.html (apollo ships an unconfigured utterances stub).
+# Comments are enabled per post via `[extra] comment = true` in front matter.
 repo = "Ayush1325/blog"
 repo_id = "R_kgDOLCCfYQ"
 category = "Announcements"
@@ -112,6 +63,13 @@ include_path = true
 include_content = true
 
 [markdown]
-highlight_code = true
-highlight_theme = "css"
-smart_punctuation = true
+lazy_async_image = true
+
+[markdown.highlighting]
+style = "class"
+light_theme = "github-light"
+dark_theme = "github-dark"
+error_on_missing_language = false
+
+[extra.analytics]
+enabled = false

@@ -1,0 +1,12 @@
+{% component youtube(
+id: string,
+class: string = "",
+title: string = "",
+playlist: string = "",
+autoplay: bool = false,
+cookie: bool = false
+) %}
+<div class="yv{% if class %} {{class}}{% endif %}">
+    <iframe src="https://www.youtube{% if not cookie %}-nocookie{% endif %}.com/embed/{{id}}{% if playlist %}?list={{playlist}}{% endif %}{% if autoplay %}?autoplay=1{% endif %}" title="{{ title if title else 'Youtube' }}" class="yvi" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+{% endcomponent youtube %}

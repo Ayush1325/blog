@@ -1,0 +1,62 @@
+{#
+  Site override of apollo's _giscus_script.html, which ships an unconfigured
+  utterances stub (repo="YOUR_NAME/YOUR_REPO"). Reads [extra.giscus] from config.toml.
+
+  The script element is built in JS so data-theme can be set from the *current*
+  site theme at insertion time, avoiding a flash of the wrong theme, and so
+  later toggles can be pushed into the iframe via postMessage.
+#}
+{% set g = config.extra.giscus %}
+<script>
+  (function () {
+    var light = {{ g.light_theme | default(value="light") | json_encode | safe }};
+    var dark = {{ g.dark_theme | default(value="dark") | json_encode | safe }};
+
+    function giscusTheme() {
+      return document.documentElement.classList.contains("dark") ? dark : light;
+    }
+
+    var s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    s.crossOrigin = "anonymous";
+    s.async = true;
+
+    var attrs = {
+      "data-repo": {{ g.repo | json_encode | safe }},
+      "data-repo-id": {{ g.repo_id | json_encode | safe }},
+      "data-category": {{ g.category | json_encode | safe }},
+      "data-category-id": {{ g.category_id | json_encode | safe }},
+      {# tabi's mapping="slug" produced discussions titled after the page slug
+         (e.g. "post69"). giscus expresses that as specific + term, which is also
+         why the /blog/ -> /posts/ move did not orphan existing threads. #}
+      {% if g.mapping == "slug" %}
+      "data-mapping": "specific",
+      "data-term": {{ page.slug | json_encode | safe }},
+      {% else %}
+      "data-mapping": {{ g.mapping | json_encode | safe }},
+      {% endif %}
+      "data-strict": {{ g.strict_title_matching | default(value=1) | json_encode | safe }},
+      "data-reactions-enabled": {{ g.enable_reactions | default(value=1) | json_encode | safe }},
+      "data-emit-metadata": "0",
+      "data-input-position": "top",
+      "data-loading": {% if g.lazy_loading | default(value=true) %}"lazy"{% else %}"eager"{% endif %},
+      {% if g.lang %}
+      "data-lang": {{ g.lang | json_encode | safe }},
+      {% endif %}
+      "data-theme": giscusTheme()
+    };
+    Object.keys(attrs).forEach(function (k) { s.setAttribute(k, String(attrs[k])); });
+
+    (document.querySelector(".giscus") || document.body).appendChild(s);
+
+    // Apollo's themetoggle.js swaps .dark/.light on <html>; mirror that into giscus.
+    new MutationObserver(function () {
+      var frame = document.querySelector("iframe.giscus-frame");
+      if (!frame) return;
+      frame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: giscusTheme() } } },
+        "https://giscus.app"
+      );
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  })();
+</script>

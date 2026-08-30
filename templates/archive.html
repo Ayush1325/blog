@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    {{<post.page_header title={page.title} />}}
+
+    {% if page.content %}
+        <section class="body">
+            {{ page.content | safe }}
+        </section>
+    {% endif %}
+
+    {% set posts = get_section(path="posts/_index.md") %}
+    {% set by_year = posts.pages | group_by(attribute="year") %}
+    <main class="post-list">
+        {%- for year in by_year | keys | sort | reverse %}
+            {{<post.page_header title={year ~ ""} />}}
+            <ul>
+                {%- for entry in by_year[year] %}
+                    <li class="list-item">
+                        <div class="post-header">
+                            <time>{{ entry.date | date(format="%m-%d") }}</time>
+                            <h1 class="title">
+                                <a href="{{ entry.permalink | safe }}">{{ entry.title }}</a>
+                            </h1>
+                        </div>
+                    </li>
+                {% endfor -%}
+            </ul>
+        {% endfor -%}
+    </main>
+{% endblock main_content %}

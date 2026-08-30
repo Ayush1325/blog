@@ -1,0 +1,12 @@
+{% extends "homepage.html" %}
+
+{% block main_content %}
+    {{ super() }}
+
+    {% set posts = get_section(path="posts/_index.md") %}
+    {{<post.page_header title="Latest posts" />}}
+    <main class="post-list">
+        {{<post.list_posts pages={posts.pages[:5]} />}}
+    </main>
+    <a class="readmore" href="{{ get_url(path='@/posts/_index.md') }}">All posts →</a>
+{% endblock main_content %}
