@@ -23,7 +23,7 @@ toc = true
 fancy_code = true
 repo_view = true
 repo_url = "https://github.com/Ayush1325/blog"
-favicon = "icons/favicon.ico"
+favicon = "icons/favicon.svg"
 socials = [
 	{ name = "github", url = "https://github.com/Ayush1325/", icon = "github" },
 	{ name = "linkedin", url = "https://www.linkedin.com/in/ayush-singh-665739204/", icon = "linkedin" },
