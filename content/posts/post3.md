@@ -22,7 +22,7 @@ This post will guide you through the various implementations I came up with and 
 
 # The C++ enum
 
-The enum I was trying to implement was [`KConfig::OpenFlags`](https://api.kde.org/frameworks/kconfig/html/classKConfig.html#ad1f23964bbf8c11449e92a2596d15f7e). The enum is given below:
+The enum I was trying to implement was [`KConfig::OpenFlags`](https://api.kde.org/kconfig.html#OpenFlag-enum). The enum is given below:
 
 ```cpp
 enum OpenFlag {

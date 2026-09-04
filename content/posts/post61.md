@@ -15,7 +15,7 @@ Hello everyone. A typical work week. Let's go over everything.
 
 # PocketBeagle 2 M4 GPIO Support
 
-Initial [ZephyrRTOS support for PocketBeagle 2 M4 core](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/index.html) was merged last week. This only included tested support for UART (RX: `P2.05`, TX: `P2.07`). It is possible to enable GPIO and I2C using overlays, but there are no examples at the moment.
+Initial [ZephyrRTOS support for PocketBeagle 2 M4 core](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/pocketbeagle_2.html) was merged last week. This only included tested support for UART (RX: `P2.05`, TX: `P2.07`). It is possible to enable GPIO and I2C using overlays, but there are no examples at the moment.
 
 I have created a new [PR](https://github.com/zephyrproject-rtos/zephyr/pull/88731) that enables GPIO in the blinky example (pin `P2.09`). It should serve as a good example of how to use GPIO from the M4 core.
 

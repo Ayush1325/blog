@@ -11,7 +11,7 @@ tags = ["rust", "kde", "sok22"]
 comment = true
 +++
 
-Hello everyone, I am currently working on KConfig bindings for Rust as a part of the Season of KDE 2022. The wrappers for most of the significant aspects of KConfig are complete, so I decided to rewrite the [Introduction to KConfig Docs](https://develop.kde.org/docs/use/configuration/introduction/) in Rust. The bindings are still not stable and will probably change before the end of the Season of KDE. Still, this post should also help me test out the bindings outside tests. The kconfig bindings can be found [here](https://invent.kde.org/oreki/kconfig-rs).
+Hello everyone, I am currently working on KConfig bindings for Rust as a part of the Season of KDE 2022. The wrappers for most of the significant aspects of KConfig are complete, so I decided to rewrite the [Introduction to KConfig Docs](https://develop.kde.org/docs/features/configuration/introduction/) in Rust. The bindings are still not stable and will probably change before the end of the Season of KDE. Still, this post should also help me test out the bindings outside tests. The kconfig bindings can be found [here](https://invent.kde.org/oreki/kconfig-rs).
 
 <!-- more -->
 

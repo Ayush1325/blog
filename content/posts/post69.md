@@ -15,7 +15,7 @@ Hello everyone. It has been a while since my last post. Today, I will go over us
 
 # Motivation
 
-During normal Zephyr development for [PocketBeagle 2 A53](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/index.html), one has to copy the firmware to the SD card (using some sort of MicroSD reader). This is fine for deployment, but it can become cumbersome when doing rapid changes.
+During normal Zephyr development for [PocketBeagle 2 A53](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/pocketbeagle_2.html), one has to copy the firmware to the SD card (using some sort of MicroSD reader). This is fine for deployment, but it can become cumbersome when doing rapid changes.
 
 Using DFU over USB allows bypassing the requirement of an SD Card, thus providing a much better setup for rapid prototyping. Using DFU, it is possible to go from scratch to a Zephyr application without having an SD Card plugged in, and with minimal user input.
 

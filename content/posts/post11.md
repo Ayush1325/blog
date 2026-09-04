@@ -11,7 +11,7 @@ tags = ["rust", "tianocore", "gsoc22", "uefi"]
 comment = true
 +++
 
-Hello everyone. In this post, I will go through how I implemented the stdio module for UEFI. The implementation code can be found [here](https://github.com/Ayush1325/rust/blob/7f367e14f687a7d485c1d3410e2cf5e22df8f1ad/library/std/src/sys/uefi/stdio.rs).
+Hello everyone. In this post, I will go through how I implemented the stdio module for UEFI. The implementation code can be found [here](https://github.com/rust-lang/rust/blob/3f4a289016ed2c7ae351dd77c309ca17ecc1f87a/library/std/src/sys/uefi/stdio.rs).
 
 <!-- more -->
 <br>

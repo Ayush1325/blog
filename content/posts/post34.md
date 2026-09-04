@@ -32,7 +32,7 @@ It is possible to use binary blobs for HCI support on cc1352p7. As is evident fr
 
 This approach requires minimal changes to the current Ti approach and should be reasonably straightforward for anyone with access to the cc13xx HCI source. Additionally, minimal maintenance is required from the Ti side since they already maintain the HCI source for Ti-RTOS.
 
-This approach is already in use in [ESP32 boards](https://docs.zephyrproject.org/latest/boards/01space/esp32c3_042_oled/doc/index.html#prerequisites). Thus, it should be accepted with minimal resistance.
+This approach is already in use in [ESP32 boards](https://docs.zephyrproject.org/latest/boards/01space/esp32c3_042_oled/doc/index.html#binary-blobs). Thus, it should be accepted with minimal resistance.
 
 ## Zephyr Software Link Layer
 

@@ -29,7 +29,7 @@ I have created a [PR](https://github.com/micropython/micropython/pull/15959) to 
 
 # BeaglePlay Zephyr
 
-[BeaglePlay cc1352p7](https://docs.zephyrproject.org/latest/boards/beagle/beagleplay/doc/beagleplay_cc1352p7.html) support was finally merged last week. While it was initially scheduled for Zephyr v3.7.0, it ended up being delayed. However, I hope that having upstream Zephyr support helps people create some amazing projects.
+[BeaglePlay cc1352p7](https://docs.zephyrproject.org/latest/boards/beagle/beagleplay/doc/index.html) support was finally merged last week. While it was initially scheduled for Zephyr v3.7.0, it ended up being delayed. However, I hope that having upstream Zephyr support helps people create some amazing projects.
 
 Similar to BeagleConnect Freedom, I also cleaned up the BealgePlay devicetree. Here is the [PR](https://github.com/zephyrproject-rtos/zephyr/pull/79405)
 

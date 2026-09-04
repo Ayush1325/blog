@@ -35,7 +35,7 @@ The full changeset can be found in the [PR](https://github.com/beagleboard/bb-im
 
 I have been working on adding Beagle Cape support for PocketBeagle 2, using a combination of export-symbols, i2c-extension, and other proposals. I decided to write the driver in Rust, which meant I had to also write a bunch of missing abstractions. Since the initial work on the driver is done, I have started the process of upstreaming the abstractions.
 
-The first abstraction on the list is [overlay abstractions](https://lore.kernel.org/r/20250422-rust-overlay-abs-v1-0-85779c1b853d@beagleboard.or), which allows applying and removing fdt overlays from Rust. I will also be submitting other abstractions (such as sysfs, platform populate, etc) soon.
+The first abstraction on the list is [overlay abstractions](https://lore.kernel.org/r/20250422-rust-overlay-abs-v1-0-85779c1b853d@beagleboard.org), which allows applying and removing fdt overlays from Rust. I will also be submitting other abstractions (such as sysfs, platform populate, etc) soon.
 
 # Rust std r-efi update
 

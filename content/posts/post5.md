@@ -175,7 +175,7 @@ pub extern "C" fn main(_h: efi::Handle, st: *mut efi::SystemTable) -> efi::Statu
 ```
 
 ## Build and Test application
-We can build the application using a normal `cargo build` now. To test the application, we will use qemu. To test out EFI applications in qemu, I have written a small python [script](https://github.com/Ayush1325/scripts/blob/main/Tianocore/RunQemu.py). The `hello_world.efi` file that should be inside `target/x86_64-unknown-uefi/debug/`. Here is the output screenshot:
+We can build the application using a normal `cargo build` now. To test the application, we will use qemu. To test out EFI applications in qemu, I have written a small python [script](https://github.com/Ayush1325/dotfiles/blob/master/uefi/.local/bin/uefi-run). The `hello_world.efi` file that should be inside `target/x86_64-unknown-uefi/debug/`. Here is the output screenshot:
 
 ![Output of hello_world.efi running under QEMU](/images/post5/run_qemu.webp)
 

@@ -39,7 +39,7 @@ This `_start` function then calls the all too familiar `main` function in C. Wit
 <br>
 
 # Rust Runtime
-Everyone can already guess that the Rust runtime is much more complicated than the C Runtime. Also, almost every OS is very well integrated with C, while Rust must do most of the heavy lifting of integrating with the OS itself. If you want a detailed explanation, you should look at [Michael Gattozzi's blog post](https://blog.mgattozzi.dev/rusts-runtime/) which goes into great detail about it.
+Everyone can already guess that the Rust runtime is much more complicated than the C Runtime. Also, almost every OS is very well integrated with C, while Rust must do most of the heavy lifting of integrating with the OS itself. If you want a detailed explanation, you should look at [Michael Gattozzi's blog post](https://web.archive.org/web/20230608183000/https://blog.mgattozzi.dev/rusts-runtime/) which goes into great detail about it.
 
 I will give you a quick tldr: "C" `main()` -> "Rust" `lang_start` -> "Rust" `lang_start_internal` -> "Rust" `init()` -> "Rust" `sys::init()` -> "Rust" `main()`.
 
@@ -188,4 +188,4 @@ Consider [supporting me](@/_index.md#support-me) if you like my work.
 <br>
 
 # Helpful Links
-1. [Rust's Runtime Post by Michael Gattozzi](https://blog.mgattozzi.dev/rusts-runtime/)
+1. [Rust's Runtime Post by Michael Gattozzi](https://web.archive.org/web/20230608183000/https://blog.mgattozzi.dev/rusts-runtime/)

@@ -77,7 +77,7 @@ fn uefi_hello(st: *mut efi::SystemTable) {
 ```sh
 cargo +nightly build --target x86_64-unknown-uefi
 ```
-5. Test. I am using OVMF in Qemu for this. To automate the process, I have written a simple [python script](https://github.com/Ayush1325/scripts/blob/main/Tianocore/RunQemu.py).
+5. Test. I am using OVMF in Qemu for this. To automate the process, I have written a simple [python script](https://github.com/Ayush1325/dotfiles/blob/master/uefi/.local/bin/uefi-run).
 ```sh
 python RunQemu.py target/x86_64-unknown-uefi/debug/hello_world.efi
 ```

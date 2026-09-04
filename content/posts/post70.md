@@ -11,7 +11,7 @@ tags = ["weekly-update", "beagleboard", "beagley-ai", "linux", "fedora"]
 comment = true
 +++
 
-Hello everyone. Today I will be going over getting Fedora Minimal Rawhide running on [BeagleY-AI](www.beagleboard.org/boards/beagley-ai). I will also talk about the motivation behind this little adventure and the future plans for this little side project.
+Hello everyone. Today I will be going over getting Fedora Minimal Rawhide running on [BeagleY-AI](https://www.beagleboard.org/boards/beagley-ai). I will also talk about the motivation behind this little adventure and the future plans for this little side project.
 
 # Motivation
 
@@ -25,9 +25,9 @@ On a more personal note, I’ve been using Fedora on my own machines for quite s
 
 # Prepare SD Card
 
-For this setup, I used the [Fedora Minimal Rawhide (2025-12-28) build](https://kojipkgs.fedoraproject.org/compose/rawhide/Fedora-Rawhide-20251228.n.0/compose/Spins/aarch64/images/Fedora-Minimal-Rawhide-20251228.n.0.aarch64.raw.xz).
+For this setup, I used the Fedora Minimal Rawhide (2025-12-28) build. Rawhide composes are pruned after a few weeks, so that exact image is no longer available; the equivalent current build lives in the [Rawhide aarch64 Spins images directory](https://kojipkgs.fedoraproject.org/compose/rawhide/latest-Fedora-Rawhide/compose/Spins/aarch64/images/).
 
-1. Flash the Fedora image to the SD card. As described in [Fedora docs](https://fedoraproject.org/wiki/Architectures/ARM/Installation), using [arm-image-installer](github.com/fedora-arm/arm-image-installer).
+1. Flash the Fedora image to the SD card. As described in [Fedora docs](https://fedoraproject.org/wiki/Architectures/ARM/Installation), using [arm-image-installer](https://github.com/fedora-arm/arm-image-installer).
 
 ```bash
 sudo arm-image-installer --target=beagleplay \
@@ -112,6 +112,6 @@ Consider [supporting me](@/_index.md#support-me) if you like my work.
 
 # Helpful links
 
-- [BeagleY-AI](www.beagleboard.org/boards/beagley-ai)
+- [BeagleY-AI](https://www.beagleboard.org/boards/beagley-ai)
 - [Fedora Nightlies](https://openqa.fedoraproject.org/nightlies.html)
 - [arm-image-installer](https://github.com/fedora-arm/arm-image-installer)

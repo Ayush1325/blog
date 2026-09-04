@@ -39,7 +39,7 @@ Once the patch is added to the kernel tree, it will be possible to use the PWM p
 
 # Fix MicroBlocks for BeagleConnect Freedom
 
-Around two weeks ago, the CI [MicroBlocks for BeagleConnect Freedom](https://openbeagle.org/beagleboard/microblocks) broke. After checking the CI logs, it seems [MicroBlocks](https://microblocks.fun/) started using [digitalPinToInterrupt](https://www.arduino.cc/reference/en/language/functions/external-interrupts/digitalpintointerrupt/), which was missing in [Arduino Module for Zephyr](https://github.com/zephyrproject-rtos/gsoc-2022-arduino-core). I created a [PR](https://github.com/zephyrproject-rtos/gsoc-2022-arduino-core/pull/121) for it, and now the CI is fixed again.
+Around two weeks ago, the CI [MicroBlocks for BeagleConnect Freedom](https://openbeagle.org/beagleboard/microblocks) broke. After checking the CI logs, it seems [MicroBlocks](https://microblocks.fun/) started using [digitalPinToInterrupt](https://docs.arduino.cc/language-reference/en/functions/external-interrupts/digitalPinToInterrupt/), which was missing in [Arduino Module for Zephyr](https://github.com/zephyrproject-rtos/gsoc-2022-arduino-core). I created a [PR](https://github.com/zephyrproject-rtos/gsoc-2022-arduino-core/pull/121) for it, and now the CI is fixed again.
 
 # Ending Thoughts
 

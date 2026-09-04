@@ -62,7 +62,7 @@ Now, I will cover some information about my Season of KDE Project.
 
 I will create a wrapper crate for KConfig KDE Framework in Season of KDE. It will allow the usage of KConfig from Rust projects without writing C++. The crate will be dependent on [qttypes](https://crates.io/crates/qttypes), which wraps a lot of QML types and makes them available in Rust. While I will mainly be testing it with [qmetaobject](https://crates.io/crates/qmetaobject), I would like to avoid having any hard dependency on it. My goal is to make the bindings safe while having as little overhead as possible.
 
-Finally, I would like to find a way to have something similar to [KConfigXT](https://develop.kde.org/docs/use/configuration/kconfig_xt/) for Rust. This is a bit of a lofty goal, and I'm not entirely sure how to achieve it. However, I think KConfigXT is one of the best features of KConfig, and I don't believe the wrapper would be complete without it.
+Finally, I would like to find a way to have something similar to [KConfigXT](https://develop.kde.org/docs/features/configuration/kconfig_xt/) for Rust. This is a bit of a lofty goal, and I'm not entirely sure how to achieve it. However, I think KConfigXT is one of the best features of KConfig, and I don't believe the wrapper would be complete without it.
 
 The kconfig bindings crate is available [here](https://invent.kde.org/oreki/kconfig-rs). Feel free to test it out and report Bugs.
 

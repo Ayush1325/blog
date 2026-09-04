@@ -17,7 +17,7 @@ Hello everyone. I ended up skipping some weekly updates since there was not much
 
 ## Add MAIN domain USARTs for PocketBeagle 2 M4F
 
-The initial support for [PocketBeagle 2 M4F](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/index.html) landed a while ago. This support was quite limited, and is being expanded with time. Initially, I thought that the M4F, which is from MCU domain, did not have access to the MAIN domain peripherals. However, this assumption turned out to be wrong.
+The initial support for [PocketBeagle 2 M4F](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/pocketbeagle_2.html) landed a while ago. This support was quite limited, and is being expanded with time. Initially, I thought that the M4F, which is from MCU domain, did not have access to the MAIN domain peripherals. However, this assumption turned out to be wrong.
 
 The cross-domain peripheral support varies a bit, but for the most part, it is possible to use MAIN domain peripherals from MCU domain. This meant that more of the PocketBeagle 2 header functionality could be used from the M4F core. However, the current base devicetree for AM62x M4F did not define nodes for the MAIN domain peripherals.
 
@@ -29,7 +29,7 @@ Checkout the full [PR](https://github.com/zephyrproject-rtos/zephyr/pull/90456) 
 
 ## Add I2C support for PocketBeagle 2 A53
 
-The initial support for [PocketBeagle 2 A53s](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/index.html) was merged recently. This allows running ZephyrRTOS on the main A53 cores instead of Linux. It uses the same u-boot as Linux, but can be great in very special purpose and high performance real-time use cases.
+The initial support for [PocketBeagle 2 A53s](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/pocketbeagle_2.html) was merged recently. This allows running ZephyrRTOS on the main A53 cores instead of Linux. It uses the same u-boot as Linux, but can be great in very special purpose and high performance real-time use cases.
 
 The initial support was limited to just USARTs. However, I have created a PR to enable I2C pins on the header. Checkout the [PR](https://github.com/zephyrproject-rtos/zephyr/pull/90637) for more details.
 
