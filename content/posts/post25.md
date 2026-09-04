@@ -10,24 +10,39 @@ tags = ["c", "gsoc23", "zephyr", "beagleboard"]
 [extra]
 comment = true
 +++
-Hello everyone. I am working on a CC1352 firmware for Zephyr. This will be responsible for SVC and AP Bridge role in the Greybus topology that Gbridge currently handles. Zephyr provides a lot of abstractions to write efficient concurrent code. I am going to discuss some of them in this post.
+Hello everyone. I am working on a CC1352 firmware for Zephyr. This will be responsible for SVC and
+AP Bridge role in the Greybus topology that Gbridge currently handles. Zephyr provides a lot of
+abstractions to write efficient concurrent code. I am going to discuss some of them in this post.
 
 <!-- more -->
 <br>
 
 # Introduction
-The CC1352 firmware must perform many tasks, such as reading and writing to the greybus node over IEEE802.15.4, reading and writing to Linux Host over UART HDLC, etc. This requires efficient concurrent code. 
+The CC1352 firmware must perform many tasks, such as reading and writing to the greybus node over
+IEEE802.15.4, reading and writing to Linux Host over UART HDLC, etc. This requires efficient
+concurrent code.
 
 <br>
 
 # Workqueue
 According to the documentation
 
-> A workqueue is a kernel object that uses a dedicated thread to process work items in a first in, first out manner. Each work item is processed by calling the function specified by the work item. A workqueue is typically used by an ISR or a high-priority thread to offload non-urgent processing to a lower-priority thread so it does not impact time-sensitive processing.
+> A workqueue is a kernel object that uses a dedicated thread to process work items in a first in,
+> first out manner. Each work item is processed by calling the function specified by the work item.
+> A workqueue is typically used by an ISR or a high-priority thread to offload non-urgent processing
+> to a lower-priority thread so it does not impact time-sensitive processing.
 
-While this description makes a work item seem dynamic, I have had some trouble using dynamic work items, namely, the ownership of the work container. Thus, I mostly use a work queue with some form of buffer (ring buffer or message queue).
+While this description makes a work item seem dynamic, I have had some trouble using dynamic work
+items, namely, the ownership of the work container. Thus, I mostly use a work queue with some form
+of buffer (ring buffer or message queue).
 
-The kernel defines a work queue, the system work queue, available to any application or kernel code requiring work queue support. Additional work queues should only be defined when submitting new work items to the system work queue is impossible since each new work queue incurs a significant cost in memory footprint. A new work queue can be justified if it is not possible for its work items to co-exist with existing system work queue work items without an unacceptable impact; for example, if the new work items perform blocking operations that would delay other system work queue processing to an unacceptable degree.
+The kernel defines a work queue, the system work queue, available to any application or kernel code
+requiring work queue support. Additional work queues should only be defined when submitting new work
+items to the system work queue is impossible since each new work queue incurs a significant cost in
+memory footprint. A new work queue can be justified if it is not possible for its work items to
+co-exist with existing system work queue work items without an unacceptable impact; for example, if
+the new work items perform blocking operations that would delay other system work queue processing
+to an unacceptable degree.
 
 ## Example
 This a simple example using a system work queue.
@@ -54,9 +69,11 @@ K_WORK_DEFINE(work, print_error);
 # Threads
 According to the documentation
 
-> A thread is a kernel object that is used for application processing that is too lengthy or too complex to be performed by an ISR.
+> A thread is a kernel object that is used for application processing that is too lengthy or too
+> complex to be performed by an ISR.
 
-Zephyr threads are simple to use if you have used system threads for any OS. The stack size needs to be defined in advance. It is also possible to send arguments in the form of void pointers.
+Zephyr threads are simple to use if you have used system threads for any OS. The stack size needs to
+be defined in advance. It is also possible to send arguments in the form of void pointers.
 
 ## Example
 Here is a simple example to demonstrate using threads.
@@ -81,9 +98,11 @@ K_THREAD_DEFINE(my_tid, MY_STACK_SIZE,
 # Messge Queue
 According to the documentation
 
-> A message queue is a kernel object that implements a simple message queue, allowing threads and ISRs to asynchronously send and receive fixed-size data items.
+> A message queue is a kernel object that implements a simple message queue, allowing threads and
+> ISRs to asynchronously send and receive fixed-size data items.
 
-Message queues are thread-safe. This makes them quite attractive for message passing between threads. The API is also simple to understand and use.
+Message queues are thread-safe. This makes them quite attractive for message passing between
+threads. The API is also simple to understand and use.
 
 ## Example
 Here is a simple example using a message queue.
@@ -110,11 +129,12 @@ According to the documentation
 
 > A ring buffer is a circular buffer, whose contents are stored in first-in-first-out order.
 
-Ring buffers are great for storing variable-length data (such as a stream of bytes). However, it is essential to note that it is not inherently thread-safe. Due to this and the API, I prefer using message queues for fixed-length data.
+Ring buffers are great for storing variable-length data (such as a stream of bytes). However, it is
+essential to note that it is not inherently thread-safe. Due to this and the API, I prefer using
+message queues for fixed-length data.
 
 ## Example
-Here is a simple example using a ring buffer.
-Note: This example is not thread-safe.
+Here is a simple example using a ring buffer. Note: This example is not thread-safe.
 ```c
 #define RING_BUF_BYTES 1024
 
@@ -147,9 +167,12 @@ void consumer(void) {
 # Mutex
 According to the documentation
 
-> A mutex is a kernel object that implements a traditional reentrant mutex. A mutex allows multiple threads to safely share an associated hardware or software resource by ensuring mutually exclusive access to the resource.
+> A mutex is a kernel object that implements a traditional reentrant mutex. A mutex allows multiple
+> threads to safely share an associated hardware or software resource by ensuring mutually exclusive
+> access to the resource.
 
-Mutex is required when sharing data between multiple threads. One must be careful when dealing with nested mutex access since it can lead to deadlocks.
+Mutex is required when sharing data between multiple threads. One must be careful when dealing with
+nested mutex access since it can lead to deadlocks.
 
 ## Example
 ```c
@@ -163,9 +186,11 @@ k_mutex_unlock(&my_mutex);
 <br>
 
 # Doubly Linked List
-Zephyr has a linked list implementation similar to Linux Kernel. A doubly linked list allows removing node in constant time. Thus it is quite useful for out-of-order processing of data. I am using this for managing in-flight greybus operations.
+Zephyr has a linked list implementation similar to Linux Kernel. A doubly linked list allows
+removing node in constant time. Thus it is quite useful for out-of-order processing of data. I am
+using this for managing in-flight greybus operations.
 
-It is also possible to access the container using `SYS_DLIST_CONTAINER` macro. 
+It is also possible to access the container using `SYS_DLIST_CONTAINER` macro.
 
 ## Example
 Here is a simple example about doubly linked list.
@@ -199,7 +224,8 @@ void print_data(sys_dnode_t *node) {
 <br>
 
 # Conclusion
-I hope this post helps in making multi-threading more approachable. While CC1352 is a single-core, multi-threading code can still make the code a lot more readable and performant. 
+I hope this post helps in making multi-threading more approachable. While CC1352 is a single-core,
+multi-threading code can still make the code a lot more readable and performant.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 
@@ -208,7 +234,8 @@ Consider [supporting me](@/_index.md#support-me) if you like my work.
 # Helpful Links
 - [Workqueue](https://docs.zephyrproject.org/latest/kernel/services/threads/workqueue.html)
 - [Threads](https://docs.zephyrproject.org/latest/kernel/services/threads/index.html)
-- [Message Queue](https://docs.zephyrproject.org/latest/kernel/services/data_passing/message_queues.html)
+- [Message
+  Queue](https://docs.zephyrproject.org/latest/kernel/services/data_passing/message_queues.html)
 - [Ringbuf](https://docs.zephyrproject.org/latest/kernel/data_structures/ring_buffers.html)
 - [Mutex](https://docs.zephyrproject.org/latest/kernel/services/synchronization/mutexes.html)
 - [Doubly Linked List](https://docs.zephyrproject.org/latest/kernel/data_structures/dlist.html)

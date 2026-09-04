@@ -11,9 +11,11 @@ tags = ["rust", "kde", "cpp", "sok22"]
 comment = true
 +++
 
-While working on Rust bindings for KConfig as a part of Season of KDE 2022, I came across a few problems while trying to represent [`QFlags`](https://doc.qt.io/qt-5/qflags.html) in Rust:
+While working on Rust bindings for KConfig as a part of Season of KDE 2022, I came across a few
+problems while trying to represent [`QFlags`](https://doc.qt.io/qt-5/qflags.html) in Rust:
 
-1. Most `QFlags` are defined as C++ enums in which multiple members can have the same value. This is not possible in Rust enum.
+1. Most `QFlags` are defined as C++ enums in which multiple members can have the same value. This is
+   not possible in Rust enum.
 2. It is possible to enable multiple flags using BitwiseOr. Rust enums cannot do bitwise operations.
 
 <!-- more -->
@@ -22,7 +24,8 @@ This post will guide you through the various implementations I came up with and 
 
 # The C++ enum
 
-The enum I was trying to implement was [`KConfig::OpenFlags`](https://api.kde.org/kconfig.html#OpenFlag-enum). The enum is given below:
+The enum I was trying to implement was
+[`KConfig::OpenFlags`](https://api.kde.org/kconfig.html#OpenFlag-enum). The enum is given below:
 
 ```cpp
 enum OpenFlag {
@@ -67,7 +70,8 @@ fn something(flag: OpenFlags::E) {}
 
 # Implementation 2: Using const in Impl
 
-This method defines the problematic members as `const` in `impl`. The sample implementation is as follows:
+This method defines the problematic members as `const` in `impl`. The sample implementation is as
+follows:
 
 ```rust
 #[repr(C)]
@@ -142,9 +146,11 @@ fn something(flag: OpenFlags) {
 
 ## Drawbacks
 
-1. Function call every time passing from Rust to C++. I don't think this will have much performance penalty, but still worth mentioning.
+1. Function call every time passing from Rust to C++. I don't think this will have much performance
+   penalty, but still worth mentioning.
 
-2. Cannot set multiple flags at once. Eg `OpenFlag::IncludeGlobal | OpenFlag::CascadeConfig` not possible
+2. Cannot set multiple flags at once. Eg `OpenFlag::IncludeGlobal | OpenFlag::CascadeConfig` not
+   possible
 
 # Implementation 4: use [bitflags](https://crates.io/crates/bitflags) crate
 
@@ -193,4 +199,5 @@ fn something(flag: OpenFlags) {}
 
 # Conclusion
 
-I think I will be using [bitflags](https://crates.io/crates/bitflags) for representing all `QFlags` in [kconfig](https://invent.kde.org/oreki/kconfig-rs/-/tree/master) for the foreseeable future.
+I think I will be using [bitflags](https://crates.io/crates/bitflags) for representing all `QFlags`
+in [kconfig](https://invent.kde.org/oreki/kconfig-rs/-/tree/master) for the foreseeable future.

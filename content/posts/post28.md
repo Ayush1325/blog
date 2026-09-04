@@ -10,24 +10,32 @@ tags = ["c", "gsoc23", "zephyr", "linux", "beagleboard"]
 [extra]
 comment = true
 +++
-Hello everyone. This is the final blog post I will write before Google Summer of Code 2023 ends (hopefully not the final greybus one). In this post, I will summarize my GSoC23 work to make it more accessible to everyone.
+Hello everyone. This is the final blog post I will write before Google Summer of Code 2023 ends
+(hopefully not the final greybus one). In this post, I will summarize my GSoC23 work to make it more
+accessible to everyone.
 
 <!-- more -->
 
 # Background
-During GSoC23, I worked on replacing [GBridge](https://git.beagleboard.org/beagleconnect/linux/gbridge) by moving SVC and APBridge roles to BeaglePlay CC1352. This allows for simplifying the stack and easier merging to upstream Linux.
+During GSoC23, I worked on replacing
+[GBridge](https://git.beagleboard.org/beagleconnect/linux/gbridge) by moving SVC and APBridge roles
+to BeaglePlay CC1352. This allows for simplifying the stack and easier merging to upstream Linux.
 
 The new simplified architecture looks as follows:
 
 ![Diagram of the simplified architecture, with the SVC and APBridge roles moved into the BeaglePlay CC1352](/images/post21/new_diagram.webp)
 
-In some rudimentary testing, the new setup can easily handle non-stop remote device usage with a latency of around 40ms for each request/response pair, measuring over 1,000,000 requests without any message drops. Since I only have one Beagleconnect Freedom, I have yet to be able to test how the number of nodes affects the performance.
+In some rudimentary testing, the new setup can easily handle non-stop remote device usage with a
+latency of around 40ms for each request/response pair, measuring over 1,000,000 requests without any
+message drops. Since I only have one Beagleconnect Freedom, I have yet to be able to test how the
+number of nodes affects the performance.
 
 # Project Links
 - [BeaglePlay Linux Driver](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver)
 - [CC1352 Zephyr Application](https://git.beagleboard.org/gsoc/greybus/cc1352-firmware)
 - [Proposal](https://elinux.org/BeagleBoard/GSoC/2023_Proposal/AyushSingh)
-- [Weekly Progress Report](https://forum.beagleboard.org/t/weekly-progress-report-replace-gbridge/34762/14)
+- [Weekly Progress
+  Report](https://forum.beagleboard.org/t/weekly-progress-report-replace-gbridge/34762/14)
 
 # Project Goals
 ## Completed
@@ -42,9 +50,12 @@ In some rudimentary testing, the new setup can easily handle non-stop remote dev
 1. Get the Linux Driver merged upstream. (Submitted in mailing list but not yet merged)
 
 # Benefits of this Project
-- GBridge requires gb-netlink driver, which was never accepted upstream. Eliminating it would allow easier upstreaming of the whole BeagleConnect stack.
-- This, in turn, should help with industry adoption by providing strong guarantees as being part of the Linux Kernel
-- This will also help simplify the whole BeagleConnect stack, thus making it much easier to get started for Beginners.
+- GBridge requires gb-netlink driver, which was never accepted upstream. Eliminating it would allow
+  easier upstreaming of the whole BeagleConnect stack.
+- This, in turn, should help with industry adoption by providing strong guarantees as being part of
+  the Linux Kernel
+- This will also help simplify the whole BeagleConnect stack, thus making it much easier to get
+  started for Beginners.
 
 # Blog Posts
 1. [GSoC 2023 Introduction](@/posts/post21.md)
@@ -66,8 +77,13 @@ In some rudimentary testing, the new setup can easily handle non-stop remote dev
 {% <youtube id="GVuIB7i5pjk"> %}{% </youtube> %}
 
 # Conclusion
-I want to thank my mentors and all the members of beagleboard.org Slack and Discord channels. I would also like to thank kernenewbies and greybus mailing list members for helping with my linux driver-related questions. Finally, I would like to thank Google for running this wonderful open-source program.
+I want to thank my mentors and all the members of beagleboard.org Slack and Discord channels. I
+would also like to thank kernenewbies and greybus mailing list members for helping with my linux
+driver-related questions. Finally, I would like to thank Google for running this wonderful
+open-source program.
 
-I will continue working on getting the Linux Driver merged upstream. I also have some more Zephyr and Greybus ideas lined up, which I will be working on in my free time. Feel free to experiment with the new Greybus setup, and contact me if you need any help.
+I will continue working on getting the Linux Driver merged upstream. I also have some more Zephyr
+and Greybus ideas lined up, which I will be working on in my free time. Feel free to experiment with
+the new Greybus setup, and contact me if you need any help.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.

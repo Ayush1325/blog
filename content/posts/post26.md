@@ -10,7 +10,9 @@ tags = ["c", "gsoc23", "zephyr", "linux", "beagleboard"]
 [extra]
 comment = true
 +++
-Hello everyone. It will soon be time for the Mid-term evaluation of Google Summer of Code 2023. Thus, I decided to write a post to summarise everything I have been working on. I will also go over how it can be replicated by anyone interested.
+Hello everyone. It will soon be time for the Mid-term evaluation of Google Summer of Code 2023.
+Thus, I decided to write a post to summarise everything I have been working on. I will also go over
+how it can be replicated by anyone interested.
 
 <!-- more -->
 
@@ -19,31 +21,47 @@ This project has two main parts
 - BeaglePlay CC1352 Application
 - BeaglePlay Linux Driver
 
-CC1352 and Linux driver communicate over UART using High-Level Data Link Protocol (HDLC). The BeaglePlay CC1352 application also communicates with the BeagleConnect node running [greybus-for-zephyr](https://git.beagleboard.org/ayush1325/greybus-for-zephyr/-/tree/latest-zephyr). I have left greybus-for-zephyr largely unmodified. The changes in my fork were to make it run with the latest Zephyr.
+CC1352 and Linux driver communicate over UART using High-Level Data Link Protocol (HDLC). The
+BeaglePlay CC1352 application also communicates with the BeagleConnect node running
+[greybus-for-zephyr](https://git.beagleboard.org/ayush1325/greybus-for-zephyr/-/tree/latest-zephyr).
+I have left greybus-for-zephyr largely unmodified. The changes in my fork were to make it run with
+the latest Zephyr.
 
 I will now review the current functionality with the working logs, which should be reproducible.
 
 # BeaglePlay Linux Driver
 ## Description
-The [beagleplay Linux driver](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/tree/develop) is responsible for HDLC communication over UART. I am using three hdlc addresses:
+The [beagleplay Linux
+driver](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/tree/develop) is
+responsible for HDLC communication over UART. I am using three hdlc addresses:
 1. DBG: For logs from BeaglePlay CC1352. These frames are only ever received.
-2. Greybus: For greybus payload. All greybus related communication should use this. Currently does not do much.
-3. MCUmgr: For MCUmgr tty communication. These frames are sent when data is written to `ttyMCU0`. Any MCUmgr frame sent from CC1352 is also streamed to the `ttyMCU0`.
+2. Greybus: For greybus payload. All greybus related communication should use this. Currently does
+   not do much.
+3. MCUmgr: For MCUmgr tty communication. These frames are sent when data is written to `ttyMCU0`.
+   Any MCUmgr frame sent from CC1352 is also streamed to the `ttyMCU0`.
 
-The Linux driver complies against [v5.10.168-ti-arm64-r103](https://git.beagleboard.org/beagleboard/linux/-/tree/v5.10.168-ti-arm64-r103), which is running on BeaglePlay.
+The Linux driver complies against
+[v5.10.168-ti-arm64-r103](https://git.beagleboard.org/beagleboard/linux/-/tree/v5.10.168-ti-arm64-r103),
+which is running on BeaglePlay.
 
 ## Implementation
 ### UART Transmission
-The UART transmission is done using a workqueue. Producers write the data (HDLC block) in a circular buffer. The workqueue handler then reads the circular buffer to send the block over HDLC.
+The UART transmission is done using a workqueue. Producers write the data (HDLC block) in a circular
+buffer. The workqueue handler then reads the circular buffer to send the block over HDLC.
 
 ### UART Receiving
-The UART receiving is done using serdev client ops. The data is buffered until a complete HDLC frame is received. Once the frame is complete, it is handled appropriately depending on the frame address field. Finally, the receive buffer is cleared to prepare for a new frame.
+The UART receiving is done using serdev client ops. The data is buffered until a complete HDLC frame
+is received. Once the frame is complete, it is handled appropriately depending on the frame address
+field. Finally, the receive buffer is cleared to prepare for a new frame.
 
 ### MCUmgr Sending
-Any data written to `ttyMCU0` is buffered until `\x0a` is encountered. Then the data is queued to be sent as a single MCUmgr frame. This part works somewhat since my Zephyr application successfully processes the MCUmgr fragment. However, the MCUmgr side of things is still a work in progress.
+Any data written to `ttyMCU0` is buffered until `\x0a` is encountered. Then the data is queued to be
+sent as a single MCUmgr frame. This part works somewhat since my Zephyr application successfully
+processes the MCUmgr fragment. However, the MCUmgr side of things is still a work in progress.
 
 ### MCUmgr Receiving
-If an MCUmgr HDLC frame is received, the data is directly streamed to `ttyMCU0`. This is untested since I have not yet received a response from BeaglePlay CC1352 MCUmgr.
+If an MCUmgr HDLC frame is received, the data is directly streamed to `ttyMCU0`. This is untested
+since I have not yet received a response from BeaglePlay CC1352 MCUmgr.
 
 # BeaglePlay CC1352 Application
 The BeaglePlay CC1352 Application currently has the following responsibilities:
@@ -57,20 +75,34 @@ The BeaglePlay CC1352 Application currently has the following responsibilities:
 
 ## Implementation
 ### HDLC Uart Communication
-An interrupt is used to handle receiving data over UART. This data is then written to a ring buffer. The actual processing of this data is done in the system workqueue. The workqueue buffers the input data until a complete HDLC frame is received. Then the frame is processed depending on its address.
+An interrupt is used to handle receiving data over UART. This data is then written to a ring buffer.
+The actual processing of this data is done in the system workqueue. The workqueue buffers the input
+data until a complete HDLC frame is received. Then the frame is processed depending on its address.
 
-The writing of a block is also done asynchronously using the System workqueue. A [First In First Out Queue](https://docs.zephyrproject.org/latest/kernel/services/data_passing/fifos.html) of blocks to transmit is maintained. The workqueue handler sends all pending blocks when it is called.
+The writing of a block is also done asynchronously using the System workqueue. A [First In First Out
+Queue](https://docs.zephyrproject.org/latest/kernel/services/data_passing/fifos.html) of blocks to
+transmit is maintained. The workqueue handler sends all pending blocks when it is called.
 
 ### Node Discovery
-A thread is constantly running that performs node discovery after a set interval (which is configurable). The Node IPv6 address is currently static since Zephyr DNS Resolver does not support DNS Discovery. However, it will be easy to add dynamic node discovery by modifying [get_all_nodes function](https://git.beagleboard.org/gsoc/greybus/cc1352-firmware/-/blob/develop/src/main.c#L133).
+A thread is constantly running that performs node discovery after a set interval (which is
+configurable). The Node IPv6 address is currently static since Zephyr DNS Resolver does not support
+DNS Discovery. However, it will be easy to add dynamic node discovery by modifying [get_all_nodes
+function](https://git.beagleboard.org/gsoc/greybus/cc1352-firmware/-/blob/develop/src/main.c#L133).
 
-After querying for all greybus nodes, it checks against the active nodes table if the node is already present. In case the node is absent, it is added to the table, and the node is submitted for setup.
+After querying for all greybus nodes, it checks against the active nodes table if the node is
+already present. In case the node is absent, it is added to the table, and the node is submitted for
+setup.
 
-Node setup runs on the System Workqueue. Its job is to create a TCP socket with the specified cport (in this case, Cport0). It then adds the cport socket to the nodes table. Finally, in the case of CPort0, the GetManifestSize control request is sent to the node.
+Node setup runs on the System Workqueue. Its job is to create a TCP socket with the specified cport
+(in this case, Cport0). It then adds the cport socket to the nodes table. Finally, in the case of
+CPort0, the GetManifestSize control request is sent to the node.
 
-If the `GetManifestSize` response is successfully received, a GetManifest control request is sent using `gb_operations->callback`. The response of this request is parsed to get all available Cports in the Node. All the cports other than Cport0 are then queued for setup.
+If the `GetManifestSize` response is successfully received, a GetManifest control request is sent
+using `gb_operations->callback`. The response of this request is parsed to get all available Cports
+in the Node. All the cports other than Cport0 are then queued for setup.
 
-The setup is similar to Cport0. However, in the case of these Cports, a simple Ping SVC request is sent.
+The setup is similar to Cport0. However, in the case of these Cports, a simple Ping SVC request is
+sent.
 
 Everything is logged to the Linux host using the custom HDLC logging backend.
 
@@ -84,16 +116,23 @@ struct node_table_item {
   int *cports;
 };
 ```
-The size of the node_table array is configurable. The Cport0 or Control port is treated differently since a node without CPort0 is mostly cleaned up. A new node can be added with just the IPv6 address. However, it is essential to initialize the Cport0 (which is done on node discovery).
+The size of the node_table array is configurable. The Cport0 or Control port is treated differently
+since a node without CPort0 is mostly cleaned up. A new node can be added with just the IPv6
+address. However, it is essential to initialize the Cport0 (which is done on node discovery).
 
-The Cports pointer is supposed to be dynamically initialized after parsing the greybus manifest. The current assumption is that cports will be initialized only once. Thus it does not implement copying to resized cports array yet.
+The Cports pointer is supposed to be dynamically initialized after parsing the greybus manifest. The
+current assumption is that cports will be initialized only once. Thus it does not implement copying
+to resized cports array yet.
 
-The Cports can be removed by passing the socket. This also closes the socket. If CPort0 is removed, the whole node is also removed with all sockets closed.
+The Cports can be removed by passing the socket. This also closes the socket. If CPort0 is removed,
+the whole node is also removed with all sockets closed.
 
 It is also possible to remove a node by IPv6 address. It also closes any open sockets.
 
 ### Greybus Operations
-A [Double-linked list](https://docs.zephyrproject.org/latest/kernel/data_structures/dlist.html) of in-flight greybus operations is maintained. This is because the greybus operations can be sent/received out of order, making a regular queue unfit. The `gb_operaitions` struct is as follows:
+A [Double-linked list](https://docs.zephyrproject.org/latest/kernel/data_structures/dlist.html) of
+in-flight greybus operations is maintained. This is because the greybus operations can be
+sent/received out of order, making a regular queue unfit. The `gb_operaitions` struct is as follows:
 ```c
 /*
  * Struct to represent a greybus operation.
@@ -117,15 +156,26 @@ struct gb_operation {
   sys_dnode_t node;
 };
 ```
-The sock parameter will probably be removed soon since I must also send requests to AP (Linux Driver) over UART.
+The sock parameter will probably be removed soon since I must also send requests to AP (Linux
+Driver) over UART.
 
-The operation id is set using an atomic if the operation is not one-shot. For one-shot operations, the operation id is 0. 
+The operation id is set using an atomic if the operation is not one-shot. For one-shot operations,
+the operation id is 0.
 
-The request and response are not allocated when allocating the operation. Similarly, the operation is not queued unless `gb_operation_queue` is called. This is important since the cleanup is the caller's responsibility until the operation is queued.
+The request and response are not allocated when allocating the operation. Similarly, the operation
+is not queued unless `gb_operation_queue` is called. This is important since the cleanup is the
+caller's responsibility until the operation is queued.
 
-An optional callback can be provided, which is called in the System Workqueue. For one-shot requests, this is called once the request is sent, while for normal operations, it is called on receiving a response. The callback can essentially serve as a way to chain dependent greybus operations, or do something with the response, etc. Once the operation concludes, it is removed from the in-flight operations dlist and moved to the callback processing dlist. There is no reason to use a dlist for callbacks since they are called in a FIFO order, but the `sys_dnode_t` is already present, so you might as well use it. Once the callback is complete, the operation is deallocated.
+An optional callback can be provided, which is called in the System Workqueue. For one-shot
+requests, this is called once the request is sent, while for normal operations, it is called on
+receiving a response. The callback can essentially serve as a way to chain dependent greybus
+operations, or do something with the response, etc. Once the operation concludes, it is removed from
+the in-flight operations dlist and moved to the callback processing dlist. There is no reason to use
+a dlist for callbacks since they are called in a FIFO order, but the `sys_dnode_t` is already
+present, so you might as well use it. Once the callback is complete, the operation is deallocated.
 
-The `gb_message` structure essentially stores a greybus message with a header and payload. It also contains a pointer to the `gb_operation`, if there is any.
+The `gb_message` structure essentially stores a greybus message with a header and payload. It also
+contains a pointer to the `gb_operation`, if there is any.
 ```c
 /*
  * Struct to represent greybus message
@@ -145,27 +195,46 @@ struct gb_message {
 ```
 
 ### Communication with nodes
-The communication with greybus nodes happens over TCP. Each Cport in the Node exposes a Port in incrementing order. We establish a connection to these CPorts from the node setup.
+The communication with greybus nodes happens over TCP. Each Cport in the Node exposes a Port in
+incrementing order. We establish a connection to these CPorts from the node setup.
 
-A Reader thread is continuously running, which checks for any sockets with pending data using `k_poll`. If a valid greybus message is received, we first check if is associated with any in-flight greybus operations. If it is valid, we add the response to the operation, which then processes the callback. In the case of stand-alone messages, we do nothing since it is probably intended for the AP.
+A Reader thread is continuously running, which checks for any sockets with pending data using
+`k_poll`. If a valid greybus message is received, we first check if is associated with any in-flight
+greybus operations. If it is valid, we add the response to the operation, which then processes the
+callback. In the case of stand-alone messages, we do nothing since it is probably intended for the
+AP.
 
-A Writer thread is also continuously running, checking if any socket is available for writing using `k_poll`. If the socket can be written to, we check if any greybus operations are present for that socket. In case of a match, we send the message and mark the operation request as sent.
+A Writer thread is also continuously running, checking if any socket is available for writing using
+`k_poll`. If the socket can be written to, we check if any greybus operations are present for that
+socket. In case of a match, we send the message and mark the operation request as sent.
 
 ### Logging over HDLC
-I also wrote a custom logging backend that sends all logging data as an HDCL frame with a DBG address. This data is then printed to standard Linux logs. Currently, the logging backend does not do much message processing, like setting the log level, but it can be done in the future.
+I also wrote a custom logging backend that sends all logging data as an HDCL frame with a DBG
+address. This data is then printed to standard Linux logs. Currently, the logging backend does not
+do much message processing, like setting the log level, but it can be done in the future.
 
 # Demo
 Here are all the components for this demo:
-1. [greybus-for-zephyr](https://git.beagleboard.org/ayush1325/greybus-for-zephyr/-/tree/latest-zephyr): 57cf1c1b1ee3388d1ad9971ed77f548ae7abf63a
-2. [Zephyr](https://git.beagleboard.org/beagleconnect/zephyr/zephyr/-/tree/sdk-next): 520fb22555402360e5eba798f6834771254198af
-3. [beagleplay-greybus-driver](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/tree/develop): 40ed0fbc6cbe3c150d7eec74331f53a5e4fc351b
-4. [cc1352-firmware](https://git.beagleboard.org/gsoc/greybus/cc1352-firmware/-/tree/develop): d68e300440affc502209b7fa8f39e57bc0476346
+1. [greybus-for-zephyr](https://git.beagleboard.org/ayush1325/greybus-for-zephyr/-/tree/latest-zephyr):
+   57cf1c1b1ee3388d1ad9971ed77f548ae7abf63a
+2. [Zephyr](https://git.beagleboard.org/beagleconnect/zephyr/zephyr/-/tree/sdk-next):
+   520fb22555402360e5eba798f6834771254198af
+3. [beagleplay-greybus-driver](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/tree/develop):
+   40ed0fbc6cbe3c150d7eec74331f53a5e4fc351b
+4. [cc1352-firmware](https://git.beagleboard.org/gsoc/greybus/cc1352-firmware/-/tree/develop):
+   d68e300440affc502209b7fa8f39e57bc0476346
 
-The instructions for building beagleplay-greybus-driver can be found in my [linux driver post](@/posts/post22.md). The instructions for building cc1352-firmware are similar to my [zephyr application post](@/posts/post23.md). It is more tricky to compile greybus-for-zephyr, but my fork (with some changes to the project config) should work.
+The instructions for building beagleplay-greybus-driver can be found in my
+[linux driver post](@/posts/post22.md). The instructions for building cc1352-firmware are similar to
+my [zephyr application post](@/posts/post23.md). It is more tricky to compile greybus-for-zephyr,
+but my fork (with some changes to the project config) should work.
 
-For flashing, I am still using [cc1352-flasher](https://git.beagleboard.org/beagleconnect/cc1352-flasher/-/tree/from-20230521) as shown in my [previous post](@/posts/post23.md).
+For flashing, I am still using
+[cc1352-flasher](https://git.beagleboard.org/beagleconnect/cc1352-flasher/-/tree/from-20230521) as
+shown in my [previous post](@/posts/post23.md).
 
-After installing the Linux driver, I used a simple Python script to reset cc1352 to get the full logs:
+After installing the Linux driver, I used a simple Python script to reset cc1352 to get the full
+logs:
 ```python
 import time
 import gpiod
@@ -293,7 +362,8 @@ if __name__ == "__main__":
 ```
 
 # Conclusion
-I hope this sheds light on the current status of my project. You can follow my GSoC23-related blog posts using this [feed](https://programmershideaway.dev/tags/gsoc23/atom.xml).
+I hope this sheds light on the current status of my project. You can follow my GSoC23-related blog
+posts using this [feed](https://programmershideaway.dev/tags/gsoc23/atom.xml).
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 

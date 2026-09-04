@@ -11,29 +11,46 @@ tags = ["weekly-update", "beagleboard", "linux", "beagleconnect-freedom", "zephy
 comment = true
 +++
 
-Hello everyone. It has been a while since my last post. Today, I will go over using [MCUboot](https://docs.mcuboot.com/) based serial OTA on [BeagleConnect Freedom](https://www.beagleboard.org/boards/beagleconnect-freedom). Everything required has already been merged to upstream Zephyr now, so no special considerations should be required.
+Hello everyone. It has been a while since my last post. Today, I will go over using
+[MCUboot](https://docs.mcuboot.com/) based serial OTA on
+[BeagleConnect Freedom](https://www.beagleboard.org/boards/beagleconnect-freedom). Everything
+required has already been merged to upstream Zephyr now, so no special considerations should be
+required.
 
 # Introduction
 
-[BeagleConnect Freedom](https://www.beagleboard.org/boards/beagleconnect-freedom) contains a simple bootloader in ROM, which boots the Zephyr application from the Flash. However, this minimal bootloader does not support advanced functionality such as OTA updates, rollbacks, etc. 
+[BeagleConnect Freedom](https://www.beagleboard.org/boards/beagleconnect-freedom) contains a simple
+bootloader in ROM, which boots the Zephyr application from the Flash. However, this minimal
+bootloader does not support advanced functionality such as OTA updates, rollbacks, etc.
 
-Zephyr supports [MCUboot](https://docs.mcuboot.com/), which is a secure bootloader for 32-bits microcontrollers. It helps add support for advanced production usecases such as secure boot, OTA, rollbacks, etc.
+Zephyr supports [MCUboot](https://docs.mcuboot.com/), which is a secure bootloader for 32-bits
+microcontrollers. It helps add support for advanced production usecases such as secure boot, OTA,
+rollbacks, etc.
 
-In this post, I will only be going over OTA over serial. However, it is possible to support OTA over IEEE802154g and other transport protocols.
+In this post, I will only be going over OTA over serial. However, it is possible to support OTA over
+IEEE802154g and other transport protocols.
 
 # MCUboot storage use
 
-When using [MCUboot](https://docs.mcuboot.com/) with [BeagleConnect Freedom](https://www.beagleboard.org/boards/beagleconnect-freedom), 56KiB is reserved for MCUboot. This leaves 640KiB of main flash for use by the Zephyr application. 
+When using [MCUboot](https://docs.mcuboot.com/) with
+[BeagleConnect Freedom](https://www.beagleboard.org/boards/beagleconnect-freedom), 56KiB is reserved
+for MCUboot. This leaves 640KiB of main flash for use by the Zephyr application.
 
-The on-board SPI flash is used to store the secondary image. So outof 2MiB, 1280KiB is available for Zephyr application use.
+The on-board SPI flash is used to store the secondary image. So outof 2MiB, 1280KiB is available for
+Zephyr application use.
 
 # Demo
 
-For the demo application, I will be using the [smp_svr](https://docs.zephyrproject.org/latest/samples/subsys/mgmt/mcumgr/smp_svr/README.html) example provided by Zephyr.
+For the demo application, I will be using the
+[smp_svr](https://docs.zephyrproject.org/latest/samples/subsys/mgmt/mcumgr/smp_svr/README.html)
+example provided by Zephyr.
 
 ## Setup Zephyr
 
-Follow the [Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to set up Zephyr on your machine. Currently, mainline Zephyr is required for out-of-the-box MCUboot support on BeagleConnect Freedom.
+Follow the
+[Getting Started Guide](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) to
+set up Zephyr on your machine. Currently, mainline Zephyr is required for out-of-the-box MCUboot
+support on BeagleConnect Freedom.
 
 ## Setup AuTerm
 
@@ -41,7 +58,8 @@ Download and set up AuTerm as described in its [repository](https://github.com/t
 
 ## Build Zephyr Application
 
-1. Build smp_svr + MCUboot using [sysbuild](https://docs.zephyrproject.org/latest/build/sysbuild/index.html).
+1. Build smp_svr + MCUboot using
+   [sysbuild](https://docs.zephyrproject.org/latest/build/sysbuild/index.html).
 
 ```sh
 west build -p -b beagleconnect_freedom --sysbuild samples/subsys/mgmt/mcumgr/smp_svr -- -DEXTRA_CONF_FILE="overlay-serial.conf"
@@ -123,7 +141,8 @@ cc1352_flasher --bcf zephyr.bin
 
 # Ending Thoughts
 
-That is all for this post. Hopefully, this serves as an example for anyone trying to have OTA working with BeagleConnect Freedom.
+That is all for this post. Hopefully, this serves as an example for anyone trying to have OTA
+working with BeagleConnect Freedom.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 
@@ -132,5 +151,6 @@ Consider [supporting me](@/_index.md#support-me) if you like my work.
 - [BeagleBoard](https://www.beagleboard.org/)
 - [BeagleConnect Freedom](https://www.beagleboard.org/boards/beagleconnect-freedom)
 - [MCUboot](https://docs.mcuboot.com/)
-- [Zephyr smp_svr sample](https://docs.zephyrproject.org/latest/samples/subsys/mgmt/mcumgr/smp_svr/README.html)
+- [Zephyr smp_svr
+  sample](https://docs.zephyrproject.org/latest/samples/subsys/mgmt/mcumgr/smp_svr/README.html)
 - [AuTerm](https://github.com/thedjnK/AuTerm)

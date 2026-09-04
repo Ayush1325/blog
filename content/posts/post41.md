@@ -15,7 +15,11 @@ Hello everyone. I was busy with the Linux kernel for most of the week. Let's go 
 
 # Devicetree append properties support
 
-Currently, devictree supports creating and deleting properties but not appending to existing properties. This functionality is vital for complex uses like MikroBUS. I have been working on this for a while and posted [Patch v3](https://lore.kernel.org/all/20241111-append-v3-0-609c09401f3f@beagleboard.org/) last week.
+Currently, devictree supports creating and deleting properties but not appending to existing
+properties. This functionality is vital for complex uses like MikroBUS. I have been working on this
+for a while and posted
+[Patch v3](https://lore.kernel.org/all/20241111-append-v3-0-609c09401f3f@beagleboard.org/) last
+week.
 
 To understand what it allows, let's take an example:
 
@@ -61,17 +65,24 @@ foo = <&bar>;
 foo = &bar;
 ```
 
-Runtime overlays only support the former but not the latter. I have created a [patch series](https://lore.kernel.org/all/20241116-overlay-path-v1-0-ac3e121359e9@beagleboard.org/) to fix this asymmetry.
+Runtime overlays only support the former but not the latter. I have created a
+[patch series](https://lore.kernel.org/all/20241116-overlay-path-v1-0-ac3e121359e9@beagleboard.org/)
+to fix this asymmetry.
 
-Additionally, `__symbols__` does not support phandles, which makes overlays modifying `__symbols__` somewhat limiting. More context regarding this patch can be found [here](https://lore.kernel.org/devicetree-compiler/44bfc9b3-8282-4cc7-8d9a-7292cac663ef@ti.com/T/#mf0f6ae4db0848f725ec6e2fb625291fa0d4eec71).
+Additionally, `__symbols__` does not support phandles, which makes overlays modifying `__symbols__`
+somewhat limiting. More context regarding this patch can be found
+[here](https://lore.kernel.org/devicetree-compiler/44bfc9b3-8282-4cc7-8d9a-7292cac663ef@ti.com/T/#mf0f6ae4db0848f725ec6e2fb625291fa0d4eec71).
 
 # Ending Thoughts
 
-That is all for the week. Hopefully, this series helps keep people updated about my work and attracts potential contributors.
+That is all for the week. Hopefully, this series helps keep people updated about my work and
+attracts potential contributors.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 
 # Helpful links
 - [BeagleBoard](https://www.beagleboard.org/)
-- [Devicetree append properties patch](https://lore.kernel.org/all/20241111-append-v3-0-609c09401f3f@beagleboard.org/)
-- [Devicetree overlays path reference patch](https://lore.kernel.org/all/20241116-overlay-path-v1-0-ac3e121359e9@beagleboard.org/)
+- [Devicetree append properties
+  patch](https://lore.kernel.org/all/20241111-append-v3-0-609c09401f3f@beagleboard.org/)
+- [Devicetree overlays path reference
+  patch](https://lore.kernel.org/all/20241116-overlay-path-v1-0-ac3e121359e9@beagleboard.org/)

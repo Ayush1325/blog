@@ -11,11 +11,14 @@ tags = ["weekly-update", "beagleboard", "linux"]
 comment = true
 +++
 
-Hello everyone. In this post, I will go over the setup I use when doing Linux Kernel development. I will be using [PocketBeagle 2](https://www.beagleboard.org/boards/pocketbeagle-2) in this post, but the same instructions should work with most other BeagleBoard.org Boards.
+Hello everyone. In this post, I will go over the setup I use when doing Linux Kernel development. I
+will be using [PocketBeagle 2](https://www.beagleboard.org/boards/pocketbeagle-2) in this post, but
+the same instructions should work with most other BeagleBoard.org Boards.
 
 # Setup
 
-The first step is to fetch the kernel repo. I am going to use linux-next in this post, but the instructions stay the same for other kernel forks.
+The first step is to fetch the kernel repo. I am going to use linux-next in this post, but the
+instructions stay the same for other kernel forks.
 
 1. Clone the repo
 
@@ -24,7 +27,8 @@ git clone https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
 cd linux-next
 ```
 
-2. Since we are cross-compiling here, we need to set some environment variables. I personally use [direnv](https://direnv.net/), so I set them in the `.envrc` file:
+2. Since we are cross-compiling here, we need to set some environment variables. I personally use
+   [direnv](https://direnv.net/), so I set them in the `.envrc` file:
 
 ```sh
 export ARCH=arm64
@@ -80,19 +84,24 @@ label kernDev
 EOF
 ```
 
-4. (Optional) It is possible to use a custom devicetree along with the kernel. Just copy the devicetree to `/run/media/ayush/BOOT/ti/k3-am6232-pocketbeagle2-dev.dtb` and uncomment the fdt line in the above entry.
+4. (Optional) It is possible to use a custom devicetree along with the kernel. Just copy the
+   devicetree to `/run/media/ayush/BOOT/ti/k3-am6232-pocketbeagle2-dev.dtb` and uncomment the fdt
+   line in the above entry.
 
 Eject the SD Card.
 
 # Booting into the new kernel
 
-U-Boot will now show a menu to select the `kernDev` boot entry during boot. It is also possible to set the `kernDev` entry be the default boot entry in extlinux.conf
+U-Boot will now show a menu to select the `kernDev` boot entry during boot. It is also possible to
+set the `kernDev` entry be the default boot entry in extlinux.conf
 
 Once boot up is successful, the running kernel can be checked using `uname -r`.
 
 # Ending Thoughts
 
-That is all for this post. Hopefully, this helps people get an idea regarding running custom kernels without replacing the default one. There are also ways like network booting, which can be specially useful for development, but I will leave those for some other time.
+That is all for this post. Hopefully, this helps people get an idea regarding running custom kernels
+without replacing the default one. There are also ways like network booting, which can be specially
+useful for development, but I will leave those for some other time.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 

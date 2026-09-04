@@ -11,13 +11,18 @@ tags = ["rust", "tianocore", "gsoc22", "uefi"]
 comment = true
 +++
 
-Hello Everyone; in my last [post](@/posts/post5.md), I set up the development environment for working on adding Rust support for UEFI. In this post, I will get a restricted version of std (basically a glorified core + alloc) to work for the x86_64 UEFI target. We will be starting with the `no_std` hello_world program from the last post.
+Hello Everyone; in my last [post](@/posts/post5.md), I set up the development environment for
+working on adding Rust support for UEFI. In this post, I will get a restricted version of std
+(basically a glorified core + alloc) to work for the x86_64 UEFI target. We will be starting with
+the `no_std` hello_world program from the last post.
 
 <!-- more -->
 
 # Add env module for UEFI in std
 ## Add uefi Module
-First, I will add `uefi` module under `library/std/src/sys`. To do this, we will create a new file `library/std/src/sys/uefi/mod.rs`. We will point everything other than the `env` module to the unsupported module. The contents of `library/std/src/sys/uefi/mod.rs` are given below:
+First, I will add `uefi` module under `library/std/src/sys`. To do this, we will create a new file
+`library/std/src/sys/uefi/mod.rs`. We will point everything other than the `env` module to the
+unsupported module. The contents of `library/std/src/sys/uefi/mod.rs` are given below:
 ```rust
 //! Platform-specific extensions to `std` for UEFI platforms.
 //!
@@ -74,10 +79,14 @@ pub mod time;
 mod common;
 pub use common::*;
 ```
-As you can see, `cmath`, `os_str`, and `path` point to the `unix` or `windows` module instead of `unsupported`. This is because `unsupported` does not provide any definition for those. The `cmath` unix module API can be provided by `compiler-builtins`, so that should work. However, `os_str` and `path` are simply placeholders for now.
+As you can see, `cmath`, `os_str`, and `path` point to the `unix` or `windows` module instead of
+`unsupported`. This is because `unsupported` does not provide any definition for those. The `cmath`
+unix module API can be provided by `compiler-builtins`, so that should work. However, `os_str` and
+`path` are simply placeholders for now.
 
 ## Implement env module
-The env module is very basic and we just need to define a few constants for it. Here are the contents of `library/std/src/sys/uefi/env.rs`:
+The env module is very basic and we just need to define a few constants for it. Here are the
+contents of `library/std/src/sys/uefi/env.rs`:
 ```rust
 pub mod os {
     pub const FAMILY: &str = "";
@@ -113,12 +122,14 @@ We will now need to build the toolchain again:
 ```
 stage1 should now be pointing to this new toolchain.
 
-Now, we will try to print these constants to UEFI in a very primitive manner (since io, strings, etc have not been implemented yet).
+Now, we will try to print these constants to UEFI in a very primitive manner (since io, strings, etc
+have not been implemented yet).
 
 <br>
 
 # Compile hello_world with std
-Firstly, we will remove the `no_std` attribute and `panic_handler` from `src/main.rs`. Then we will update `.cargo/config.toml` with the following contents:
+Firstly, we will remove the `no_std` attribute and `panic_handler` from `src/main.rs`. Then we will
+update `.cargo/config.toml` with the following contents:
 ```toml
 [unstable]
 build-std = ["std", "compiler_builtins"]
@@ -138,7 +149,10 @@ For more information about an error, try `rustc --explain E0463`.
 error: could not compile `hello_world` due to 2 previous errors
 ```
 
-The first error is a [bug in build-std](https://github.com/rust-lang/rust/issues/83805#issuecomment-812874115). It doesn’t know how to handle panic_abort vs panic_unwind, so it doesn’t use either crate, resulting in the above error. It can be fixed by adding `panic_abort` to `.cargo/config.toml`. 
+The first error is a
+[bug in build-std](https://github.com/rust-lang/rust/issues/83805#issuecomment-812874115). It
+doesn’t know how to handle panic_abort vs panic_unwind, so it doesn’t use either crate, resulting in
+the above error. It can be fixed by adding `panic_abort` to `.cargo/config.toml`.
 
 The second error can be fixed by adding the `restricted_std` feature to the `src/main.rs`.
 
@@ -155,7 +169,9 @@ error: linking with `rust-lld` failed: exit status: 1
 error: could not compile `hello_world` due to previous error
 ```
 
-This error is, well, a bit weird. We can fix the build for now by providing a blank implementation of `__CxxFrameHandler3`, but this needs more research. The following lines need to be added to `src/main.rs`:
+This error is, well, a bit weird. We can fix the build for now by providing a blank implementation
+of `__CxxFrameHandler3`, but this needs more research. The following lines need to be added to
+`src/main.rs`:
 ```rust
 #[no_mangle]
 pub extern "C" fn __CxxFrameHandler3() {}
@@ -164,7 +180,8 @@ pub extern "C" fn __CxxFrameHandler3() {}
 The application builds and runs fine now.
 
 ## Print EXE_EXTENSION constant
-Now we will print EXE_EXTENSION to the console. Since we do not have io and string implemented yet, we will have to do it in a primitive way using `u16` arrays. The final `src/main.rs` is given below:
+Now we will print EXE_EXTENSION to the console. Since we do not have io and string implemented yet,
+we will have to do it in a primitive way using `u16` arrays. The final `src/main.rs` is given below:
 ```rust
 #![no_main]
 #![feature(restricted_std)]
@@ -227,16 +244,22 @@ Here is the program running under qemu:
 
 ![The program running under QEMU](/images/post6/run-qemu-1.webp)
 
-With this, we are using our new `std` for UEFI. 
+With this, we are using our new `std` for UEFI.
 
 <br>
 
 # Edit
-The `__CxxFrameHandler3` blank implementation is no longer required in the `master` branch. I was previously basing my changes on the v1.61.0 tag. However, from now, I am going to work on master directly.
+The `__CxxFrameHandler3` blank implementation is no longer required in the `master` branch. I was
+previously basing my changes on the v1.61.0 tag. However, from now, I am going to work on master
+directly.
 
 <br>
 
 # Conclusion
-Technically, we are now using `std` (even though none of it has yet been implemented). Now I will slowly start implementing parts of `std` starting with allocation. I also wanted to find a way to use the normal Rust `main` function instead of the current `efi_main`. However, this still does not seem possible (see [#29633](https://github.com/rust-lang/rust/issues/29633)). So, let's get allocation working and replace all the arrays with vectors in this code.
+Technically, we are now using `std` (even though none of it has yet been implemented). Now I will
+slowly start implementing parts of `std` starting with allocation. I also wanted to find a way to
+use the normal Rust `main` function instead of the current `efi_main`. However, this still does not
+seem possible (see [#29633](https://github.com/rust-lang/rust/issues/29633)). So, let's get
+allocation working and replace all the arrays with vectors in this code.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.

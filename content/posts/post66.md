@@ -11,19 +11,33 @@ tags = ["weekly-update", "beagleboard", "linux"]
 comment = true
 +++
 
-Hello everyone. It's been a while since my last post. Instead of doing the normal weekly update, I have decided to try writing something a bit more in-depth. Recently, I have been successful in publishing [BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs) to [Flathub](https://flathub.org/). So I thought it might be best to go over the development and publishing process.
+Hello everyone. It's been a while since my last post. Instead of doing the normal weekly update, I
+have decided to try writing something a bit more in-depth. Recently, I have been successful in
+publishing [BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs) to
+[Flathub](https://flathub.org/). So I thought it might be best to go over the development and
+publishing process.
 
 # Why Flatpak?
 
-Flatpak is a cross-distribution packaging format for Linux. It aims to solve the fragmentation of Linux packaging for GUI (and sometimes terminal) applications. However, it is important to note that it doesn't really replace the distribution packages since many low-level packages cannot be packaged as Flatpak. For more information, check out [Flatpak Documentation](https://docs.flatpak.org/en/latest/).
+Flatpak is a cross-distribution packaging format for Linux. It aims to solve the fragmentation of
+Linux packaging for GUI (and sometimes terminal) applications. However, it is important to note that
+it doesn't really replace the distribution packages since many low-level packages cannot be packaged
+as Flatpak. For more information, check out
+[Flatpak Documentation](https://docs.flatpak.org/en/latest/).
 
-I have been using [Fedora Sway Atomic](https://fedoraproject.org/atomic-desktops/sway/) for a while now. Being an immutable distribution, I prefer using Flatpaks instead of installing things on the base image using `rpm-ostree`. Additionally, I already have some experience with Flatpaks due to being a maintainer of [Zola flatpak](https://github.com/flathub/org.getzola.zola). So, it felt like a good idea to start distributing [BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs) as a flatpak.
+I have been using [Fedora Sway Atomic](https://fedoraproject.org/atomic-desktops/sway/) for a while
+now. Being an immutable distribution, I prefer using Flatpaks instead of installing things on the
+base image using `rpm-ostree`. Additionally, I already have some experience with Flatpaks due to
+being a maintainer of [Zola flatpak](https://github.com/flathub/org.getzola.zola). So, it felt like
+a good idea to start distributing
+[BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs) as a flatpak.
 
 Being on Flathub might also help attract more people to the project, so that's a bonus.
 
 # Install from Flathub
 
-While the main goal of the post is to build the Flatpak locally, it is important to note that anyone not trying to do development should just use the builds available on Flathub.
+While the main goal of the post is to build the Flatpak locally, it is important to note that anyone
+not trying to do development should just use the builds available on Flathub.
 
 ```sh
 flatpak install flathub org.beagleboard.imagingutility
@@ -35,21 +49,35 @@ Let's go over the basics of what is required to build a Flatpak package for Rust
 
 ## Dependencies
 
-The build step on Flathub does not have access to the internet. This is a problem because it means we cannot download dependencies from crates.io during the build process. Depending on the level of access to the main project, I have found two ways to package Rust applications as Flatpak.
+The build step on Flathub does not have access to the internet. This is a problem because it means
+we cannot download dependencies from crates.io during the build process. Depending on the level of
+access to the main project, I have found two ways to package Rust applications as Flatpak.
 
 ### Create dependency list from Cargo.lock
 
-This method involves creating a list of crates.io dependencies ahead of time, which allows the flatpak builder to download them. This can be done using the scripts provided in the [flatpak-builder-tools](https://github.com/flatpak/flatpak-builder-tools/tree/master/cargo).
+This method involves creating a list of crates.io dependencies ahead of time, which allows the
+flatpak builder to download them. This can be done using the scripts provided in the
+[flatpak-builder-tools](https://github.com/flatpak/flatpak-builder-tools/tree/master/cargo).
 
-The upsides to this approach are that it does not need any changes to the upstream repo. Thus, it is useful when the package is being created by someone other than the original developers.
+The upsides to this approach are that it does not need any changes to the upstream repo. Thus, it is
+useful when the package is being created by someone other than the original developers.
 
-However, the dependency list needs to be updated for every new release. Flatpak has some bots that allow watching for new releases in a repository. If used properly, these bots will also create PRs, thus automating the whole update process. However, due to the requirement to regenerate the dependency list, the process now requires manual changes from the Flatpak maintainer.
+However, the dependency list needs to be updated for every new release. Flatpak has some bots that
+allow watching for new releases in a repository. If used properly, these bots will also create PRs,
+thus automating the whole update process. However, due to the requirement to regenerate the
+dependency list, the process now requires manual changes from the Flatpak maintainer.
 
 ### Use cargo vendor
 
-This is the method I am using for [BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs). Simply put, it uses the `cargo vendor` command to create a local copy of the dependencies, which is then released as part of the normal release. These vendored dependencies are then downloaded in the flatpak build process and are used for the dependencies instead of downloading them from crates.io.
+This is the method I am using for
+[BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs). Simply put, it uses the
+`cargo vendor` command to create a local copy of the dependencies, which is then released as part of
+the normal release. These vendored dependencies are then downloaded in the flatpak build process and
+are used for the dependencies instead of downloading them from crates.io.
 
-Since I am the author of [BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs), adding vendored dependencies to the release was not a problem. So I went this route. For every release, I am now building a `tar.gz` for vendored dependencies.
+Since I am the author of [BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs),
+adding vendored dependencies to the release was not a problem. So I went this route. For every
+release, I am now building a `tar.gz` for vendored dependencies.
 
 ## Files
 
@@ -57,7 +85,9 @@ Let's now go over the main files involved in building the Flatpak.
 
 ### Metinfo File
 
-The Metinfo file contains all the information that is shown on the Flathub page for the application. It includes things like various URLs related to the project, screenshots, etc. Here is the metainfo file at the time of writing this blog:
+The Metinfo file contains all the information that is shown on the Flathub page for the application.
+It includes things like various URLs related to the project, screenshots, etc. Here is the metainfo
+file at the time of writing this blog:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -132,11 +162,15 @@ The Metinfo file contains all the information that is shown on the Flathub page 
 </component>
 ```
 
-Check out the [Flathub metainfo guidelines](https://docs.flathub.org/docs/for-app-authors/metainfo-guidelines) for details regarding the metainfo file. This file currently lives in the [bb-imager-rs repo](https://github.com/beagleboard/bb-imager-rs/blob/8f5aedcb4902b09ce23763beda60a45201eb239f/bb-imager-gui/assets/packages/linux/flatpak/org.beagleboard.imagingutility.metainfo.xml).
+Check out the
+[Flathub metainfo guidelines](https://docs.flathub.org/docs/for-app-authors/metainfo-guidelines) for
+details regarding the metainfo file. This file currently lives in the [bb-imager-rs
+repo](https://github.com/beagleboard/bb-imager-rs/blob/8f5aedcb4902b09ce23763beda60a45201eb239f/bb-imager-gui/assets/packages/linux/flatpak/org.beagleboard.imagingutility.metainfo.xml).
 
 ## Flatpak Manifest
 
-The manifest file describes how to build the Flatpak. Let's look at the manifest file at the time of writing this post:
+The manifest file describes how to build the Flatpak. Let's look at the manifest file at the time of
+writing this post:
 
 ```yaml
 id: org.beagleboard.imagingutility
@@ -203,15 +237,21 @@ modules:
 
 The Rust-specific things to note here are the following:
 
-- It is using 3 files: the source tarball, the vendored dependencies tarball, and a cargo config file. The config file is basically there to tell Cargo to use a local folder for dependency resolution instead of trying to download from crates.io.
+- It is using 3 files: the source tarball, the vendored dependencies tarball, and a cargo config
+  file. The config file is basically there to tell Cargo to use a local folder for dependency
+  resolution instead of trying to download from crates.io.
 
-- The x-checker-data is for [Flatpak external data checker](https://docs.flathub.org/docs/for-app-authors/external-data-checker). It can be used to automatically check for updates to external sources in the Flatpak manifest. This allows us to automate updates since the checker will create the PR for us when it detects a new release.
+- The x-checker-data is for [Flatpak external data
+  checker](https://docs.flathub.org/docs/for-app-authors/external-data-checker). It can be used to
+  automatically check for updates to external sources in the Flatpak manifest. This allows us to
+  automate updates since the checker will create the PR for us when it detects a new release.
 
 # Building the Package Locally
 
-Now we have a basic idea regarding all the files involved, let's build and test the flatpak locally. 
+Now we have a basic idea regarding all the files involved, let's build and test the flatpak locally.
 
-1. The first tool we need is flatpak-builder. I like installing it as a flatpak, but it is also possible to install it from the distribution repos.
+1. The first tool we need is flatpak-builder. I like installing it as a flatpak, but it is also
+   possible to install it from the distribution repos.
 
 ```sh
 flatpak install org.flatpak.Builder
@@ -230,11 +270,13 @@ cd org.beagleboard.imagingutility
 flatpak run org.flatpak.Builder --force-clean --user --repo=repo --install builddir org.beagleboard.imagingutility.yaml
 ```
 
-It should now be installed as a flatpak in the system for the current user. Go ahead and test things.
+It should now be installed as a flatpak in the system for the current user. Go ahead and test
+things.
 
 # Ending Thoughts
 
-That is all for this post. Hopefully, this helps other people understand how to build and test Flatpak locally.
+That is all for this post. Hopefully, this helps other people understand how to build and test
+Flatpak locally.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 
@@ -242,5 +284,6 @@ Consider [supporting me](@/_index.md#support-me) if you like my work.
 
 - [BeagleBoard](https://www.beagleboard.org/)
 - [BeagleBoard Rust Imager](https://github.com/beagleboard/bb-imager-rs)
-- [BeagleBoard Rust Imager Flatpak](https://github.com/flathub/org.beagleboard.imagingutility/tree/master#)
+- [BeagleBoard Rust Imager
+  Flatpak](https://github.com/flathub/org.beagleboard.imagingutility/tree/master#)
 - [Flathub Submission Guidelines](https://docs.flathub.org/docs/for-app-authors/submission)

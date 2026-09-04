@@ -11,7 +11,10 @@ tags = ["rust", "tianocore", "gsoc22", "uefi"]
 comment = true
 +++
 
-Hello everyone, we will discuss how to write the Allocator for UEFI in this post. More specifically, the Allocator is for the DEX phase in UEFI. We will be using [uefi-spec-rs](https://github.com/Ayush1325/uefi-spec-rs), which is my wrapper around [r-efi](https://github.com/Ayush1325/r-efi) for use in the std.
+Hello everyone, we will discuss how to write the Allocator for UEFI in this post. More specifically,
+the Allocator is for the DEX phase in UEFI. We will be using
+[uefi-spec-rs](https://github.com/Ayush1325/uefi-spec-rs), which is my wrapper around
+[r-efi](https://github.com/Ayush1325/r-efi) for use in the std.
 
 <!-- more -->
 <br>
@@ -30,7 +33,9 @@ EFI_STATUS
 );
 ```
 ### Description
-This function allocates a memory region of `Size` bytes from the memory of type `PoolType` and returns the address of the allocated memory in the location referenced by Buffer. This function allocates pages from EfiConventionalMemory as needed to grow the requested pool type. 
+This function allocates a memory region of `Size` bytes from the memory of type `PoolType` and
+returns the address of the allocated memory in the location referenced by Buffer. This function
+allocates pages from EfiConventionalMemory as needed to grow the requested pool type.
 
 **Note:** All allocations are eight-byte aligned.
 
@@ -51,16 +56,20 @@ EFI_STATUS
 );
 ```
 ### Description
-This function returns the memory specified by Buffer to the system. In return, the memory’s type is EfiConventionalMemory. The freed Buffer must have been allocated by `AllocatePool()`.
+This function returns the memory specified by Buffer to the system. In return, the memory’s type is
+EfiConventionalMemory. The freed Buffer must have been allocated by `AllocatePool()`.
 
 ### Status Code Returned
-1. **EFI_SUCCESS :**  The memory was returned to the system.
+1. **EFI_SUCCESS :** The memory was returned to the system.
 2. **EFI_INVALID_PARAMETER :** Buffer was invalid.
 
 <br>
 
 # Writing a basic allocator
-First, we will write an allocator which works for alignment <= 8 bytes. To make a global allocator, we need to implement the' GlobalAlloc' trait. In the case of std, we would implement this trait on the `System` allocator. However, since I would like to test things out, I will be implementing the allocator as an example in the uefi-spec-rs crate.
+First, we will write an allocator which works for alignment <= 8 bytes. To make a global allocator,
+we need to implement the' GlobalAlloc' trait. In the case of std, we would implement this trait on
+the `System` allocator. However, since I would like to test things out, I will be implementing the
+allocator as an example in the uefi-spec-rs crate.
 
 ```rust
 static mut GLOBAL_SYSTEM_TABLE: GlobalData<efi::SystemTable> = GlobalData::new();
@@ -80,12 +89,16 @@ unsafe impl GlobalAlloc for Allocator {
     }
 }
 ```
-Here we create an empty struct (`Allocator`) as a placeholder for `System` and implement GlobalAlloc on it. The `GLOBAL_SYSTEM_TABLE` stores an `AtomicPtr` to the `SystemTable`. I will also be adding a way to access the SystemTable in `std::os::uefi`. However, I will not be exposing the static mutable variable there.
+Here we create an empty struct (`Allocator`) as a placeholder for `System` and implement GlobalAlloc
+on it. The `GLOBAL_SYSTEM_TABLE` stores an `AtomicPtr` to the `SystemTable`. I will also be adding a
+way to access the SystemTable in `std::os::uefi`. However, I will not be exposing the static mutable
+variable there.
 
 ## Implement alloc
 Firstly, we need to be aware of a few things:
-1. The `layout.size()` supplied in `GlobalAlloc` can be 0. It is up to the implementation to check for that case. 
-2. According to docs, we should return the `NULL` pointer in case of errors. 
+1. The `layout.size()` supplied in `GlobalAlloc` can be 0. It is up to the implementation to check
+   for that case.
+2. According to docs, we should return the `NULL` pointer in case of errors.
 3. The `alloc` function should not unwind.
 
 Keeping all that in mind, here is the basic implementation of alloc:
@@ -116,10 +129,13 @@ unsafe fn alloc(&self, layout: core::alloc::Layout) -> *mut u8 {
     ptr.cast()
 }
 ```
-This is pretty simple. We fail for alignment > 0. we also fail if the `ptr` is null after allocation or if the error status is returned.
+This is pretty simple. We fail for alignment > 0. we also fail if the `ptr` is null after allocation
+or if the error status is returned.
 
 ## Implement dealloc
-We need to check that size is non-zero. The only error that `FreePool()` returns is in the case of invalid `ptr`, so ideally, this should not happen in `System` allocator. However, I am adding the assert for now to improve debugging. That assert will probably be removed in production.
+We need to check that size is non-zero. The only error that `FreePool()` returns is in the case of
+invalid `ptr`, so ideally, this should not happen in `System` allocator. However, I am adding the
+assert for now to improve debugging. That assert will probably be removed in production.
 ```rust
 unsafe fn dealloc(&self, ptr: *mut u8, layout: core::alloc::Layout) {
     let st = unsafe {
@@ -138,7 +154,8 @@ unsafe fn dealloc(&self, ptr: *mut u8, layout: core::alloc::Layout) {
 ```
 
 ## Testing the new allocator
-We just add a `efi_main` function that initializes the `GLOBAL_SYSTEM_TABLE` and we should be good to use the `alloc` types:
+We just add a `efi_main` function that initializes the `GLOBAL_SYSTEM_TABLE` and we should be good
+to use the `alloc` types:
 ```rust
 pub fn efi_run() -> efi::Status {
     let st = unsafe {
@@ -181,7 +198,11 @@ This example works as expected.
 <br>
 
 # Getting allocations > 8-byte align to work
-While the previous allocator works for many cases, there is a clever way to work around the 8-byte alignment limit. This is used in the [windows allocator](https://github.com/rust-lang/rust/blob/10f4ce324baf7cfb7ce2b2096662b82b79204944/library/std/src/sys/windows/alloc.rs) as well as [r-efi-alloc](https://github.com/Ayush1325/r-efi-alloc/blob/d47b50c75b6f16a44364f21f40db7a0f3d4dd296/src/alloc.rs).
+While the previous allocator works for many cases, there is a clever way to work around the 8-byte
+alignment limit. This is used in the [windows
+allocator](https://github.com/rust-lang/rust/blob/10f4ce324baf7cfb7ce2b2096662b82b79204944/library/std/src/sys/windows/alloc.rs)
+as well as
+[r-efi-alloc](https://github.com/Ayush1325/r-efi-alloc/blob/d47b50c75b6f16a44364f21f40db7a0f3d4dd296/src/alloc.rs).
 
 ## Implement alloc
 The new `alloc` function looks like this:
@@ -216,7 +237,8 @@ unsafe fn alloc(&self, layout: core::alloc::Layout) -> *mut u8 {
 ```
 The magic happens in the `align_size` and the `align_ptr` functions.
 
-In `align_size` function, we just allocate extra padding in case `align` is greater than 8. This padding will later be used in the `align_ptr` function.
+In `align_size` function, we just allocate extra padding in case `align` is greater than 8. This
+padding will later be used in the `align_ptr` function.
 ```rust
 fn align_size(size: usize, align: usize) -> usize {
     if align > POOL_ALIGNMENT {
@@ -228,7 +250,7 @@ fn align_size(size: usize, align: usize) -> usize {
 }
 ```
 
-In the `align_ptr` function we store the original address as `Header` in front of the aligned_ptr. 
+In the `align_ptr` function we store the original address as `Header` in front of the aligned_ptr.
 ```rust
 #[repr(C)]
 struct Header(*mut u8);
@@ -254,7 +276,8 @@ unsafe fn align_ptr(ptr: *mut u8, align: usize) -> *mut u8 {
     }
 }
 ```
-**Note:** the `align_ptr` function assumes that the allocation size has been increased beforehand by `align_size`.
+**Note:** the `align_ptr` function assumes that the allocation size has been increased beforehand by
+`align_size`.
 
 ## Implement dealloc
 The new `dealloc` looks like this:
@@ -274,7 +297,8 @@ unsafe fn dealloc(&self, ptr: *mut u8, layout: core::alloc::Layout) {
     }
 }
 ```
-The `unalign_ptr` function basically undoes what the `align_ptr` function did and gives back the original pointer.
+The `unalign_ptr` function basically undoes what the `align_ptr` function did and gives back the
+original pointer.
 ```rust
 #[inline]
 unsafe fn unalign_ptr(ptr: *mut u8, align: usize) -> *mut u8 {
@@ -293,7 +317,8 @@ The same example as before should work even now without any change.
 <br>
 
 # Conclusion
-With this, we now have a global allocator. I will soon be integrating it into the Rust std. In the next post, we will discuss implementing `stdin` for UEFI.
+With this, we now have a global allocator. I will soon be integrating it into the Rust std. In the
+next post, we will discuss implementing `stdin` for UEFI.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 

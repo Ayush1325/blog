@@ -11,15 +11,19 @@ tags = ["c", "gsoc23", "linux", "beagleboard"]
 comment = true
 +++
 
-Hello everyone. I will go over setting up BeaglePlay for Driver Development in this post. I will write a simple "Hello World" driver once BeaglePlay is set up to demonstrate this. Check out my [previous post](@/posts/post21.md) for more information about my project.
+Hello everyone. I will go over setting up BeaglePlay for Driver Development in this post. I will
+write a simple "Hello World" driver once BeaglePlay is set up to demonstrate this. Check out my
+[previous post](@/posts/post21.md) for more information about my project.
 
 <!-- more -->
 
 # Setup BeaglePlay
 ## Update board with the latest software
-1. Download the flasher image from [beagleboard.org distros](https://www.beagleboard.org/distros) page.
+1. Download the flasher image from [beagleboard.org distros](https://www.beagleboard.org/distros)
+   page.
 2. Flash this image onto an SD Card. I used [balenaEtcher](https://www.balena.io/etcher/) for this.
-3. Insert SD Card and boot the board. The lights will start flashing in the following order: 0-1-2-3-2-1-0 in a loop. This signifies that image is being flashed into eMMC.
+3. Insert SD Card and boot the board. The lights will start flashing in the following order:
+   0-1-2-3-2-1-0 in a loop. This signifies that image is being flashed into eMMC.
 4. The board will power down once the flashing is over. Remove the SD Card now.
 
 ## Setup Networking
@@ -52,8 +56,10 @@ Hello everyone. I will go over setting up BeaglePlay for Driver Development in t
     > enable_network 0
     <2>CTRL-EVENT-CONNECTED - Connection to 00:00:00:00:00:00 completed (reauth) [id=0 id_str=]
     ```
-    4. If the SSID does not have password authentication, you must explicitly configure the network as keyless by replacing the command `set_network 0 psk "passphrase"` with `set_network 0 key_mgmt NONE`. 
-    5. Finally, save this network in the configuration file and quit wpa_cli: 
+    4. If the SSID does not have password authentication, you must explicitly configure the network
+       as keyless by replacing the command `set_network 0 psk "passphrase"` with
+       `set_network 0 key_mgmt NONE`.
+    5. Finally, save this network in the configuration file and quit wpa_cli:
     ```sh
     > save_config
     OK
@@ -63,12 +69,15 @@ Hello everyone. I will go over setting up BeaglePlay for Driver Development in t
 Now it should be possible to ssh into BeaglePlay without being connected using USB.
 
 ## Copy SSH key
-Since we have to ssh into the BeaglePlay so many times, it is better to use ssh key instead of password.
+Since we have to ssh into the BeaglePlay so many times, it is better to use ssh key instead of
+password.
 1. Check if the ssh key is present:
 ```sh
 ls -al ~/.ssh
 ```
-2. [Generate new ssh key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) if not present.
+2. [Generate new ssh
+   key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+   if not present.
 3. Copy public key to BeaglePlay:
 ```sh
 ssh-copy-id debian@beagleplay.local
@@ -77,13 +86,15 @@ ssh-copy-id debian@beagleplay.local
 You should now be able to ssh into BeaglePlay without a password.
 
 # Build Kernel
-While building the kernel module on BeaglePlay is possible, I prefer using my Linux host device for development. As such, I needed to have the BeaglePlay kernel source on my host.
+While building the kernel module on BeaglePlay is possible, I prefer using my Linux host device for
+development. As such, I needed to have the BeaglePlay kernel source on my host.
 
 1. Download the [beagle kernel] source using git:
 ```sh
 git clone https://git.beagleboard.org/beagleboard/linux.git && cd linux
 ```
-2. Check out the branch corresponding to BeaglePlay's Kernel. In my case, BeaglePlay was running `5.10.168`
+2. Check out the branch corresponding to BeaglePlay's Kernel. In my case, BeaglePlay was running
+   `5.10.168`
 ```sh
 git checkout v5.10.168-ti-arm64-r103
 ```
@@ -171,6 +182,8 @@ dmesg -H
 ```
 
 # Conclusion
-The Kernel module I am writing for GSoC 23 can be found [here](https://git.beagleboard.org/ayush1325/bcf-greybus-driver). You can follow my GSoC23-related blog posts using this [feed](https://programmershideaway.dev/tags/gsoc23/atom.xml).
+The Kernel module I am writing for GSoC 23 can be found
+[here](https://git.beagleboard.org/ayush1325/bcf-greybus-driver). You can follow my GSoC23-related
+blog posts using this [feed](https://programmershideaway.dev/tags/gsoc23/atom.xml).
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.

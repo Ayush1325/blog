@@ -10,14 +10,18 @@ tags = ["rust", "tianocore", "gsoc22", "uefi"]
 [extra]
 comment = true
 +++
-Hello everyone. It is finally possible to run the whole Rust testing suit for UEFI under QEMU and OVMF. So I think this is a good point to give a detailed overview of everything that has been implemented and the state of those implementations. I will also provide instructions on how to go about running the tests as well.
+Hello everyone. It is finally possible to run the whole Rust testing suit for UEFI under QEMU and
+OVMF. So I think this is a good point to give a detailed overview of everything that has been
+implemented and the state of those implementations. I will also provide instructions on how to go
+about running the tests as well.
 
 <!-- more -->
 <br>
 
 # Running Rust Tests
 ## Setup
-We will follow the instructions in [Running Tests in a Remote Machine](https://rustc-dev-guide.rust-lang.org/tests/running.html#running-tests-on-a-remote-machine).
+We will follow the instructions in [Running Tests in a Remote
+Machine](https://rustc-dev-guide.rust-lang.org/tests/running.html#running-tests-on-a-remote-machine).
 1. Clone my fork of Rust source and switch to `uefi-std-rebase` branch:
 ```sh
 git clone https://github.com/Ayush1325/rust.git
@@ -33,8 +37,10 @@ git checkout uefi-std-rebase
 ./x.py build --stage 1 --target x86_64-unknown-uefi src/tools/remote-test-server
 ```
 ## Launch QEMU 
-Now we have to launch the generated `build/x86_64-unknown-linux-gnu/stage1-tools-bin/remote-test-server.efi` in QEMU. The following options are needed for launching this executable:
-1. Network with port 12345 forwarded 
+Now we have to launch the generated
+`build/x86_64-unknown-linux-gnu/stage1-tools-bin/remote-test-server.efi` in QEMU. The following
+options are needed for launching this executable:
+1. Network with port 12345 forwarded
 ```sh
 -netdev user,id=net0,hostfwd=tcp::12345-:12345 -device virtio-net-pci,netdev=net0,mac=00:00:00:00:00:00
 ```
@@ -42,17 +48,24 @@ Now we have to launch the generated `build/x86_64-unknown-linux-gnu/stage1-tools
 ```sh
 -drive if=pflash,format=raw,file={Path to OVMF_CODE.fd},index=0 -drive if=pflash,format=raw,file={Path to OVMF_VARS.fd},index=1
 ```
-3. UEFI Shell: Not supplying this ISO makes OVMF try to boot from the network first for me, so I do this manually as well:
+3. UEFI Shell: Not supplying this ISO makes OVMF try to boot from the network first for me, so I do
+   this manually as well:
 ```sh
 -drive format=raw,file={Path to UefiShell.iso},index=2
 ```
-4. Image containing the executable and a `startup.nsh` (for automatic startup): I would recommend not using `vvfat` since it gives a lot of mapping errors in intensive File I/O which is needed in running the tests
+4. Image containing the executable and a `startup.nsh` (for automatic startup): I would recommend
+   not using `vvfat` since it gives a lot of mapping errors in intensive File I/O which is needed in
+   running the tests
 
-All of this can be simplified by using my fork of [uefi-run](https://github.com/Ayush1325/uefi-run/tree/uefi). If you are using that, then it is possible to use the config I am using currently:
+All of this can be simplified by using my fork of
+[uefi-run](https://github.com/Ayush1325/uefi-run/tree/uefi). If you are using that, then it is
+possible to use the config I am using currently:
 ```sh
 qemu-uefi build/x86_64-unknown-linux-gnu/stage1-tools/x86_64-unknown-uefi/release/remote-test-server.efi -s 1024 --shell-path UefiShell.iso --vars-path OVMF_VARS.fd -b OVMF_CODE.fd --output-path output.txt -- -netdev user,id=net0,hostfwd=tcp::12345-:12345 -device virtio-net-pci,netdev=net0,mac=00:00:00:00:00:00
 ```
-The output-path argument passes `-serial output.txt` since the stderr output is not visible on the VGA buffer for me. However, the output.txt is extremely useful for debugging since all the stderr (Rust panics and aborts) are present in the file with the correct location of panics.
+The output-path argument passes `-serial output.txt` since the stderr output is not visible on the
+VGA buffer for me. However, the output.txt is extremely useful for debugging since all the stderr
+(Rust panics and aborts) are present in the file with the correct location of panics.
 
 I would also recommend launching the executable with `verbose` argument.
 
@@ -137,7 +150,8 @@ TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} -
   - [ ] canonicalize
   - [ ] copy
 - [x] *io: Using the default implementation at `unsupported/io.rs`. It works fine.
-- [x] *locks: Using the default implementation at `unsupported/locks.rs`. It should work for any target having just a single-thread.
+- [x] *locks: Using the default implementation at `unsupported/locks.rs`. It should work for any
+  target having just a single-thread.
 - [ ] *net: Only implmented TCPv4 right now.
   - [ ] TcpStream
     - [ ] connect
@@ -148,14 +162,16 @@ TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} -
     - [ ] write_timeout
     - [ ] peek
     - [x] read
-    - [x] *read_vectored: Using the default implementation right now. However, EFI_TCP4_PROTOCOL supports vectored read.
+    - [x] *read_vectored: Using the default implementation right now. However, EFI_TCP4_PROTOCOL
+      supports vectored read.
     - [x] is_read_vectored
     - [x] write
-    - [x] *write_vectored: Using the default implementation right now. However, EFI_TCP4_PROTOCOL supports vectored write.
+    - [x] *write_vectored: Using the default implementation right now. However, EFI_TCP4_PROTOCOL
+      supports vectored write.
     - [x] is_write_vectored
     - [ ] peer_addr
     - [ ] socket_addr
-    - [ ] *shutdown:  Only implemented complete shutdown right now.
+    - [ ] *shutdown: Only implemented complete shutdown right now.
     - [ ] duplicate
     - [ ] linger
     - [ ] set_nodelay
@@ -179,23 +195,27 @@ TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} -
 - [ ] os
   - [x] errno
   - [ ] error_string
-  - [x] getcwd: Returns the Text representation of `EFI_DEVICE_PATH_PROTOCOL`. This can be directly converted to `EFI_DEVICE_PATH_PROTOCOL` using the `EFI_DEVICE_PATH_FROM_TEXT_PROTOCOL`.
+  - [x] getcwd: Returns the Text representation of `EFI_DEVICE_PATH_PROTOCOL`. This can be directly
+    converted to `EFI_DEVICE_PATH_PROTOCOL` using the `EFI_DEVICE_PATH_FROM_TEXT_PROTOCOL`.
   - [ ] chdir
   - [ ] SplitPaths
   - [ ] split_paths
   - [ ] JoinPaths
   - [ ] join_paths
-  - [x] current_exe: Returns the Text representation of `EFI_DEVICE_PATH_PROTOCOL`. This can be directly converted to `EFI_DEVICE_PATH_PROTOCOL` using the `EFI_DEVICE_PATH_FROM_TEXT_PROTOCOL`.
+  - [x] current_exe: Returns the Text representation of `EFI_DEVICE_PATH_PROTOCOL`. This can be
+    directly converted to `EFI_DEVICE_PATH_PROTOCOL` using the `EFI_DEVICE_PATH_FROM_TEXT_PROTOCOL`.
   - [ ] Env
   - [ ] env
-  - [x] *getenv: Currently using a static Guid. Maybe should use the Guid used by UefiShell for Environment Variables.
+  - [x] *getenv: Currently using a static Guid. Maybe should use the Guid used by UefiShell for
+    Environment Variables.
   - [x] setenv
   - [x] unsetenv
   - [ ] temp_dir
   - [ ] home_dir
   - [x] exit
   - [ ] getpid
-- [x] os_str: Basically just UTF-8 strings. This is because os_str is supposed to be the superset of both te OS specific string(UCS-2) and Rust strings (UTF-8).
+- [x] os_str: Basically just UTF-8 strings. This is because os_str is supposed to be the superset of
+  both te OS specific string(UCS-2) and Rust strings (UTF-8).
   - [x] Buf
     - [x] from_string
     - [x] with_capacity
@@ -261,7 +281,8 @@ TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} -
     - [x] get_args
     - [x] get_envs
     - [x] get_current_dir
-    - [x] *spawn: Currently calling `EFI_BOOT_SERVICES.StartImage()` here since the pipes don't really work asynchronously right now.
+    - [x] *spawn: Currently calling `EFI_BOOT_SERVICES.StartImage()` here since the pipes don't
+      really work asynchronously right now.
   - [x] StdioPipes
   - [x] Stdio
   - [x] ExitStatus
@@ -303,6 +324,8 @@ TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} -
 <br>
 
 # Conclusion
-Since the first main object to run Rust tests has now been met, I will work on improving/refactoring most of the implementations before trying to merge them to master. It would also be great if more people try out this std and give feedback.
+Since the first main object to run Rust tests has now been met, I will work on improving/refactoring
+most of the implementations before trying to merge them to master. It would also be great if more
+people try out this std and give feedback.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.

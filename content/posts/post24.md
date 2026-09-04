@@ -10,7 +10,8 @@ tags = ["c", "gsoc23", "linux", "beagleboard"]
 [extra]
 comment = true
 +++
-Hello everyone. The Linux driver I am working on will be a Serial Device Bus Driver. So in this post, I will review the critical components of writing a functional Linux Serial Device Bus driver.
+Hello everyone. The Linux driver I am working on will be a Serial Device Bus Driver. So in this
+post, I will review the critical components of writing a functional Linux Serial Device Bus driver.
 
 <!-- more -->
 <br>
@@ -18,18 +19,28 @@ Hello everyone. The Linux driver I am working on will be a Serial Device Bus Dri
 # Introduction
 Here is the description of the Serial device Bus from the Mailing List:
 
-> The serdev bus is designed for devices such as Bluetooth, WiFi, GPS and NFC connected to UARTs on host processors. Tradionally these have been handled with tty line disciplines, rfkill, and userspace glue such as hciattach. This approach has many drawbacks since it doesn't fit into the Linux driver model. Handling of sideband signals, power control and firmware loading are the main issues.
+> The serdev bus is designed for devices such as Bluetooth, WiFi, GPS and NFC connected to UARTs on
+> host processors. Tradionally these have been handled with tty line disciplines, rfkill, and
+> userspace glue such as hciattach. This approach has many drawbacks since it doesn't fit into the
+> Linux driver model. Handling of sideband signals, power control and firmware loading are the main
+> issues.
 
-> This creates a serdev bus with controllers (i.e. host serial ports) and attached devices. Typically, these are point to point connections, but some devices have muxing protocols or a h/w mux is conceivable. Any muxing is not yet supported with the serdev bus.
+> This creates a serdev bus with controllers (i.e. host serial ports) and attached devices.
+> Typically, these are point to point connections, but some devices have muxing protocols or a h/w
+> mux is conceivable. Any muxing is not yet supported with the serdev bus.
 
-The documentation about Serdev is sparse, so most of my knowledge comes from looking at other people's code.
+The documentation about Serdev is sparse, so most of my knowledge comes from looking at other
+people's code.
 
 <br>
 
 # Device Tree
-The "Open Firmware Device Tree", or simply Devicetree (DT), is a data structure and language for describing hardware. More specifically, it is a description of hardware that is readable by an operating system so that the operating system doesn't need to hard code details of the machine.
+The "Open Firmware Device Tree", or simply Devicetree (DT), is a data structure and language for
+describing hardware. More specifically, it is a description of hardware that is readable by an
+operating system so that the operating system doesn't need to hard code details of the machine.
 
-I will use a device tree to attach my driver to a specific UART (connecting AM62 and CC1352). I will be using the Device Tree overlay from [bcfserial](https://git.beagleboard.org/beagleplay/bcfserial):
+I will use a device tree to attach my driver to a specific UART (connecting AM62 and CC1352). I will
+be using the Device Tree overlay from [bcfserial](https://git.beagleboard.org/beagleplay/bcfserial):
 
 ```dts
 /dts-v1/;
@@ -62,9 +73,12 @@ MODULE_DEVICE_TABLE(of, beagleplay_greybus_of_match);
 <br>
 
 # Greybus Driver
-This struct defines our actual driver and stores the related data structures. It has the following members:
+This struct defines our actual driver and stores the related data structures. It has the following
+members:
 1. **serdev:** The serdev device we will use with this driver.
-2. **tx_work:** The [workqueue](https://linux-kernel-labs.github.io/refs/heads/master/labs/deferred_work.html#workqueues) to execute writing to UART asynchronously.
+2. **tx_work:** The
+   [workqueue](https://linux-kernel-labs.github.io/refs/heads/master/labs/deferred_work.html#workqueues)
+   to execute writing to UART asynchronously.
 3. **tx_producer_lock:** A spinlock for writing to the UART buffer.
 4. **tx_consumer_lock:** A spinlock for reading from the UART buffer.
 5. **tx_circ_buf:** A circular buffer that stores the UART data until it is written asynchronously.
@@ -99,7 +113,9 @@ It contains two functions:
 2. `beagleplay_greybus_remove`
 
 ## Probe
-The probe function is called when a UART device is detected. In our case, it will only be called once since we have limited the UART device. It needs to initialize our `beagleplay_greybus` driver. This involves the following:
+The probe function is called when a UART device is detected. In our case, it will only be called
+once since we have limited the UART device. It needs to initialize our `beagleplay_greybus` driver.
+This involves the following:
 1. Allocate our driver struct.
 2. Initialize the work queue for UART transmission.
 3. Set up spin locks for producer and consumer.
@@ -144,7 +160,8 @@ static int beagleplay_greybus_probe(struct serdev_device *serdev) {
 ```
 
 ## Remove
-This function is called when the driver is unloaded, or the UART device is removed. We need to perform cleanup here:
+This function is called when the driver is unloaded, or the UART device is removed. We need to
+perform cleanup here:
 1. Flush pending write work.
 2. Close serdev device.
 ```c
@@ -209,7 +226,8 @@ static void beagleplay_greybus_serdev_write_locked(
 ```
 
 ## Workque callback
-This work queue callback is called by the Kernel asynchronously. It then writes the contents of `beagleplay_greybus->tx_circ_buf` to UART.
+This work queue callback is called by the Kernel asynchronously. It then writes the contents of
+`beagleplay_greybus->tx_circ_buf` to UART.
 ```c
 static void beagleplay_greybus_uart_transmit(struct work_struct *work) {
   struct beagleplay_greybus *beagleplay_greybus =
@@ -224,7 +242,8 @@ static void beagleplay_greybus_uart_transmit(struct work_struct *work) {
 <br>
 
 # Device Operations
-The serdev device operations define the functions that handle asynchronous reading and writing to UART.
+The serdev device operations define the functions that handle asynchronous reading and writing to
+UART.
 ```c
 static struct serdev_device_ops beagleplay_greybus_ops = {
     .receive_buf = beagleplay_greybus_tty_receive,
@@ -237,7 +256,8 @@ It has two main functions:
 2. `beagleplay_greybus_tty_wakeup`
 
 ## TTY Recieve
-This function is called when we receive data over UART. For now, I am just printing the data Kernel Logs.
+This function is called when we receive data over UART. For now, I am just printing the data Kernel
+Logs.
 ```c
 static int beagleplay_greybus_tty_receive(struct serdev_device *serdev,
                                           const unsigned char *data,
@@ -253,7 +273,9 @@ static int beagleplay_greybus_tty_receive(struct serdev_device *serdev,
 ```
 
 ## TTY Wakeup
-We call `schedule_work` when tty Wakeup is triggered by the Kernel. This adds the job to Kernel global work queue if it was not already queued and leaves it in the same position on the kernel-global work queue otherwise.
+We call `schedule_work` when tty Wakeup is triggered by the Kernel. This adds the job to Kernel
+global work queue if it was not already queued and leaves it in the same position on the
+kernel-global work queue otherwise.
 ```c
 static void beagleplay_greybus_tty_wakeup(struct serdev_device *serdev) {
   struct beagleplay_greybus *beagleplay_greybus;
@@ -287,14 +309,17 @@ static void hello_world(struct beagleplay_greybus *beagleplay_greybus) {
   dev_info(&beagleplay_greybus->serdev->dev, "Written Hello World");
 };
 ```
-Now we can call this function from `beagleplay_greybus_probe` after driver initialization is complete.
+Now we can call this function from `beagleplay_greybus_probe` after driver initialization is
+complete.
 
 **NOTE:** This function writes to UART synchronously. Generally, this should be avoided.
 
 <br>
 
 # Conclusion
-[Here](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/tree/develop) is the current working repository for my Linux Driver. Feel free to check out the code and open a PR if you are interested.
+[Here](https://git.beagleboard.org/gsoc/greybus/beagleplay-greybus-driver/-/tree/develop) is the
+current working repository for my Linux Driver. Feel free to check out the code and open a PR if you
+are interested.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 
@@ -302,6 +327,7 @@ Consider [supporting me](@/_index.md#support-me) if you like my work.
 
 # Helpful Links
 - [Workqueue](https://linux-kernel-labs.github.io/refs/heads/master/labs/deferred_work.html#workqueues)
-- [Serdev Driver](http://events17.linuxfoundation.org/sites/events/files/slides/serdev-elce-2017-2.pdf)
+- [Serdev
+  Driver](http://events17.linuxfoundation.org/sites/events/files/slides/serdev-elce-2017-2.pdf)
 - [Device Tree](https://docs.kernel.org/devicetree/usage-model.html)
 - [Spinlock](https://docs.kernel.org/locking/spinlocks.html#lesson-1-spin-locks)

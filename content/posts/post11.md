@@ -11,13 +11,16 @@ tags = ["rust", "tianocore", "gsoc22", "uefi"]
 comment = true
 +++
 
-Hello everyone. In this post, I will go through how I implemented the stdio module for UEFI. The implementation code can be found [here](https://github.com/rust-lang/rust/blob/3f4a289016ed2c7ae351dd77c309ca17ecc1f87a/library/std/src/sys/uefi/stdio.rs).
+Hello everyone. In this post, I will go through how I implemented the stdio module for UEFI. The
+implementation code can be found
+[here](https://github.com/rust-lang/rust/blob/3f4a289016ed2c7ae351dd77c309ca17ecc1f87a/library/std/src/sys/uefi/stdio.rs).
 
 <!-- more -->
 <br>
 
 # UEFI Protocols
-These are the protocols we will be using for implementing stdio. According to the spec, at least a blank implementation of these protocols should be present.
+These are the protocols we will be using for implementing stdio. According to the spec, at least a
+blank implementation of these protocols should be present.
 
 ## Simple Text Input Protocols
 ### Interface Structure
@@ -48,7 +51,8 @@ typedef struct _EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL {
 } EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL;
 ```
 ### Description
-This protocol allows writing UCS-2 strigs to console. This protocol will be used to implement both Stdout and Stderr.
+This protocol allows writing UCS-2 strigs to console. This protocol will be used to implement both
+Stdout and Stderr.
 
 ## SystemTable
 ### Interface Structure
@@ -70,44 +74,67 @@ typedef struct {
 } EFI_SYSTEM_TABLE;
 ```
 ### Description
-SystemTable is passed at the entry function. It provides the pointers to access the Stdin, Stdout, and Stderr.
+SystemTable is passed at the entry function. It provides the pointers to access the Stdin, Stdout,
+and Stderr.
 
 <br>
 
 # Stdout
-I am using the `ConOut` pointer from the SystemTable for Stdout implementation. The signature of `io::Write::write`:
+I am using the `ConOut` pointer from the SystemTable for Stdout implementation. The signature of
+`io::Write::write`:
 ```rust
 fn write(&mut self, buf: &[u8]) -> io::Result<usize>;
 ```
-As you can see, we are provided with a buffer containing a UTF-8 bytes slice. I have added some functions as a part of `std::sys_common::ucs2` that make the conversion of UTF-8 to UCS-2 pretty easy. It also replaces all the unsupported characters (4-byte UTF-8 characters) with the Unicode unsupported character (U+fffd).
+As you can see, we are provided with a buffer containing a UTF-8 bytes slice. I have added some
+functions as a part of `std::sys_common::ucs2` that make the conversion of UTF-8 to UCS-2 pretty
+easy. It also replaces all the unsupported characters (4-byte UTF-8 characters) with the Unicode
+unsupported character (U+fffd).
 
-Currently, I am using a fixed-length slice (length = 4096) for the UCS-2 string since this is what Windows and other OS seem to do. Technically, it is possible to use heap allocation here as well; I have just decided not to use allocation inside the standard library until I need to.
+Currently, I am using a fixed-length slice (length = 4096) for the UCS-2 string since this is what
+Windows and other OS seem to do. Technically, it is possible to use heap allocation here as well; I
+have just decided not to use allocation inside the standard library until I need to.
 
-Finally, I am also converting LF (Rust default) to CRLF. This allows having the same behavior when using Rust printing macros as in other operating systems.
+Finally, I am also converting LF (Rust default) to CRLF. This allows having the same behavior when
+using Rust printing macros as in other operating systems.
 
 <br>
 
 # Stderr
-The implementation of Stderr is the same as Stdout. The only difference is that I use the `StdErr` pointer here.
+The implementation of Stderr is the same as Stdout. The only difference is that I use the `StdErr`
+pointer here.
 
 <br>
 
 # Stdin
-I am using the `ConIn` pointer from SystemTable for Stdin implementation. The signature for `io::Read::read`:
+I am using the `ConIn` pointer from SystemTable for Stdin implementation. The signature for
+`io::Read::read`:
 ```rust
 fn read(&mut self, buf: &mut [u8]) -> io::Result<usize>;
 ```
-As you can see, we are supplied with the buffer in which we have to write the UTF-8 formatted bytes. This function should return the number of bytes read. Since the Standard Input Protocol only provides reading a single keystroke, I simply read a single UCS-2 character each time (which can be multiple bytes) and return. This works fine for the most part. However, it does have one drawback; there is line editing support. This means currently, while reading, you cannot edit any mistakes. While it might seem like line editing works, that's just because it reads and stores the `backspace` symbol while reading. I might try implementing line editing at some point. However, for now, I think this single-character read implementation is acceptable.
+As you can see, we are supplied with the buffer in which we have to write the UTF-8 formatted bytes.
+This function should return the number of bytes read. Since the Standard Input Protocol only
+provides reading a single keystroke, I simply read a single UCS-2 character each time (which can be
+multiple bytes) and return. This works fine for the most part. However, it does have one drawback;
+there is line editing support. This means currently, while reading, you cannot edit any mistakes.
+While it might seem like line editing works, that's just because it reads and stores the `backspace`
+symbol while reading. I might try implementing line editing at some point. However, for now, I think
+this single-character read implementation is acceptable.
 
-**Note:** Reading and returning a single character from this method does not mean that the Rust `std::io` functions will stop after reading a single character. All the methods like `readline`, etc. work how they are supposed to.
+**Note:** Reading and returning a single character from this method does not mean that the Rust
+`std::io` functions will stop after reading a single character. All the methods like `readline`,
+etc. work how they are supposed to.
 
 I am also printing every character read to Stdout to provide feedback (since most OSs do this).
 
-Finally, this function converts CR (`enter` seems to be read as CR in UEFI) to LF. This is needed because all the Rust io functions are designed around LF.
+Finally, this function converts CR (`enter` seems to be read as CR in UEFI) to LF. This is needed
+because all the Rust io functions are designed around LF.
 
 <br>
 
 # Conclusion
-This is just a brief overview of the implementation of stdio for UEFI. I tried not to put too much code here since I am making many changes, and the code becomes obsolete as soon as I publish the post. All my work for UEFI std can be found [here](https://github.com/Ayush1325/rust/tree/uefi-std-next). Feel free to test it out for yourself.
+This is just a brief overview of the implementation of stdio for UEFI. I tried not to put too much
+code here since I am making many changes, and the code becomes obsolete as soon as I publish the
+post. All my work for UEFI std can be found
+[here](https://github.com/Ayush1325/rust/tree/uefi-std-next). Feel free to test it out for yourself.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.

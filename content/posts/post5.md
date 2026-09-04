@@ -11,11 +11,18 @@ tags = ["rust", "tianocore", "gsoc22"]
 comment = true
 +++
 
-Hello everyone, I am Ayush Singh, a second-year student at the Indian Institute of Technology, Dhanbad, India. As a part of Google Summer of Code 2022, I will be working on Adding Rust Support for building UEFI Applications and Modules under the Tianocore organization. In this post, I will describe this project's goals and set up my development environment.
+Hello everyone, I am Ayush Singh, a second-year student at the Indian Institute of Technology,
+Dhanbad, India. As a part of Google Summer of Code 2022, I will be working on Adding Rust Support
+for building UEFI Applications and Modules under the Tianocore organization. In this post, I will
+describe this project's goals and set up my development environment.
 
 <!-- more -->
 
-You can follow my GSoC-related blog posts using this [feed](https://programmershideaway.dev/tags/gsoc22/atom.xml). I will currently be working under my personal [fork](https://github.com/Ayush1325/rust). In the future, it might be moved into the [edk2-staging](https://github.com/tianocore/edk2-staging) repository. The final goal is to have the support merged upstream. However, that might not be immediately possible.
+You can follow my GSoC-related blog posts using this
+[feed](https://programmershideaway.dev/tags/gsoc22/atom.xml). I will currently be working under my
+personal [fork](https://github.com/Ayush1325/rust). In the future, it might be moved into the
+[edk2-staging](https://github.com/tianocore/edk2-staging) repository. The final goal is to have the
+support merged upstream. However, that might not be immediately possible.
 
 <br>
 
@@ -24,22 +31,23 @@ The current project goals, as discussed with the mentors, are given below:
 1. Get most of Rust-std running under the UEFI target
 2. Add testing support for UEFI target
 3. Pass all the general tests of `library/std`
-4. Possibly add support for ARM and RISCV UEFI targets (currently, only X86_64, AARCH64, and I686 are present)
+4. Possibly add support for ARM and RISCV UEFI targets (currently, only X86_64, AARCH64, and I686
+   are present)
 
 <br>
 
 # Setting up Development Environment
 ## Setup Rust
 ### Install Rustup
-I will be using rustup to install and manage Rust since I will be working with multiple versions of standard libraries and compilers.
+I will be using rustup to install and manage Rust since I will be working with multiple versions of
+standard libraries and compilers.
 ```sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 It will ask for some options, but I just set it to default.
 
 ### Install Rust toolchains
-I will be installing stable as well as nightly toolchains.
-For Stable:
+I will be installing stable as well as nightly toolchains. For Stable:
 ```sh
 rustup toolchain install stable
 ```
@@ -54,7 +62,10 @@ Finally, add `~/.cargo/bin` to `PATH`. Alternatively, we can just source `$HOME/
 
 ## Setup rust project
 ### Setup Git Repository
-I will mostly follow the [Getting Started](https://rustc-dev-guide.rust-lang.org/getting-started.html) section of the rustc-dev-guide for this. First, we need to clone the `rust-lang/rust` repository. I prefer using ssh:
+I will mostly follow the
+[Getting Started](https://rustc-dev-guide.rust-lang.org/getting-started.html) section of the
+rustc-dev-guide for this. First, we need to clone the `rust-lang/rust` repository. I prefer using
+ssh:
 ```sh
 git clone git@github.com:rust-lang/rust.git
 ```
@@ -64,7 +75,10 @@ git remote add personal git@github.com:Ayush1325/rust.git
 ```
 
 ### Install depenencies
-Rust repository contains a script (`x.py`) to help us install most of the dependencies we need and configures the bootstrapping process. However, since we need to compile to a different target, we need to build `rust-lld`, which requires extra dependencies. Since I am using Fedora, I will list the command I used to install dependencies:
+Rust repository contains a script (`x.py`) to help us install most of the dependencies we need and
+configures the bootstrapping process. However, since we need to compile to a different target, we
+need to build `rust-lld`, which requires extra dependencies. Since I am using Fedora, I will list
+the command I used to install dependencies:
 ```sh
 sudo dnf install ccache cmake python ninja-build llvm-devel llvm-libunwind-devel zlib-devel lld clang clang-tools-extra qemu libstdc++-static
 ```
@@ -73,7 +87,9 @@ Next, we will use the script to configure our build.
 ```sh
 ./x.py setup
 ```
-Since I will mostly work on `library/std`, I select the library option during configuration. We will need to modify the generated `config.toml` since we will need `rust-lld` for cross-compilation. Here is my config.toml:
+Since I will mostly work on `library/std`, I select the library option during configuration. We will
+need to modify the generated `config.toml` since we will need `rust-lld` for cross-compilation. Here
+is my config.toml:
 ```toml
 # Includes one of the default files in src/bootstrap/defaults
 profile = "library"
@@ -95,7 +111,8 @@ Now, we will build the local toolchain using the following command:
 ```sh
 ./x.py build --stage 1
 ```
-We build the stage1 compiler since we will need to use this compiler to build sample applications for testing (Since we cannot use the testing framework yet).
+We build the stage1 compiler since we will need to use this compiler to build sample applications
+for testing (Since we cannot use the testing framework yet).
 
 Finally, we will add this newly built toolchain using rustup:
 ```sh
@@ -119,7 +136,8 @@ First, we need to add the `r-efi` crate to `Cargo.toml` as follows:
 [dependencies]
 r-efi = "4.0"
 ```
-Next, we will add a file `.cargo/config.toml` to configure building `core` and `alloc`. This way we do not need to specify `build-std` option at the commmand line.
+Next, we will add a file `.cargo/config.toml` to configure building `core` and `alloc`. This way we
+do not need to specify `build-std` option at the commmand line.
 ```toml
 [unstable]
 build-std = ["core", "compiler_builtins"]
@@ -175,14 +193,19 @@ pub extern "C" fn main(_h: efi::Handle, st: *mut efi::SystemTable) -> efi::Statu
 ```
 
 ## Build and Test application
-We can build the application using a normal `cargo build` now. To test the application, we will use qemu. To test out EFI applications in qemu, I have written a small python [script](https://github.com/Ayush1325/dotfiles/blob/master/uefi/.local/bin/uefi-run). The `hello_world.efi` file that should be inside `target/x86_64-unknown-uefi/debug/`. Here is the output screenshot:
+We can build the application using a normal `cargo build` now. To test the application, we will use
+qemu. To test out EFI applications in qemu, I have written a small python
+[script](https://github.com/Ayush1325/dotfiles/blob/master/uefi/.local/bin/uefi-run). The
+`hello_world.efi` file that should be inside `target/x86_64-unknown-uefi/debug/`. Here is the output
+screenshot:
 
 ![Output of hello_world.efi running under QEMU](/images/post5/run_qemu.webp)
 
 <br>
 
 # Conclusion
-With this, we can start implementing parts of std for UEFI and testing them in actual applications. Feel free to ask/make any suggestions on the Tianocore mailing list.
+With this, we can start implementing parts of std for UEFI and testing them in actual applications.
+Feel free to ask/make any suggestions on the Tianocore mailing list.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 

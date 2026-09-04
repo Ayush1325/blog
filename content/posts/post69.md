@@ -11,13 +11,21 @@ tags = ["weekly-update", "beagleboard", "pocketbeagle2", "zephyr"]
 comment = true
 +++
 
-Hello everyone. It has been a while since my last post. Today, I will go over using DFU over USB on PocketBeagle 2. I will only be loading the firmware to RAM, since that should be the normal use case when doing Zephyr development. It is possible to do DFU to MMC or SD Card, so I might cover it in the future.
+Hello everyone. It has been a while since my last post. Today, I will go over using DFU over USB on
+PocketBeagle 2. I will only be loading the firmware to RAM, since that should be the normal use case
+when doing Zephyr development. It is possible to do DFU to MMC or SD Card, so I might cover it in
+the future.
 
 # Motivation
 
-During normal Zephyr development for [PocketBeagle 2 A53](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/pocketbeagle_2.html), one has to copy the firmware to the SD card (using some sort of MicroSD reader). This is fine for deployment, but it can become cumbersome when doing rapid changes.
+During normal Zephyr development for [PocketBeagle 2
+A53](https://docs.zephyrproject.org/latest/boards/beagle/pocketbeagle_2/doc/pocketbeagle_2.html),
+one has to copy the firmware to the SD card (using some sort of MicroSD reader). This is fine for
+deployment, but it can become cumbersome when doing rapid changes.
 
-Using DFU over USB allows bypassing the requirement of an SD Card, thus providing a much better setup for rapid prototyping. Using DFU, it is possible to go from scratch to a Zephyr application without having an SD Card plugged in, and with minimal user input.
+Using DFU over USB allows bypassing the requirement of an SD Card, thus providing a much better
+setup for rapid prototyping. Using DFU, it is possible to go from scratch to a Zephyr application
+without having an SD Card plugged in, and with minimal user input.
 
 # Working Demo
 
@@ -57,7 +65,9 @@ dfu-util -R -a tispl.bin -D ./tispl.bin
 dfu-util -R  -a u-boot.img -D ./u-boot-zephyrdfu.img
 ```
 
-7. Upload `zephyr.bin`. I am using [MicroPython firmware](https://github.com/beagleboard/micropython-builder/releases/download/continuous-release/pocketbeagle_2-am6254-a53.bin.xz) here.
+7. Upload `zephyr.bin`. I am using [MicroPython
+   firmware](https://github.com/beagleboard/micropython-builder/releases/download/continuous-release/pocketbeagle_2-am6254-a53.bin.xz)
+   here.
 
 ```sh
 wget https://github.com/beagleboard/micropython-builder/releases/download/continuous-release/pocketbeagle_2-am6254-a53.bin.xz
@@ -280,7 +290,8 @@ Type "help()" for more information.
 
 # Bonus
 
-I have added initial support for DFU in [bb-imager](https://github.com/beagleboard/bb-imager-rs). While the GUI support is not ready yet, it is possible to use the bb-imager-cli.
+I have added initial support for DFU in [bb-imager](https://github.com/beagleboard/bb-imager-rs).
+While the GUI support is not ready yet, it is possible to use the bb-imager-cli.
 
 ```sh
 bb-imager-cli flash dfu "03:01:0451:6165" \
@@ -290,11 +301,15 @@ bb-imager-cli flash dfu "03:01:0451:6165" \
 	"zephyr.bin" ./pocketbeagle_2-am6254-a53.bin
 ```
 
-Here, `03:01:0451:6165` is the device identifier. This can be obtained by using the command `bb-imager-cli list-destinations dfu`. The identifier might feel a bit awkward, but it seems to be the most stable way to identify a DFU device in a cross-platform manner, since libusb does not expose any path.
+Here, `03:01:0451:6165` is the device identifier. This can be obtained by using the command
+`bb-imager-cli list-destinations dfu`. The identifier might feel a bit awkward, but it seems to be
+the most stable way to identify a DFU device in a cross-platform manner, since libusb does not
+expose any path.
 
 # Ending Thoughts
 
-That is all for this post. Hopefully, this serves as an example for anyone trying DFU on PocketBeagle 2.
+That is all for this post. Hopefully, this serves as an example for anyone trying DFU on
+PocketBeagle 2.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
 
@@ -303,4 +318,5 @@ Consider [supporting me](@/_index.md#support-me) if you like my work.
 - [BeagleBoard](https://www.beagleboard.org/)
 - [PocketBeagle 2](https://www.beagleboard.org/boards/pocketbeagle-2)
 - [dfu-util](https://dfu-util.sourceforge.net/)
-- [TI Docs](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Foundational_Components/U-Boot/UG-DFU.html)
+- [TI
+  Docs](https://software-dl.ti.com/processor-sdk-linux/esd/AM62X/latest/exports/docs/linux/Foundational_Components/U-Boot/UG-DFU.html)

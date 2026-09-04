@@ -11,12 +11,19 @@ tags = ["rust", "tianocore", "gsoc22", "uefi"]
 comment = true
 +++
 
-Hello everyone. I will continue where I left off in [post](@/posts/post7.md) with the Rust main in this post. Since we now have an allocator, the [`Thread::new`](https://github.com/rust-lang/rust/blob/00ce47209dfdd8ef8871c6ec804f0e0e04d10702/library/std/src/rt.rs#L85) statement at `library/std/src/rt.rs` works. So we need to fix the line where we set the main thread with guard information. This will be a short post since it turned out easier than I initially thought.
+Hello everyone. I will continue where I left off in [post](@/posts/post7.md) with the Rust main in
+this post. Since we now have an allocator, the
+[`Thread::new`](https://github.com/rust-lang/rust/blob/00ce47209dfdd8ef8871c6ec804f0e0e04d10702/library/std/src/rt.rs#L85)
+statement at `library/std/src/rt.rs` works. So we need to fix the line where we set the main thread
+with guard information. This will be a short post since it turned out easier than I initially
+thought.
 
 <!-- more -->
 
 # Thread Local Macro
-The macro [`thread_local!`](https://doc.rust-lang.org/std/macro.thread_local.html) wraps any number of static declarations and makes them thread-local. To get a better understanding of what this macro does, we can take a look at this example from the docs:
+The macro [`thread_local!`](https://doc.rust-lang.org/std/macro.thread_local.html) wraps any number
+of static declarations and makes them thread-local. To get a better understanding of what this macro
+does, we can take a look at this example from the docs:
 ```rust
 use std::cell::RefCell;
 use std::thread;
@@ -49,12 +56,18 @@ As you can see, it allows the creation of static variables local to each thread.
 <br>
 
 # The Problem
-The `std::sys_common::thread_info` module defines a thread-local variable `THREAD_INFO` using the `thread_local!` macro. The error occurs when this variable is lazily initialized in the `init()` function at `rt.rs`.
+The `std::sys_common::thread_info` module defines a thread-local variable `THREAD_INFO` using the
+`thread_local!` macro. The error occurs when this variable is lazily initialized in the `init()`
+function at `rt.rs`.
 
 <br>
 
 # The Solution
-The `__thread_local_internal` macro contains conditional compilation for `wasm` target without `atomics`. Since UEFI is single-threaded (I know there is a way to execute code in other cores, but it's not exactly true multi-threading, from what I understand), and I don't have any `atomics` (at least not yet), I just decided to use the wasm implementation. This maps to a simple mutable static which should be fine to do for now. The new `__thread_local_internal` looks like:
+The `__thread_local_internal` macro contains conditional compilation for `wasm` target without
+`atomics`. Since UEFI is single-threaded (I know there is a way to execute code in other cores, but
+it's not exactly true multi-threading, from what I understand), and I don't have any `atomics` (at
+least not yet), I just decided to use the wasm implementation. This maps to a simple mutable static
+which should be fine to do for now. The new `__thread_local_internal` looks like:
 {% raw %}
 ```rust
 #[doc(hidden)]
@@ -257,13 +270,18 @@ macro_rules! __thread_local_inner {
 ```
 {% endraw %}
 
-We will also need to add `target_os = "uefi"` to conditional compilation of `std::thread::__StaticLocalKeyInner` and `std::thread::local::statik`.
+We will also need to add `target_os = "uefi"` to conditional compilation of
+`std::thread::__StaticLocalKeyInner` and `std::thread::local::statik`.
 
-After that, it works perfectly. I'm not sure if this is the correct implementation, but it also fixes stdio (which I will implement in the next post) for me, so I think it is acceptable for now. However, anyone who understands this better is free to contact me through mail.
+After that, it works perfectly. I'm not sure if this is the correct implementation, but it also
+fixes stdio (which I will implement in the next post) for me, so I think it is acceptable for now.
+However, anyone who understands this better is free to contact me through mail.
 
 <br>
 
 # Conclusion
-As I stated earlier, this is a pretty short post. While I could post an empty `main` function, it's useless without having the ability to print to screen from `main()`. So this is where I will conclude for now. I promise we will print "Hello World!" from `main()` next time. 
+As I stated earlier, this is a pretty short post. While I could post an empty `main` function, it's
+useless without having the ability to print to screen from `main()`. So this is where I will
+conclude for now. I promise we will print "Hello World!" from `main()` next time.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.

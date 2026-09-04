@@ -10,11 +10,16 @@ tags = ["rust"]
 [extra]
 comment = true
 +++
-Hello everyone. While implementing Rust std for UEFI, I came across an interesting problem. The signature of the entry function in Rust did not match the UEFI entry signature. Initially, I just used a hacky way to get things to work. However, later I made some changes to upstream Rust to make generating entry functions with custom signatures much easier. In this post, I will show how to implement generating such an entry function in upstream Rust through the example of UEFI.
+Hello everyone. While implementing Rust std for UEFI, I came across an interesting problem. The
+signature of the entry function in Rust did not match the UEFI entry signature. Initially, I just
+used a hacky way to get things to work. However, later I made some changes to upstream Rust to make
+generating entry functions with custom signatures much easier. In this post, I will show how to
+implement generating such an entry function in upstream Rust through the example of UEFI.
 
 <!-- more -->
 
-Read my [prior post](@/posts/post7.md) for an in-depth explanation of everything that goes on before Rust main.
+Read my [prior post](@/posts/post7.md) for an in-depth explanation of everything that goes on before
+Rust main.
 
 # Background
 UEFI expects the entry function to have the following signature:
@@ -23,7 +28,12 @@ use r_efi::efi;
 
 extern "efiapi" fn _start(image_handle: efi::Handle, system_table: *mut efi::SystemTable) -> efi::Status;
 ```
-Currently, the Rust compiler generates a custom LLVM function that calls the Rust entry. In earlier versions of Rust, generating a custom entry function would have needed modification to many different modules in upstream Rust. However, since [#104045](https://github.com/rust-lang/rust/pull/104045) and [#104001](https://github.com/rust-lang/rust/pull/104001) have been merged, only a few files need to be modified.
+Currently, the Rust compiler generates a custom LLVM function that calls the Rust entry. In earlier
+versions of Rust, generating a custom entry function would have needed modification to many
+different modules in upstream Rust. However, since
+[#104045](https://github.com/rust-lang/rust/pull/104045) and
+[#104001](https://github.com/rust-lang/rust/pull/104001) have been merged, only a few files need to
+be modified.
 
 It is important to note that the Rust `lang_start` has the following signature:
 ```rust
@@ -39,7 +49,9 @@ Thus even a custom entry function has to finally call this `lang_start`.
 Now I will go through the two main steps needed for custom entry function.
 
 ## Modifying Target spec
-The target spec now contains the entry function's **name** and **ABI**. This means it is also possible to modify the name and ABI by using a target specification Json instead of modifying the compiler.
+The target spec now contains the entry function's **name** and **ABI**. This means it is also
+possible to modify the name and ABI by using a target specification Json instead of modifying the
+compiler.
 
 For the UEFI entry name, we need to modify `compiler/rustc_target/src/spec/uefi_msvc_base.rs`:
 ```patch
@@ -81,7 +93,9 @@ index a7ae17839da..9bc74ad2999 100644
 ```
 
 ## Implement LLVM entry generation
-Now we need to implement the actual LLVM code to generate for our target. For UEFI, we will pass the SystemTable and ImageHandle in `argv` and set the value of `argc` to 2. For this, we need to make the following changes to `compiler/rustc_codegen_ssa/src/base.rs`:
+Now we need to implement the actual LLVM code to generate for our target. For UEFI, we will pass the
+SystemTable and ImageHandle in `argv` and set the value of `argc` to 2. For this, we need to make
+the following changes to `compiler/rustc_codegen_ssa/src/base.rs`:
 ```patch
 diff --git a/compiler/rustc_codegen_ssa/src/base.rs b/compiler/rustc_codegen_ssa/src/base.rs
 index abc510e360d..8be75552efd 100644
@@ -139,9 +153,11 @@ index abc510e360d..8be75552efd 100644
          let param_argv = bx.get_param(1);
 ```
 
-**Note:** While the generation code seems to use `i8` pointers, the generated LLVM IR actually uses [Opque Pointers](https://llvm.org/docs/OpaquePointers.html).
+**Note:** While the generation code seems to use `i8` pointers, the generated LLVM IR actually uses
+[Opque Pointers](https://llvm.org/docs/OpaquePointers.html).
 
 # Conclusion
-As outlined in this post, it should now be much easier to implement generating custom entry functions for Rust targets. This can be especially useful for embedded or some custom OS use cases.
+As outlined in this post, it should now be much easier to implement generating custom entry
+functions for Rust targets. This can be especially useful for embedded or some custom OS use cases.
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.

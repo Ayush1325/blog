@@ -11,17 +11,24 @@ tags = ["rust", "tianocore", "gsoc22", "uefi"]
 [extra]
 comment = true
 +++
-Hello everyone. This is probably the final blog post I write before Google Summer of Code 2022 ends (hopefully not the final uefi one). In this post, I will summarize my GSoC22 work to make it more accessible to everyone.
+Hello everyone. This is probably the final blog post I write before Google Summer of Code 2022 ends
+(hopefully not the final uefi one). In this post, I will summarize my GSoC22 work to make it more
+accessible to everyone.
 
 <!-- more -->
 
 <br>
 
 # Background
-I worked on implementing Rust std for UEFI targets. The current implementation can be found at [tianocore/rust](https://github.com/tianocore/rust/tree/uefi-master). The PR to upstream Rust is already open; however, it has not been merged yet since it is such a large PR and thus will take time.
+I worked on implementing Rust std for UEFI targets. The current implementation can be found at
+[tianocore/rust](https://github.com/tianocore/rust/tree/uefi-master). The PR to upstream Rust is
+already open; however, it has not been merged yet since it is such a large PR and thus will take
+time.
 
 # PRs
-Just a list of all PRs I opened as a part of GSoC22. While other people created some additional PRs to fix problems I found during my work; I do not include them since I wasn't the one who found the solution for those.
+Just a list of all PRs I opened as a part of GSoC22. While other people created some additional PRs
+to fix problems I found during my work; I do not include them since I wasn't the one who found the
+solution for those.
 
 ## r-efi
 1. [Getting r-efi ready for use in Rust std](https://github.com/r-efi/r-efi/pull/33): 4 commits
@@ -33,7 +40,8 @@ Just a list of all PRs I opened as a part of GSoC22. While other people created 
 7. [Fix MODE_CREATE value](https://github.com/r-efi/r-efi/pull/40): 1 commit
 8. [Make NotifyFunction Optional](https://github.com/r-efi/r-efi/pull/42): 1 commit
 9. [Add ICMP Error Definitions](https://github.com/r-efi/r-efi/pull/44): 1 commit
-10. [Add `EFI_DEVICE_PATH_FROM_TEXT_PROTOCOL` and `EFI_DEVICE_PATH_TO_TEXT_PROTOCOL`](https://github.com/r-efi/r-efi/pull/45): 2 commits
+10. [Add `EFI_DEVICE_PATH_FROM_TEXT_PROTOCOL` and
+    `EFI_DEVICE_PATH_TO_TEXT_PROTOCOL`](https://github.com/r-efi/r-efi/pull/45): 2 commits
 11. [Make RNG protocol members public](https://github.com/r-efi/r-efi/pull/48): 1 commit
 12. [Fix timestamp properties](https://github.com/r-efi/r-efi/pull/49): 1 commit
 13. [Implement Default for tcp4::ConfigData](https://github.com/r-efi/r-efi/pull/50): 1 commit
@@ -45,7 +53,8 @@ Just a list of all PRs I opened as a part of GSoC22. While other people created 
 2. [Use all of src/math for UEFI](https://github.com/rust-lang/compiler-builtins/pull/480): 1 commit
 
 ## rust
-- [Add Rust std support for x86_64-unknown-uefi](https://github.com/rust-lang/rust/pull/100316): 81 commits. Still Open.
+- [Add Rust std support for x86_64-unknown-uefi](https://github.com/rust-lang/rust/pull/100316): 81
+  commits. Still Open.
 
 <br>
 
@@ -62,6 +71,9 @@ Just a list of all PRs I opened as a part of GSoC22. While other people created 
 10. [Writing UEFI Protocol in Rust](@/posts/post14.md)
 
 # Conclusion
-I will continue working on getting Rust std [PR](https://github.com/rust-lang/rust/pull/100316) merged since it is still unmerged. I also have some more UEFI Rust Projects lined up, and I think I will keep working on them for the foreseeable future. Feel free to check out and experiment with using Rust for UEFI (with or without std).
+I will continue working on getting Rust std [PR](https://github.com/rust-lang/rust/pull/100316)
+merged since it is still unmerged. I also have some more UEFI Rust Projects lined up, and I think I
+will keep working on them for the foreseeable future. Feel free to check out and experiment with
+using Rust for UEFI (with or without std).
 
 Consider [supporting me](@/_index.md#support-me) if you like my work.
