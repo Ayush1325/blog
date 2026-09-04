@@ -142,7 +142,10 @@ cargo build --target x86_64-unknown-uefi
 ```
 Finally, we run the binary using qemu:
 ```sh
-qemu-system-x86_64 -drive if=pflash,format=raw,unit=0,file=/usr/share/OVMF/OVMF_CODE.fd,readonly=on  -drive if=pflash,format=raw,unit=1,file=/usr/share/OVMF/OVMF_VARS.fd,readonly=on -drive file=fat:rw:./target/x86_64-unknown-uefi/debug,format=raw -net none -D temp.txt
+qemu-system-x86_64 \
+    -drive if=pflash,format=raw,unit=0,file=/usr/share/OVMF/OVMF_CODE.fd,readonly=on \
+    -drive if=pflash,format=raw,unit=1,file=/usr/share/OVMF/OVMF_VARS.fd,readonly=on \
+    -drive file=fat:rw:./target/x86_64-unknown-uefi/debug,format=raw -net none -D temp.txt
 ```
 I am mounting the debug folder here, so you must go to the `fs0:` to run the `hello_world_uefi.efi`
 file. but as you can see, it runs without any modification, just like any other Rust target

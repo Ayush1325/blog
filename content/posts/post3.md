@@ -34,7 +34,8 @@ enum OpenFlag {
     SimpleConfig = 0x00, ///< Just a single config file.
     NoCascade = IncludeGlobals, ///< Include user's globals, but omit system settings.
     NoGlobals = CascadeConfig, ///< Cascade to system settings, but omit user's globals.
-    FullConfig = IncludeGlobals | CascadeConfig, ///< Fully-fledged config, including globals and cascading to system settings
+    FullConfig = IncludeGlobals | CascadeConfig, ///< Fully-fledged config, including globals and
+                                                 ///< cascading to system settings
 };
 ```
 
@@ -160,7 +161,8 @@ This is the implementation that I finally settled on. The implementation is as f
 use bitflags::bitflags
 
 bitflags! {
-    /// Determines how the system-wide and user's global settings will affect the reading of the configuration.
+    /// Determines how the system-wide and user's global settings will affect the reading of the
+    /// configuration.
     /// This is a bitfag. Thus it is possible to pass options like `OpenFlags::INCLUDE_GLOBALS |
     /// OpenFlags::CASCADE_CONFIG`
     #[repr(C)]

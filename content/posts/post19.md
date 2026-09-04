@@ -26,7 +26,10 @@ UEFI expects the entry function to have the following signature:
 ```rust
 use r_efi::efi;
 
-extern "efiapi" fn _start(image_handle: efi::Handle, system_table: *mut efi::SystemTable) -> efi::Status;
+extern "efiapi" fn _start(
+    image_handle: efi::Handle,
+    system_table: *mut efi::SystemTable,
+) -> efi::Status;
 ```
 Currently, the Rust compiler generates a custom LLVM function that calls the Rust entry. In earlier
 versions of Rust, generating a custom entry function would have needed modification to many

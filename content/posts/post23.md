@@ -30,7 +30,8 @@ So, I will now go over setting up the Linux host for development.
 ```sh
 cd ~
 wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.1/zephyr-sdk-0.16.1_linux-x86_64.tar.xz
-wget -O - https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.1/sha256.sum | shasum --check --ignore-missing
+wget -O - https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.1/sha256.sum |
+    shasum --check --ignore-missing
 ```
 3. Extract the Zephyr SDK bundle archive. I extracted the bundle to `~/.local/opt/zephyr-sdk-0.16.1`
 ```sh
@@ -91,7 +92,8 @@ scp ~/zephyrproject/build/zephyr/zephyr.bin debian@beagleplay.local:~/
 1. Enable `k3-am625-beagleplay-bcfserial-no-firmware.dts` overlay. This is needed to ensure the
    bcfserial driver isn’t blocking the serial port.
 ```sh
-echo "    fdtoverlays /overlays/k3-am625-beagleplay-bcfserial-no-firmware.dtbo" | sudo tee -a /boot/firmware/extlinux/extlinux.conf
+echo "    fdtoverlays /overlays/k3-am625-beagleplay-bcfserial-no-firmware.dtbo" |
+    sudo tee -a /boot/firmware/extlinux/extlinux.conf
 sudo shutdown -r now
 ```
 2. Clone [cc1352-flasher](https://git.beagleboard.org/beagleconnect/cc1352-flasher)

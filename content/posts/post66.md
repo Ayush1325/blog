@@ -267,7 +267,8 @@ cd org.beagleboard.imagingutility
 3. Build and install the Flatpak.
 
 ```sh
-flatpak run org.flatpak.Builder --force-clean --user --repo=repo --install builddir org.beagleboard.imagingutility.yaml
+flatpak run org.flatpak.Builder --force-clean --user --repo=repo --install builddir \
+    org.beagleboard.imagingutility.yaml
 ```
 
 It should now be installed as a flatpak in the system for the current user. Go ahead and test

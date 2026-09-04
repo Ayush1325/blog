@@ -62,7 +62,8 @@ Download and set up AuTerm as described in its [repository](https://github.com/t
    [sysbuild](https://docs.zephyrproject.org/latest/build/sysbuild/index.html).
 
 ```sh
-west build -p -b beagleconnect_freedom --sysbuild samples/subsys/mgmt/mcumgr/smp_svr -- -DEXTRA_CONF_FILE="overlay-serial.conf"
+west build -p -b beagleconnect_freedom --sysbuild samples/subsys/mgmt/mcumgr/smp_svr -- \
+    -DEXTRA_CONF_FILE="overlay-serial.conf"
 ```
 
 2. Combine the MCUboot and application binary. The application offset should be 56KiB.

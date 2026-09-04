@@ -193,7 +193,9 @@ use std::env::consts;
 pub extern "C" fn __CxxFrameHandler3() {}
 
 fn print_efi(s: &[u16], st: *mut efi::SystemTable) -> Result<(), r_efi::base::Status> {
-    let r = unsafe { ((*(*st).con_out).output_string)((*st).con_out, s.as_ptr() as *mut efi::Char16) };
+    let r = unsafe {
+        ((*(*st).con_out).output_string)((*st).con_out, s.as_ptr() as *mut efi::Char16)
+    };
 
     if r.is_error() {
         Err(r)

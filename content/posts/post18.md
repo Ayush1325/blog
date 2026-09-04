@@ -71,7 +71,8 @@ fn main() {
   let r =
       unsafe {
         let con_out: *mut simple_text_output::Protocol = (*st).con_out;
-        let output_string: extern "efiapi" fn(_: *mut simple_text_output::Protocol, *mut u16) = (*con_out).output_string;
+        let output_string: extern "efiapi" fn(_: *mut simple_text_output::Protocol, *mut u16) =
+            (*con_out).output_string;
         output_string(con_out, s.as_ptr() as *mut efi::Char16)
       };
   assert!(!r.is_error())

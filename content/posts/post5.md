@@ -80,7 +80,8 @@ configures the bootstrapping process. However, since we need to compile to a dif
 need to build `rust-lld`, which requires extra dependencies. Since I am using Fedora, I will list
 the command I used to install dependencies:
 ```sh
-sudo dnf install ccache cmake python ninja-build llvm-devel llvm-libunwind-devel zlib-devel lld clang clang-tools-extra qemu libstdc++-static
+sudo dnf install ccache cmake python ninja-build llvm-devel llvm-libunwind-devel zlib-devel lld \
+    clang clang-tools-extra qemu libstdc++-static
 ```
 
 Next, we will use the script to configure our build.

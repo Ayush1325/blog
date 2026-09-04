@@ -42,11 +42,13 @@ Now we have to launch the generated
 options are needed for launching this executable:
 1. Network with port 12345 forwarded
 ```sh
--netdev user,id=net0,hostfwd=tcp::12345-:12345 -device virtio-net-pci,netdev=net0,mac=00:00:00:00:00:00
+-netdev user,id=net0,hostfwd=tcp::12345-:12345 \
+    -device virtio-net-pci,netdev=net0,mac=00:00:00:00:00:00
 ```
 2. OVMF:
 ```sh
--drive if=pflash,format=raw,file={Path to OVMF_CODE.fd},index=0 -drive if=pflash,format=raw,file={Path to OVMF_VARS.fd},index=1
+-drive if=pflash,format=raw,file={Path to OVMF_CODE.fd},index=0 \
+    -drive if=pflash,format=raw,file={Path to OVMF_VARS.fd},index=1
 ```
 3. UEFI Shell: Not supplying this ISO makes OVMF try to boot from the network first for me, so I do
    this manually as well:
@@ -61,7 +63,11 @@ All of this can be simplified by using my fork of
 [uefi-run](https://github.com/Ayush1325/uefi-run/tree/uefi). If you are using that, then it is
 possible to use the config I am using currently:
 ```sh
-qemu-uefi build/x86_64-unknown-linux-gnu/stage1-tools/x86_64-unknown-uefi/release/remote-test-server.efi -s 1024 --shell-path UefiShell.iso --vars-path OVMF_VARS.fd -b OVMF_CODE.fd --output-path output.txt -- -netdev user,id=net0,hostfwd=tcp::12345-:12345 -device virtio-net-pci,netdev=net0,mac=00:00:00:00:00:00
+qemu-uefi \
+    build/x86_64-unknown-linux-gnu/stage1-tools/x86_64-unknown-uefi/release/remote-test-server.efi \
+    -s 1024 --shell-path UefiShell.iso --vars-path OVMF_VARS.fd -b OVMF_CODE.fd \
+    --output-path output.txt -- -netdev user,id=net0,hostfwd=tcp::12345-:12345 \
+    -device virtio-net-pci,netdev=net0,mac=00:00:00:00:00:00
 ```
 The output-path argument passes `-serial output.txt` since the stderr output is not visible on the
 VGA buffer for me. However, the output.txt is extremely useful for debugging since all the stderr
@@ -72,7 +78,8 @@ I would also recommend launching the executable with `verbose` argument.
 ## Run test
 Any of the Rust test/s or test folders can be run on the QEMU instance using the following command:
 ```sh
-TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} --target x86_64-unknown-uefi --stage 1
+TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} \
+    --target x86_64-unknown-uefi --stage 1
 ```
 
 <br>

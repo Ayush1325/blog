@@ -75,7 +75,8 @@ install.
 #### Ubuntu
 
 ```sh
-sudo apt install build-essential qtbase5-dev qtdeclarative5-dev libqt5svg5-dev qtquickcontrols2-5-dev qml-module-qtquick-layouts
+sudo apt install build-essential qtbase5-dev qtdeclarative5-dev libqt5svg5-dev \
+    qtquickcontrols2-5-dev qml-module-qtquick-layouts
 ```
 
 ### Generate Project
@@ -117,7 +118,9 @@ Frameworks is [kde_frameworks](https://crates.io/crates/kde_frameworks).
 #### Ubuntu
 
 ```sh
-sudo apt install build-essential qtbase5-dev qtdeclarative5-dev libqt5svg5-dev qtquickcontrols2-5-dev qml-module-qtquick-layouts qml-module-org-kde-kirigami2 kirigami2-dev libkf5i18n-dev gettext libkf5coreaddons-dev libkf5kdelibs4support5-bin
+sudo apt install build-essential qtbase5-dev qtdeclarative5-dev libqt5svg5-dev \
+    qtquickcontrols2-5-dev qml-module-qtquick-layouts qml-module-org-kde-kirigami2 kirigami2-dev \
+    libkf5i18n-dev gettext libkf5coreaddons-dev libkf5kdelibs4support5-bin
 ```
 
 #### Arch-based
@@ -130,7 +133,9 @@ sudo pacman -Syu base-devel extra-cmake-modules cmake kirigami2 kde-sdk-meta get
 
 ```sh
 sudo dnf groupinstall "Development Tools" "Development Libraries"
-sudo dnf install extra-cmake-modules cmake qt5-qtbase-devel qt5-qtdeclarative-devel qt5-qtquickcontrols2-devel kf5-kirigami2 kf5-kirigami2-devel kf5-ki18n-devel kf5-kcoreaddons-devel gettext
+sudo dnf install extra-cmake-modules cmake qt5-qtbase-devel qt5-qtdeclarative-devel \
+    qt5-qtquickcontrols2-devel kf5-kirigami2 kf5-kirigami2-devel kf5-ki18n-devel \
+    kf5-kcoreaddons-devel gettext
 ```
 
 ### Generate Project

@@ -91,7 +91,10 @@ macro_rules! __thread_local_inner {
             //
             // FIXME(#84224) this should come after the `target_thread_local`
             // block.
-            #[cfg(any(all(target_family = "wasm", not(target_feature = "atomics")), target_os = "uefi"))]
+            #[cfg(any(
+                all(target_family = "wasm", not(target_feature = "atomics")),
+                target_os = "uefi"
+            ))]
             {
                 static mut VAL: $t = INIT_EXPR;
                 unsafe { $crate::option::Option::Some(&VAL) }
@@ -218,7 +221,10 @@ macro_rules! __thread_local_inner {
             unsafe fn __getit(
                 init: $crate::option::Option<&mut $crate::option::Option<$t>>,
             ) -> $crate::option::Option<&'static $t> {
-                #[cfg(any(all(target_family = "wasm", not(target_feature = "atomics")), target_os = "uefi"))]
+                #[cfg(any(
+                    all(target_family = "wasm", not(target_feature = "atomics")),
+                    target_os = "uefi"
+                ))]
                 static __KEY: $crate::thread::__StaticLocalKeyInner<$t> =
                     $crate::thread::__StaticLocalKeyInner::new();
 

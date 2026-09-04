@@ -34,7 +34,8 @@ _start: # _start is the entry point known to the linker
     lea 8(%rsp), %rsi         # take the address of argv from the stack
     lea 16(%rsp,%rdi,8), %rdx # take the address of envp from the stack
     xor %eax, %eax            # per ABI and compatibility with icc
-    call main                 # %edi, %rsi, %rdx are the three args (of which first two are C standard) to main
+    call main                 # %edi, %rsi, %rdx are the three args (of which first two are C
+                              # standard) to main
 
     mov %eax, %edi    # transfer the return of main to the first argument of _exit
     xor %eax, %eax    # per ABI and compatibility with icc

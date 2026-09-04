@@ -40,16 +40,20 @@ let config = KConfig::with_file("myapprc");
 let full_path = KConfig::with_file("/etc/kderc");
 
 // not merged with global values
-let global_free = KConfig::new("config", OpenFlags::NO_GLOBALS, QStandardPathLocation::AppDataLocation);
+let global_free =
+    KConfig::new("config", OpenFlags::NO_GLOBALS, QStandardPathLocation::AppDataLocation);
 
 // not merged with globals or the $KDEDIRS hierarchy
-let simple_config = KConfig::new("simple_rc", OpenFlags::SIMPLE_CONFIG, QStandardPathLocation::AppDataLocation);
+let simple_config =
+    KConfig::new("simple_rc", OpenFlags::SIMPLE_CONFIG, QStandardPathLocation::AppDataLocation);
 
 // outside the standard config resource
-let data_resource = KConfig::new("data", OpenFlags::SIMPLE_CONFIG, QStandardPathLocation::AppDataLocation);
+let data_resource =
+    KConfig::new("data", OpenFlags::SIMPLE_CONFIG, QStandardPathLocation::AppDataLocation);
 
 // with custom backend
-let custom_backend = KConfig::with_backend("config", "backend", QStandardPathLocation::AppDataLocation);
+let custom_backend =
+    KConfig::with_backend("config", "backend", QStandardPathLocation::AppDataLocation);
 ```
 
 ## Special Configuration Objects
@@ -100,7 +104,11 @@ overhead of separate objects or concerns about synchronizing writes to disk even
 configuration object is updated from multiple code paths. Accessing a KSharedConfig object is as
 easy as this:
 ```rust
-let config = KSharedConfig::open_config("ksomefilerc", OpenFlags::FULL_CONFIG, QStandardPathLocation::GenericConfigLocation);
+let config = KSharedConfig::open_config(
+    "ksomefilerc",
+    OpenFlags::FULL_CONFIG,
+    QStandardPathLocation::GenericConfigLocation,
+);
 ```
 KSharedConfig is generally recommended over using KConfig itself.
 
@@ -122,8 +130,12 @@ let sub_group2 = general_group.group("Dialogs");
 With a KConfigGroup object in hand reading entries is now quite straight forward:
 ```rust
 let account_name = general_group.read_qstring_entry("Account").unwrap();
-let color = QColor::from_qvariant(colors_group.read_qvariant_entry("background", QColor::from(Qt::white).to_qvariant()).unwrap());
-let list = QStringList::from_qvariant(general_group.read_qvariant_entry("List", QStringList::default().to_qvariant()).unwrap());
+let color = QColor::from_qvariant(
+    colors_group.read_qvariant_entry("background", QColor::from(Qt::white).to_qvariant()).unwrap(),
+);
+let list = QStringList::from_qvariant(
+    general_group.read_qvariant_entry("List", QStringList::default().to_qvariant()).unwrap(),
+);
 let path = general_group.read_path_entry("SaveTo", "defaultPath".into());
 ```
 In the example above, one can mix reads from different KConfigGroup objects created on the same
@@ -142,7 +154,11 @@ Setting new values is similarly straightforward:
 ```rust
 general_group.write_qstring_entry("Account", "accountName".into(), WriteConfigFlags::NORMAL);
 general_group.write_path_entry("SaveTo", "savePath".into(), WriteConfigFlags::NORMAL);
-color_group.write_qvariant_entry("background", QColor::from_name("white").into(), WriteConfigFlags::NORMAL);
+color_group.write_qvariant_entry(
+    "background",
+    QColor::from_name("white").into(),
+    WriteConfigFlags::NORMAL,
+);
 config.sync();
 ```
 Once we are done writing entries, `sync()` must be called on the config object for it to be saved to

@@ -35,7 +35,8 @@ Running Tests for UEFI is done using `remote-test-server` and `remote-test-clien
 [previous post](@/posts/post12.md). The only thing I would like to change from that guide is the
 command to run tests:
 ```sh
-RUST_TEST_THREADS=1 TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} --target x86_64-unknown-uefi --stage 1
+RUST_TEST_THREADS=1 TEST_DEVICE_ADDR="localhost:12345" ./x.py test src/test/ui/{FILE or Directory} \
+    --target x86_64-unknown-uefi --stage 1
 ```
 Running tests in single-threaded, even on the host side, fixes a lot of tests that fail due to
 timeout.
