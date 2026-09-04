@@ -147,7 +147,7 @@ fn something(flag: OpenFlags) {
 
 ## Drawbacks
 
-1. Function call every time passing from Rust to C++. I don't think this will have much performance
+1. Function call every time passing from Rust to C++. I don't think this will have much performance
    penalty, but still worth mentioning.
 
 2. Cannot set multiple flags at once. Eg `OpenFlag::IncludeGlobal | OpenFlag::CascadeConfig` not

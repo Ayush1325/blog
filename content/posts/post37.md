@@ -27,11 +27,11 @@ for having the support out of tree:
 2. MicroPython only supported Zephyr v3.1.0
 
 Due to my work, BeagleConnect Freedom supports almost everything in mainline Zephyr. Additionally,
-due to the fantastic [work](https://github.com/micropython/micropython/pull/9335)
-by [Maureen Helm](https://github.com/MaureenHelm) MicroPython now supports Zephyr v3.7.0. So, it
-seemed like a good time to have support for BeagleConnect Freedom in mainline MicroPython. Here is
-the link to the merged [PR](https://github.com/micropython/micropython/pull/15959). It does not
-contain more advanced features like ADC and PWM right now, but those are also on the way.
+due to the fantastic [work](https://github.com/micropython/micropython/pull/9335) by
+[Maureen Helm](https://github.com/MaureenHelm) MicroPython now supports Zephyr v3.7.0. So, it seemed
+like a good time to have support for BeagleConnect Freedom in mainline MicroPython. Here is the link
+to the merged [PR](https://github.com/micropython/micropython/pull/15959). It does not contain more
+advanced features like ADC and PWM right now, but those are also on the way.
 
 ## PWM support for Zephyr Port
 
@@ -70,7 +70,7 @@ features:
     3. macOS
         1. CLI binary
 2. Boards
-    1. Generic Linux (BeaglePlay, Beagle AI64, BeagleY-AI,  BeagleV-Fire, BeagleBone Black, etc)
+    1. Generic Linux (BeaglePlay, Beagle AI64, BeagleY-AI, BeagleV-Fire, BeagleBone Black, etc)
     2. BeagleConnect Freedom
     3. BeagleConnect Freedom MSP430
 
