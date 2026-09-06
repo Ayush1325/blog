@@ -144,3 +144,4 @@ Consider [supporting me](@/_index.md#support-me) if you like my work.
 - [BeagleV-Fire](https://www.beagleboard.org/boards/beaglev-fire)
 - [Microchip® Polarfire® MPFS025T](https://www.microchip.com/en-us/product/MPFS025T)
 - [Initial Zephyr S-mode only PR](https://github.com/zephyrproject-rtos/zephyr/pull/113656)
+- [The RISC-V Instruction Set Manual, Volume II: Privileged Architecture](https://docs.riscv.org/reference/isa/v20260120/priv/priv-index.html)
