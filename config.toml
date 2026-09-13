@@ -36,6 +36,8 @@ menu = [
         { name = "/archive", url = "archive", trailing_slash = true },
         { name = "/tags", url = "tags", trailing_slash = true },
 ]
+fediverse = true
+fediverse_creator = "@ayush1325@fosstodon.org"
 
 [extra.giscus]
 # Read by templates/_giscus_script.html (apollo ships an unconfigured utterances stub).
